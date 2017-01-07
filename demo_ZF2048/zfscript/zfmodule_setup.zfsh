@@ -1,0 +1,47 @@
+<ZF_COMMENT> ============================================================
+<ZF_COMMENT> how to use:
+<ZF_COMMENT> 1. use ZFProjCreator to create "Lib" or "LibImpl" type module
+<ZF_COMMENT>    https://github.com/ZFFramework/ZFProjCreator
+<ZF_COMMENT>    result structure should be:
+<ZF_COMMENT>        ~/../ZFModule/ZF/YourLibName
+<ZF_COMMENT> 2. push the "YourLibName" dir to your git repo, let's say:
+<ZF_COMMENT>    https://github.com/YourUserName/YourLibName
+<ZF_COMMENT> 3. add lib settings accorrding the templates below
+<ZF_COMMENT>    libs would be built when need,
+<ZF_COMMENT>    and would be installed to
+<ZF_COMMENT>        ~/../ZFFramework/_release
+<ZF_COMMENT> 4. use ZFProjCreator to create project files for your app
+<ZF_COMMENT> ============================================================
+
+
+
+<ZF_COMMENT> ============================================================
+<ZF_COMMENT> your libs setting begin
+<ZF_COMMENT> do additional setup for your lib, e.g.
+<ZF_COMMENT>
+<ZF_COMMENT> <ZF_SET> YourLibRepo=https://github.com/YourLibRepo
+<ZF_COMMENT> <ZF_SET> YourLibName=YourLibName
+<ZF_COMMENT> <ZF_SH> "<ZF_ROOT_PATH>\tools\common\git_check.<ZF_SH_EXT>" <ZF_PL>YourLibRepo<ZF_PR> "<ZF_ROOT_PATH>\..\ZFModule\ZF\<ZF_PL>YourLibName<ZF_PR>"
+
+<ZF_COMMENT> your libs setting end
+<ZF_COMMENT> ============================================================
+
+
+
+<ZF_COMMENT> ============================================================
+<ZF_COMMENT> no need to change these
+<ZF_COMMENT> ============================================================
+<ZF_SET> ZF_PLATFORM=<ZF_P1>
+<ZF_SET> _TIMEOUT=2592000
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\timestamp_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\..\_tmp" <ZF_PL>_TIMEOUT<ZF_PR> _zfmodule_<ZF_PL>ZF_PLATFORM<ZF_PR>_
+<ZF_IF_SUCCESS_BEGIN>
+    <ZF_EXIT_SUCCESS>
+<ZF_IF_SUCCESS_END>
+
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\zfsh_recursive.<ZF_SH_EXT>" "<ZF_ROOT_PATH>\..\ZFModule" "zfautoscript_release*.zfsh" <ZF_PL>ZF_PLATFORM<ZF_PR>
+
+<ZF_IF_FAILED_BEGIN>
+    <ZF_EXIT_FAILED>
+<ZF_IF_FAILED_END>
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\timestamp_save.<ZF_SH_EXT>" "<ZF_WORK_DIR>\..\_tmp" <ZF_PL>_TIMEOUT<ZF_PR> _zfmodule_<ZF_PL>ZF_PLATFORM<ZF_PR>_
+

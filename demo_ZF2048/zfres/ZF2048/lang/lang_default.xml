@@ -1,0 +1,31 @@
+<lang>
+    <l k="ZF2048_autoMove" v="auto" />
+    <l k="ZF2048_autoMoveStop" v="stop" />
+    <l k="ZF2048_undo" v="undo" />
+    <l k="ZF2048_score" v="score:" />
+    <l k="ZF2048_setting" v="setting" />
+    <l k="ZF2048_about" v="about" />
+    <l k="ZF2048_aboutContent" v="this is a demo for ZFFramework&#xA;please refer to:&#xA;http://ZFFramework.com&#xA;http://zsaber.com" />
+
+    <l k="ZF2048_gameOver" v="game over" />
+    <l k="ZF2048_gameOver_retry" v="retry" />
+    <l k="ZF2048_gameOver_cancel" v="cancel" />
+
+    <l k="ZF2048SettingDialog_title" v="block size" />
+    <l k="ZF2048SettingDialog_widthHint" v="width:" />
+    <l k="ZF2048SettingDialog_heightHint" v="height:" />
+    <l k="ZF2048SettingDialog_dataIncrease" v="+" />
+    <l k="ZF2048SettingDialog_dataDecrease" v="-" />
+    <l k="ZF2048SettingDialog_confirm" v="start" />
+    <l k="ZF2048SettingDialog_cancel" v="cancel" />
+
+    <l k="ZF2048AutoMove_Left" v="left" />
+    <l k="ZF2048AutoMove_Top" v="up" />
+    <l k="ZF2048AutoMove_Right" v="right" />
+    <l k="ZF2048AutoMove_Bottom" v="down" />
+    <l k="ZF2048AutoMove_Random" v="random" />
+    <l k="ZF2048AutoMoveDialog_hint" v="add action, or click to remove" />
+    <l k="ZF2048AutoMoveDialog_confirm" v="start" />
+    <l k="ZF2048AutoMoveDialog_cancel" v="cancel" />
+</lang>
+

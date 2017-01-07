@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<target name="-pre-build">
+
+		<copy todir="${jar.libs.dir}">
+			<fileset dir="../../../../../../ZFFramework/_release/Android/module/ZF_impl/libs" includes="*.jar" />
+		</copy>
+	</target>
+</project>

@@ -1,0 +1,5 @@
+<ZF_SET> ZF_PLATFORM=<ZF_P1>
+
+<ZF_SH> "<ZF_ROOT_PATH>\zf3rd_setup.<ZF_SH_EXT>"
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\zfsh_recursive.<ZF_SH_EXT>" "<ZF_ROOT_PATH>" "zfautoscript_release_*.zfsh" <ZF_PL>ZF_PLATFORM<ZF_PR>
+
