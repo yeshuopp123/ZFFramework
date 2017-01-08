@@ -17,6 +17,7 @@
 
 ZF_NAMESPACE_GLOBAL_BEGIN
 
+// ============================================================
 /**
  * @brief static register step that ensured won't be stripped by compiler
  *
@@ -42,25 +43,104 @@ ZF_NAMESPACE_GLOBAL_BEGIN
     zfclassNotPOD _ZFP_SR_##Name \
     { \
     public: \
-        zfclassNotPOD exec_register \
+        zfclassNotPOD ExecInit \
         { \
         public: \
-            exec_register(void)
+            ExecInit(void)
 /** @brief see ZF_STATIC_REGISTER_INIT */
 #define ZF_STATIC_REGISTER_DESTROY(Name) \
-            ~exec_register(void)
+            ~ExecInit(void)
 /** @brief see ZF_STATIC_REGISTER_INIT */
 #define ZF_STATIC_REGISTER_END(Name) \
         }; \
-        template<exec_register &> class ref_it {}; \
-        static exec_register register_object; \
-        static ref_it<register_object> referrer; \
+        static ExecInit register_obj; \
+        template<ExecInit &> class RefIt {}; \
+        static RefIt<register_obj> ref_obj; \
     }; \
     template<typename D> \
-    typename _ZFP_SR_##Name<D>::exec_register _ZFP_SR_##Name<D>::register_object; \
+    typename _ZFP_SR_##Name<D>::ExecInit _ZFP_SR_##Name<D>::register_obj; \
     zfclassNotPOD _ZFP_SR_D_##Name : _ZFP_SR_##Name<_ZFP_SR_D_##Name> \
     {}; \
     /** @endcond */
+
+// ============================================================
+template<typename Wrapper>
+zfclassNotPOD _ZFP_SRIC
+{
+public:
+    zfclassNotPOD ExecInit
+    {
+    public:
+        ExecInit(void)
+        {
+            Wrapper::_ZFP_SRIC_init();
+        }
+        ~ExecInit(void)
+        {
+            Wrapper::_ZFP_SRIC_destroy();
+        }
+    };
+    static ExecInit register_obj;
+    template<ExecInit &> class RefIt {};
+    static RefIt<register_obj> ref_obj;
+};
+template<typename Wrapper>
+typename _ZFP_SRIC<Wrapper>::ExecInit _ZFP_SRIC<Wrapper>::register_obj;
+zfclassNotPOD ZF_ENV_EXPORT _ZFP_SRICDummyBase
+{
+public:
+    static void _ZFP_SRIC_init(void) {}
+    static void _ZFP_SRIC_destroy(void) {}
+};
+zfclassNotPOD _ZFP_SRICDummy : zfextendsNotPOD _ZFP_SRICDummyBase, zfextendsNotPOD _ZFP_SRIC<_ZFP_SRICDummy>
+{
+};
+
+/**
+ * @brief static register step that are inside class scope
+ *
+ * usage:
+ * @code
+ *   class MyClass {
+ *       ZF_STATIC_REGISTER_IN_CLASS_INIT(YourName)
+ *       {
+ *           // your register code
+ *       }
+ *       ZF_STATIC_REGISTER_IN_CLASS_DESTROY(YourName) // destroy step is optional
+ *       {
+ *           // your unregister code
+ *       }
+ *       ZF_STATIC_REGISTER_IN_CLASS_END(YourName)
+ *   };
+ * @endcode
+ * @note for different register step, the order is not ensured
+ * @note for internal use only, for app level,
+ *   it's not recommended to register within class scope
+ */
+#define ZF_STATIC_REGISTER_IN_CLASS_INIT(Name) \
+    public: \
+        /** @cond ZFPrivateDoc */ \
+        zfclassNotPOD _ZFP_SRIC_##Name : zfextendsNotPOD _ZFP_SRICDummyBase \
+        { \
+        public: \
+            static void _ZFP_SRIC_init(void) \
+            {
+/** @brief see ZF_STATIC_REGISTER_INIT */
+#define ZF_STATIC_REGISTER_IN_CLASS_DESTROY(Name) \
+            } \
+            static void _ZFP_SRIC_destroy(void) \
+            {
+/** @brief see ZF_STATIC_REGISTER_INIT */
+#define ZF_STATIC_REGISTER_IN_CLASS_END(Name) \
+            } \
+        }; \
+    public: \
+        static _ZFP_SRIC<_ZFP_SRIC_##Name> &_ZFP_SRICRef_##Name(void) \
+        { \
+            static _ZFP_SRIC<_ZFP_SRIC_##Name> _ZFP_SRICObj_##Name; \
+            return _ZFP_SRICObj_##Name; \
+        } \
+        /** @endcond */
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFCoreStaticRegisterDef_h_
