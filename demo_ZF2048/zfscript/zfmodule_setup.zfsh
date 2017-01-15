@@ -33,7 +33,7 @@
 <ZF_COMMENT> ============================================================
 <ZF_SET> ZF_PLATFORM=<ZF_P1>
 <ZF_SET> _TIMEOUT=2592000
-<ZF_SH> "<ZF_ROOT_PATH>\tools\common\timestamp_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\..\_tmp" <ZF_PL>_TIMEOUT<ZF_PR> _zfmodule_<ZF_PL>ZF_PLATFORM<ZF_PR>_
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\timestamp_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\..\..\_tmp" <ZF_PL>_TIMEOUT<ZF_PR> _zfmodule_<ZF_PL>ZF_PLATFORM<ZF_PR>_
 <ZF_IF_SUCCESS_BEGIN>
     <ZF_EXIT_SUCCESS>
 <ZF_IF_SUCCESS_END>
@@ -43,5 +43,5 @@
 <ZF_IF_FAILED_BEGIN>
     <ZF_EXIT_FAILED>
 <ZF_IF_FAILED_END>
-<ZF_SH> "<ZF_ROOT_PATH>\tools\common\timestamp_save.<ZF_SH_EXT>" "<ZF_WORK_DIR>\..\_tmp" <ZF_PL>_TIMEOUT<ZF_PR> _zfmodule_<ZF_PL>ZF_PLATFORM<ZF_PR>_
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\timestamp_save.<ZF_SH_EXT>" "<ZF_WORK_DIR>\..\..\_tmp" <ZF_PL>_TIMEOUT<ZF_PR> _zfmodule_<ZF_PL>ZF_PLATFORM<ZF_PR>_
 
