@@ -661,7 +661,7 @@ public:
         Type, propertyNameString, ZFPropertyInitValueOrNoInitValue, \
         SetterAccessType, GetterAccessType, \
         Assign, \
-        ZFPropertyTypeId_##Type, \
+        ZFPropertyTypeId_##Type(), \
         zfnull, \
         Func_ZFPropertyCallbackAssignSet, \
         Func_ZFPropertyCallbackAssignGet, \
@@ -689,7 +689,7 @@ public:
         Type, propertyNameString, ZFPropertyInitValueOrNoInitValue, \
         SetterAccessType, GetterAccessType, \
         Assign, \
-        ZFPropertyTypeId_##Type, \
+        ZFPropertyTypeId_##Type(), \
         zfnull, \
         Func_ZFPropertyCallbackAssignSet, \
         Func_ZFPropertyCallbackAssignGet, \

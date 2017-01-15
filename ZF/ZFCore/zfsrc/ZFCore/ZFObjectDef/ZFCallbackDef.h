@@ -41,11 +41,9 @@ typedef enum
 /** @brief string tokens */
 #define ZFTOKEN_ZFCallbackTypeRawFunction zfText("TypeRawFunction")
 
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFCallbackType, e0, ZFCallbackType, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFCallbackType, e0, ZFCallbackType, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFCallbackType, e0, ZFCallbackType, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFCallbackType, ZFCallbackType)
 
 // ============================================================
@@ -420,11 +418,9 @@ private:
     ZFObject *_ZFP_ZFCallbackCached_callbackOwnerObj;
 };
 
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFCallback, e0, ZFCallback, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFCallback, e0, ZFCallback, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFCallback, e0, ZFCallback, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 /**
  * @brief compare two callback by #ZFCallback::objectCompareByInstance

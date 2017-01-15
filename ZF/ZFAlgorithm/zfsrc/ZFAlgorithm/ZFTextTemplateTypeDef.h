@@ -115,11 +115,9 @@ public:
         return ret;
     }
 };
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFTextTemplateIndexData, e0, ZFTextTemplateIndexData, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFTextTemplateIndexData, e0, ZFTextTemplateIndexData, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFTextTemplateIndexData, e0, ZFTextTemplateIndexData, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
@@ -136,7 +134,6 @@ ZFCOMPARER_DEFAULT_DECLARE_END(ZFTextTemplateIndexData, e0, ZFTextTemplateIndexD
  *   />
  * @endcode
  */
-#define ZFPropertyTypeId_ZFTextTemplateIndexData zfText("ZFTextTemplateIndexData")
 ZFPROPERTY_TYPE_DECLARE(ZFTextTemplateIndexData, ZFTextTemplateIndexData)
 
 /** @brief keyword for serialize */
@@ -263,11 +260,9 @@ public:
 private:
     _ZFP_ZFTextTemplateParamPrivate *d;
 };
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFTextTemplateParam, e0, ZFTextTemplateParam, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFTextTemplateParam, e0, ZFTextTemplateParam, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFTextTemplateParam, e0, ZFTextTemplateParam, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
@@ -299,7 +294,6 @@ ZFCOMPARER_DEFAULT_DECLARE_END(ZFTextTemplateParam, e0, ZFTextTemplateParam, e1)
  *   </ZFTextTemplateParam>
  * @endcode
  */
-#define ZFPropertyTypeId_ZFTextTemplateParam zfText("ZFTextTemplateParam")
 ZFPROPERTY_TYPE_DECLARE(ZFTextTemplateParam, ZFTextTemplateParam)
 
 /** @brief keyword for serialize */

@@ -35,11 +35,9 @@ typedef enum
 /** @brief string tokens */
 #define ZFTOKEN_ZFMethodPrivilegeTypePrivate zfText("private")
 
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFMethodPrivilegeType, e0, ZFMethodPrivilegeType, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFMethodPrivilegeType, e0, ZFMethodPrivilegeType, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFMethodPrivilegeType, e0, ZFMethodPrivilegeType, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFMethodPrivilegeType, ZFMethodPrivilegeType)
 

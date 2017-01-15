@@ -202,70 +202,66 @@ const zfchar *ZFBezierFromString(ZF_OUT ZFBezier &ret,
 
 // ============================================================
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFBezier)
-ZFPROPERTY_TYPE_DEFINE(ZFBezier, ZFBezier)
-ZFPROPERTY_TYPE_DECLARE_SERIALIZE_FROM_DEFINE(ZFBezier, ZFBezier)
-{
-    if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFBezier, serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
-    {
-        return zffalse;
-    }
-    const zfchar *element = zfnull;
-    zffloat p0x = 0;
-    zffloat p0y = 0;
-    zffloat p1x = 1;
-    zffloat p1y = 1;
+ZFPROPERTY_TYPE_DEFINE(ZFBezier, ZFBezier, {
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFBezier(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        {
+            return zffalse;
+        }
+        const zfchar *element = zfnull;
+        zffloat p0x = 0;
+        zffloat p0y = 0;
+        zffloat p1x = 1;
+        zffloat p1y = 1;
 
-    element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p0x);
-    if(element != zfnull && zffloatFromString(p0x, element) != zfnull)
-    {
-        ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0x, element);
-        return zffalse;
-    }
+        element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p0x);
+        if(element != zfnull && zffloatFromString(p0x, element) != zfnull)
+        {
+            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0x, element);
+            return zffalse;
+        }
 
-    element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p0y);
-    if(element != zfnull && zffloatFromString(p0y, element) != zfnull)
-    {
-        ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0y, element);
-        return zffalse;
-    }
+        element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p0y);
+        if(element != zfnull && zffloatFromString(p0y, element) != zfnull)
+        {
+            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0y, element);
+            return zffalse;
+        }
 
-    element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p1x);
-    if(element != zfnull && zffloatFromString(p1x, element) != zfnull)
-    {
-        ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1x, element);
-        return zffalse;
-    }
+        element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p1x);
+        if(element != zfnull && zffloatFromString(p1x, element) != zfnull)
+        {
+            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1x, element);
+            return zffalse;
+        }
 
-    element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p1y);
-    if(element != zfnull && zffloatFromString(p1y, element) != zfnull)
-    {
-        ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1y, element);
-        return zffalse;
-    }
+        element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p1y);
+        if(element != zfnull && zffloatFromString(p1y, element) != zfnull)
+        {
+            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1y, element);
+            return zffalse;
+        }
 
-    result.controlPointSet(p0x, p0y, p1x, p1y);
+        result.controlPointSet(p0x, p0y, p1x, p1y);
 
-    serializableData.resolveMark();
-    return zftrue;
-}
-ZFPROPERTY_TYPE_DECLARE_SERIALIZE_TO_DEFINE(ZFBezier, ZFBezier)
-{
-    serializableData.itemClassSet(ZFPropertyTypeId_ZFBezier);
+        serializableData.resolveMark();
+        return zftrue;
+    }, {
+        serializableData.itemClassSet(ZFPropertyTypeId_ZFBezier());
 
-    if(v.p0x != 0 || v.p0y != 0)
-    {
-        serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p0x, zffloatToString(v.p0x));
-        serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p0y, zffloatToString(v.p0y));
-    }
+        if(v.p0x != 0 || v.p0y != 0)
+        {
+            serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p0x, zffloatToString(v.p0x));
+            serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p0y, zffloatToString(v.p0y));
+        }
 
-    if(v.p1x != 1 || v.p1y != 1)
-    {
-        serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p1x, zffloatToString(v.p1x));
-        serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p1y, zffloatToString(v.p1y));
-    }
+        if(v.p1x != 1 || v.p1y != 1)
+        {
+            serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p1x, zffloatToString(v.p1x));
+            serializableData.attributeSet(ZFSerializableKeyword_ZFBezier_p1y, zffloatToString(v.p1y));
+        }
 
-    return zftrue;
-}
+        return zftrue;
+    })
 
 // ============================================================
 ZFINPUT_TYPE_DEFINE(ZFBezier, ZFBezier, {

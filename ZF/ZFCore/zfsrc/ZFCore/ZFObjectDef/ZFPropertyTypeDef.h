@@ -18,16 +18,6 @@
 #include "ZFSerializableDef.h"
 ZF_NAMESPACE_GLOBAL_BEGIN
 
-template<typename T_Type>
-zfclassNotPOD _ZFP_ZFPropertyDefaultValue
-{
-public:
-    static inline T_Type value(void)
-    {
-        return T_Type();
-    }
-};
-
 // ============================================================
 /**
  * @brief register a property type
@@ -41,31 +31,55 @@ public:
  *   // ============================================================
  *   // in h file
  *   // declare your type, name must be unique
- *   #define ZFPropertyTypeId_YourType zfText("YourType")
+ *   / **
+ *    * add your Doxygen docs here
+ *    * /
  *   ZFPROPERTY_TYPE_DECLARE(YourType, YourType)
  *
  *   // ============================================================
  *   // in cpp file
  *   // register your type
- *   ZFPROPERTY_TYPE_DEFINE(YourType, YourType)
- *   // supply converter from/to ZFSerializableData:
- *   ZFPROPERTY_TYPE_DECLARE_SERIALIZE_FROM_DEFINE(YourType, YourType)
- *   { ... }
- *   ZFPROPERTY_TYPE_DECLARE_SERIALIZE_TO_DEFINE(YourType, YourType)
- *   { ... }
+ *   ZFPROPERTY_TYPE_DEFINE(YourType, YourType, {
+ *           // serializeFrom callback, proto type:
+ *           //   zfbool YourTypeFromSerializableData(
+ *           //       ZF_OUT YourType &result,
+ *           //       ZF_IN const ZFSerializableData &serializableData,
+ *           //       ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+ *           //       ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
+ *           // you should:
+ *           //   * check whether the property's type match the serializableData's type
+ *           //   * serialize from serializableData
+ *           //   * set the property by the property's setter method
+ *       }, {
+ *           // serializeTo callback, proto type:
+ *           //   zfbool YourTypeToSerializableData(
+ *           //       ZF_OUT ZFSerializableData &serializableData,
+ *           //       ZF_IN YourType const &result,
+ *           //       ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+ *           // you should:
+ *           //   * get the property's value by the property's getter method
+ *           //   * save typeid to the serializableData
+ *           //   * save property name to the serializableData
+ *           //   * save property value to the serializableData
+ *       })
  *
- *   // or, you may use #ZFPROPERTY_TYPE_DECLARE_SERIALIZE_CONVERTER_DEFINE for short,
+ *   // or, you may use #ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER for short,
  *   // if your type support converter from/to string that suits these proto type:
  *   //   const zfchar *YourTypeFromString(ZF_OUT Type &,
- *                                        ZF_IN const zfchar *);
+ *   //                                    ZF_IN const zfchar *);
  *   //   zfstring YourTypeToString(ZF_IN Type const &);
- *   ZFPROPERTY_TYPE_DECLARE_SERIALIZE_CONVERTER_DEFINE(YourType, YourType, ZFPropertyTypeId_YourType)
+ *   ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(YourType, YourType)
  * @endcode
  *
  * once registered, your type can be used as #ZFPROPERTY_ASSIGN
  * which benefits from the powerful automatic serialization logic
  */
 #define ZFPROPERTY_TYPE_DECLARE(TypeName, Type) \
+    /** \n */ \
+    inline const zfchar *ZFPropertyTypeId_##TypeName(void) \
+    { \
+        return zfText(#TypeName); \
+    } \
     /** @brief see #ZFPROPERTY_TYPE_DECLARE */ \
     extern ZF_ENV_EXPORT zfbool TypeName##FromSerializableData(ZF_OUT Type &result, \
                                                                ZF_IN const ZFSerializableData &serializableData, \
@@ -83,7 +97,8 @@ public:
         } \
         else \
         { \
-            return _ZFP_ZFPropertyDefaultValue<Type>::value() ;\
+            typedef Type _Type; \
+            return _Type();\
         } \
         return ret; \
     } \
@@ -108,7 +123,7 @@ public:
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  */
-#define ZFPROPERTY_TYPE_DEFINE(TypeName, Type) \
+#define ZFPROPERTY_TYPE_DEFINE(TypeName, Type, serializeFromAction, serializeToAction) \
     zfclassNotPOD _ZFP_ZFPropertyTypeRegisterHolder_##TypeName \
     { \
     public: \
@@ -144,76 +159,41 @@ public:
     ZF_GLOBAL_INITIALIZER_INIT_WITH_LEVEL(ZFPropertyTypeIdHolder_##TypeName, ZFLevelZFFrameworkNormal) \
     { \
         _ZFP_ZFPropertyTypeRegister( \
-            ZFPropertyTypeId_##TypeName, \
+            ZFPropertyTypeId_##TypeName(), \
             _ZFP_ZFPropertyTypeRegisterHolder_##TypeName::serializeFrom, \
             _ZFP_ZFPropertyTypeRegisterHolder_##TypeName::serializeTo); \
     } \
     ZF_GLOBAL_INITIALIZER_DESTROY(ZFPropertyTypeIdHolder_##TypeName) \
     { \
-        _ZFP_ZFPropertyTypeUnregister(ZFPropertyTypeId_##TypeName); \
+        _ZFP_ZFPropertyTypeUnregister(ZFPropertyTypeId_##TypeName()); \
     } \
-    ZF_GLOBAL_INITIALIZER_END(ZFPropertyTypeIdHolder_##TypeName)
-
-/**
- * @brief see #ZFPROPERTY_TYPE_DECLARE
- *
- * proto type:
- * @code
- *   zfbool YourTypeFromSerializableData(ZF_OUT YourType &result,
- *                                       ZF_IN const ZFSerializableData &serializableData,
- *                                       ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
- *                                       ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
- * @endcode
- * \n
- * you should:
- * -  check whether the property's type match the serializableData's type
- * -  serialize from serializableData
- * -  set the property by the property's setter method
- */
-#define ZFPROPERTY_TYPE_DECLARE_SERIALIZE_FROM_DEFINE(TypeName, Type) \
-    zfbool TypeName##FromSerializableData(ZF_OUT Type &result, \
-                                          ZF_IN const ZFSerializableData &serializableData, \
-                                          ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */, \
-                                          ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
-/**
- * @brief see #ZFPROPERTY_TYPE_DECLARE
- *
- * proto type:
- * @code
- *   zfbool YourTypeToSerializableData(ZF_OUT ZFSerializableData &serializableData,
- *                                     ZF_IN YourType const &v,
- *                                     ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
- * @endcode
- * \n
- * you should:
- * -  get the property's value by the property's getter method
- * -  save typeid to the serializableData
- * -  save property name to the serializableData
- * -  save property value to the serializableData
- *
- * note:
- * propertyInfo's typeid is ensured valid
- */
-#define ZFPROPERTY_TYPE_DECLARE_SERIALIZE_TO_DEFINE(TypeName, Type) \
-    zfbool TypeName##ToSerializableData(ZF_OUT ZFSerializableData &serializableData, \
-                                        ZF_IN Type const &v, \
-                                        ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
-
-/** @brief see #ZFPROPERTY_TYPE_DECLARE */
-#define ZFPROPERTY_TYPE_DECLARE_SERIALIZE_CONVERTER_DEFINE(TypeName, Type, ZFPropertyTypeId_) \
+    ZF_GLOBAL_INITIALIZER_END(ZFPropertyTypeIdHolder_##TypeName) \
     zfbool TypeName##FromSerializableData(ZF_OUT Type &result, \
                                           ZF_IN const ZFSerializableData &serializableData, \
                                           ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */, \
                                           ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */) \
     { \
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_, serializableData, outErrorHintToAppend, outErrorPos) == zfnull) \
+        serializeFromAction \
+    } \
+    zfbool TypeName##ToSerializableData(ZF_OUT ZFSerializableData &serializableData, \
+                                        ZF_IN Type const &v, \
+                                        ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */) \
+    { \
+        serializeToAction \
+    }
+
+/** @brief see #ZFPROPERTY_TYPE_DECLARE */
+#define ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(TypeName, Type) \
+    ZFPROPERTY_TYPE_DEFINE(TypeName, Type, { \
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_##TypeName(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull) \
         { \
             return zffalse; \
         } \
         const zfchar *propertyValue = ZFSerializableUtil::checkPropertyValue(serializableData); \
         if(propertyValue == zfnull) \
         { \
-            result = _ZFP_ZFPropertyDefaultValue<Type>::value(); \
+            typedef Type _Type; \
+            result = _Type(); \
             return zftrue; \
         } \
         if(TypeName##FromString(result, propertyValue) != zfnull) \
@@ -224,17 +204,13 @@ public:
         } \
         serializableData.resolveMark(); \
         return zftrue; \
-    } \
-    zfbool TypeName##ToSerializableData(ZF_OUT ZFSerializableData &serializableData, \
-                                        ZF_IN Type const &v, \
-                                        ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */) \
-    { \
-        serializableData.itemClassSet(ZFPropertyTypeId_); \
+    }, { \
+        serializableData.itemClassSet(ZFPropertyTypeId_##TypeName()); \
         zfstring s; \
         TypeName##ToString(s, v); \
         serializableData.propertyValueSet(s.cString()); \
         return zftrue; \
-    }
+    })
 
 // ============================================================
 /**

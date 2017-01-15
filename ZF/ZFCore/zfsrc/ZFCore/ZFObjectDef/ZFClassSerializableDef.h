@@ -28,7 +28,6 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  *   </ZFClass>
  * @endcode
  */
-#define ZFPropertyTypeId_ZFClass zfText("ZFClass")
 ZFPROPERTY_TYPE_DECLARE(ZFClass, const ZFClass *)
 
 /** @brief keyword for serialize */

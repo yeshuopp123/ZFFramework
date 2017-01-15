@@ -85,7 +85,7 @@ void ZFProperty::_ZFP_ZFPropertyInit(ZF_IN zfbool propertyIsUserRegister,
     this->_ZFP_ZFProperty_name = name;
     this->_ZFP_ZFProperty_typeName = typeName;
     this->_ZFP_ZFProperty_typeIdName = zfsCoreA2Z(typeIdName);
-    if(this->_ZFP_ZFProperty_typeIdName.compare(_ZFP_ZFPropertyTypeId_ZFObject) == 0)
+    if(this->_ZFP_ZFProperty_typeIdName.compare(_ZFP_ZFPropertyTypeIdForRetainProperty) == 0)
     {
         this->_ZFP_ZFProperty_typeIdName = ZFPropertyTypeId_none;
         this->_ZFP_ZFProperty_serializable = zftrue;

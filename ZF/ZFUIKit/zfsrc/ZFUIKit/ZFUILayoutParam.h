@@ -62,15 +62,12 @@ public:
  *   />
  * @endcode
  */
-#define ZFPropertyTypeId_ZFUISizeParam zfText("ZFUISizeParam")
 ZFPROPERTY_TYPE_DECLARE(ZFUISizeParam, ZFUISizeParam)
 
 ZFCORE_POD_COMPARER_DECLARE(ZFUISizeParam)
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFUISizeParam, e0, ZFUISizeParam, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFUISizeParam, e0, ZFUISizeParam, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFUISizeParam, e0, ZFUISizeParam, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISizeParam, ZFUISizeParam)
 
@@ -115,7 +112,7 @@ ZFOUTPUT_TYPE(const ZFUISizeParam *, {if(v) {output << *v;} else {output.execute
 ZFOUTPUT_TYPE(ZFUISizeParam *, {output << (const ZFUISizeParam *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUISizeParam, ZFUISizeParam)
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUISizeParam, ZFUISizeParam)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFUISizeParam, ZFUISizeParam)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUISizeParam, ZFUISizeParam)
 
 // ============================================================
 // ZFUILayoutParam

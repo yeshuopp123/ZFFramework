@@ -21,7 +21,7 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
 /**
- * @brief dummy base class defined for #ZFVAR_CONVERT_DECLARE and #ZFVAR_CONVERT_DECLARE_COMMON
+ * @brief dummy base class defined for #ZFVAR_CONVERT_DECLARE and #ZFVAR_CONVERT_DECLARE_BY_WRAPPER
  */
 zfclass ZF_ENV_EXPORT ZFVarConvertBase : zfextends ZFObject
 {
@@ -47,7 +47,7 @@ zfclass ZF_ENV_EXPORT ZFVarConvertBase : zfextends ZFObject
  * @endcode
  */
 #define ZFVAR_CONVERT_WRAPPER_DECLARE(Type, TypeName) \
-    /** @brief see #ZFVAR_CONVERT_DECLARE_COMMON */ \
+    /** @brief see #ZFVAR_CONVERT_DECLARE_BY_WRAPPER */ \
     zfclass ZF_ENV_EXPORT v_##TypeName : zfextends ZFVarConvertBase \
     { \
         ZFOBJECT_DECLARE_ALLOW_CUSTOM_CONSTRUCTOR(v_##TypeName, ZFVarConvertBase) \
@@ -56,7 +56,7 @@ zfclass ZF_ENV_EXPORT ZFVarConvertBase : zfextends ZFObject
         v_##TypeName(void) : value() {} \
         /** @endcond */ \
     public: \
-        /** @brief the value to wrap, see #ZFVAR_CONVERT_DECLARE_COMMON */ \
+        /** @brief the value to wrap, see #ZFVAR_CONVERT_DECLARE_BY_WRAPPER */ \
         Type value; \
     public: \
         zfoverride \
@@ -78,13 +78,13 @@ zfclass ZF_ENV_EXPORT ZFVarConvertBase : zfextends ZFObject
  * @code
  *   // in header file
  *   ZFVAR_CONVERT_WRAPPER_DECLARE(MyType, MyTypeName)
- *   ZFVAR_CONVERT_DECLARE_COMMON(MyType, MyTypeName)
+ *   ZFVAR_CONVERT_DECLARE_BY_WRAPPER(MyType, MyTypeName)
  *
  *   // in source file
  *   ZFVAR_CONVERT_WRAPPER_DEFINE(MyType, MyTypeName)
  * @endcode
  */
-#define ZFVAR_CONVERT_DECLARE_COMMON(Type, TypeName) \
+#define ZFVAR_CONVERT_DECLARE_BY_WRAPPER(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
             v_##TypeName *wrap = ZFCastZFObject(v_##TypeName *, from); \
             if(wrap == zfnull) \
@@ -102,16 +102,16 @@ zfclass ZF_ENV_EXPORT ZFVarConvertBase : zfextends ZFObject
 // ============================================================
 // basic type
 ZFVAR_CONVERT_WRAPPER_DECLARE(zfbool, zfbool)
-ZFVAR_CONVERT_DECLARE_COMMON(zfbool, zfbool)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(zfbool, zfbool)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(zfchar, zfchar)
-ZFVAR_CONVERT_DECLARE_COMMON(zfchar, zfchar)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(zfchar, zfchar)
 
 // ============================================================
 // string type
 ZFVAR_CONVERT_WRAPPER_DECLARE(zfstring, zfstring)
-ZFVAR_CONVERT_DECLARE_COMMON(zfstring, zfstring)
-ZFVAR_CONVERT_DECLARE_COMMON(const zfchar *, zfstring)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(zfstring, zfstring)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(const zfchar *, zfstring)
 
 // ============================================================
 // number type
@@ -119,7 +119,7 @@ ZFVAR_CONVERT_DECLARE_COMMON(const zfchar *, zfstring)
 // and treat -1 as a special type for unsigned type
 ZFVAR_CONVERT_WRAPPER_DECLARE(zfdouble, zfnumber)
 
-#define _ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER(Type, TypeName) \
+#define _ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
             v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, from); \
             if(wrap == zfnull) \
@@ -133,7 +133,7 @@ ZFVAR_CONVERT_WRAPPER_DECLARE(zfdouble, zfnumber)
             ret = zfautoObjectCreate(wrap); \
             zfRelease(wrap); \
         })
-#define _ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(Type, TypeName) \
+#define _ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
             v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, from); \
             if(wrap == zfnull) \
@@ -147,7 +147,7 @@ ZFVAR_CONVERT_WRAPPER_DECLARE(zfdouble, zfnumber)
             ret = zfautoObjectCreate(wrap); \
             zfRelease(wrap); \
         })
-#define _ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(Type, TypeName) \
+#define _ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
             v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, from); \
             if(wrap == zfnull) \
@@ -176,53 +176,53 @@ ZFVAR_CONVERT_WRAPPER_DECLARE(zfdouble, zfnumber)
             zfRelease(wrap); \
         })
 
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(zfbyte, zfbyte)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(zfint, zfint)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfuint, zfuint)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfindex, zfindex)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(zfint8, zfint8)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfuint8, zfuint8)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(zfint16, zfint16)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfuint16, zfuint16)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(zfint32, zfint32)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfuint32, zfuint32)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(zfint64, zfint64)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfuint64, zfuint64)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER(zffloat, zffloat)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER(zfdouble, zfdouble)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER(zflongdouble, zflongdouble)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_INTEGER(zftimet, zftimet)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfflags, zfflags)
-_ZFP_ZFVAR_CONVERT_DECLARE_COMMON_NUMBER_UNSIGNED(zfidentity, zfidentity)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(zfbyte, zfbyte)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(zfint, zfint)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfuint, zfuint)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfindex, zfindex)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(zfint8, zfint8)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfuint8, zfuint8)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(zfint16, zfint16)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfuint16, zfuint16)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(zfint32, zfint32)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfuint32, zfuint32)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(zfint64, zfint64)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfuint64, zfuint64)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER(zffloat, zffloat)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER(zfdouble, zfdouble)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER(zflongdouble, zflongdouble)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(zftimet, zftimet)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfflags, zfflags)
+_ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(zfidentity, zfidentity)
 
 // ============================================================
 // core type
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFLevel, ZFLevel)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFLevel, ZFLevel)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFLevel, ZFLevel)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFCompareResult, ZFCompareResult)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFCompareResult, ZFCompareResult)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFCompareResult, ZFCompareResult)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFSeekPos, ZFSeekPos)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFSeekPos, ZFSeekPos)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFSeekPos, ZFSeekPos)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(zfindexRange, zfindexRange)
-ZFVAR_CONVERT_DECLARE_COMMON(zfindexRange, zfindexRange)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(zfindexRange, zfindexRange)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFFilterType, ZFFilterType)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFFilterType, ZFFilterType)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFFilterType, ZFFilterType)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFFilterCallbackResult, ZFFilterCallbackResult)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFFilterCallbackResult, ZFFilterCallbackResult)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFFilterCallbackResult, ZFFilterCallbackResult)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFCallbackType, ZFCallbackType)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFCallbackType, ZFCallbackType)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFCallbackType, ZFCallbackType)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFClassFilterType, ZFClassFilterType)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFClassFilterType, ZFClassFilterType)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFClassFilterType, ZFClassFilterType)
 
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFMethodPrivilegeType, ZFMethodPrivilegeType)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFMethodPrivilegeType, ZFMethodPrivilegeType)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFMethodPrivilegeType, ZFMethodPrivilegeType)
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFVarConvertDef_common_h_

@@ -64,7 +64,6 @@ inline zfindex ZF2048PointToIndex(ZF_IN zfindex posX, ZF_IN zfindex posY,
 
 typedef zfint ZF2048Value;
 
-#define ZFPropertyTypeId_ZF2048Value zfText("ZF2048Value")
 ZFPROPERTY_TYPE_DECLARE(ZF2048Value, ZF2048Value)
 
 ZF_NAMESPACE_GLOBAL_END

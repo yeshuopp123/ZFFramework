@@ -168,11 +168,9 @@ inline zfbool operator != (ZF_IN const ZFBezier &v0,
     return !(v0 == v1);
 }
 /** @endcond */
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFBezier, e0, ZFBezier, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFBezier, e0, ZFBezier, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFBezier, e0, ZFBezier, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 // ============================================================
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFBezier, ZFBezier)
@@ -190,10 +188,9 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFBezier, ZFBezier)
  *   />
  * @endcode
  */
-#define ZFPropertyTypeId_ZFBezier zfText("ZFBezier")
 ZFPROPERTY_TYPE_DECLARE(ZFBezier, ZFBezier)
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFBezier, ZFBezier)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFBezier, ZFBezier)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFBezier, ZFBezier)
 
 /** @brief keyword for serialize */
 #define ZFSerializableKeyword_ZFBezier_p0x zfText("p0x")

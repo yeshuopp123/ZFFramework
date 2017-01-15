@@ -27,7 +27,6 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  *   <ZFMethod owner="OwnerClassName" method="MethodName" methodId="methodId" /> // methodId is optional
  * @endcode
  */
-#define ZFPropertyTypeId_ZFMethod zfText("ZFMethod")
 ZFPROPERTY_TYPE_DECLARE(ZFMethod, const ZFMethod *)
 
 /** @brief keyword for serialize */

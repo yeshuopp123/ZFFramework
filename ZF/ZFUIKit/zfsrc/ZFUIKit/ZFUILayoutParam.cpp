@@ -52,8 +52,7 @@ const zfchar *ZFUISizeParamFromString(ZF_OUT ZFUISizeParam &ret,
 }
 
 // ============================================================
-ZFPROPERTY_TYPE_DEFINE(ZFUISizeParam, ZFUISizeParam)
-ZFPROPERTY_TYPE_DECLARE_SERIALIZE_CONVERTER_DEFINE(ZFUISizeParam, ZFUISizeParam, ZFPropertyTypeId_ZFUISizeParam)
+ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ZFUISizeParam, ZFUISizeParam)
 
 const ZFUISizeParam ZFUISizeParamWrapWidthWrapHeight = ZFUISizeParamMake(ZFUISizeType::e_Wrap, ZFUISizeType::e_Wrap);
 const ZFUISizeParam ZFUISizeParamFillWidthWrapHeight = ZFUISizeParamMake(ZFUISizeType::e_Fill, ZFUISizeType::e_Wrap);

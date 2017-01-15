@@ -672,7 +672,7 @@ extern ZF_ENV_EXPORT void _ZFP_ZFPropertyCallbackGetInfoRetainDefault(ZF_IN cons
         _ZFP_ZFPROPERTY_SETTER(SetterAccessType, Type, Name) \
         /** @brief internal getter, see @ref Name */ \
         _ZFP_ZFPROPERTY_SETTER_INTERNAL_RETAIN(_ZFP_ZFPROPERTY_INTERNAL_ACCESSTYPE(SetterAccessType), Type, Name) \
-        _ZFP_ZFPROPERTY_DECLARE_RETAIN(Type, _ZFP_ZFPropertyTypeId_ZFObject, Name, \
+        _ZFP_ZFPROPERTY_DECLARE_RETAIN(Type, _ZFP_ZFPropertyTypeIdForRetainProperty, Name, \
                                        ZFPropertyInitValueOrNoInitValue) \
         public:
 /** @brief see #ZFPROPERTY_RETAIN */
@@ -743,7 +743,7 @@ extern ZF_ENV_EXPORT void _ZFP_ZFPropertyCallbackGetInfoRetainDefault(ZF_IN cons
  *         ZFOBJECT_DECLARE(OwnerClass, Base)
  *
  *         ZFPROPERTY_RETAIN_DETAIL(
- *             zfstring, ZFPropertyTypeId_zfstring, StringProperty, \
+ *             zfstring, ZFPropertyTypeId_zfstring(), StringProperty, \
  *             ZFPropertyNoInitValue,
  *             public,
  *             public)
@@ -860,7 +860,7 @@ extern ZF_ENV_EXPORT void _ZFP_ZFPropertyCallbackGetInfoRetainDefault(ZF_IN cons
         ZFPropertyInitValueOrNoInitValue, \
         SetterAccessType, \
         GetterAccessType, \
-        ZFPropertyTypeId_##Type)
+        ZFPropertyTypeId_##Type())
 /** @brief see #ZFPROPERTY_RETAIN */
 #define ZFPROPERTY_ASSIGN_WITH_INIT( \
     Type, Name, \

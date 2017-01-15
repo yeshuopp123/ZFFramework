@@ -152,11 +152,9 @@ inline zfbool operator != (ZF_IN const ZFListenerData &v0,
     return !(v0 == v1);
 }
 /** @endcond */
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFListenerData, e0, ZFListenerData, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFListenerData, e0, ZFListenerData, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFListenerData, e0, ZFListenerData, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 /**
  * @brief listener as ZFCallback, mostly used by #ZFObject::observerNotify
  *

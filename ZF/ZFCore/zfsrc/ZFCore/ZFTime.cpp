@@ -242,48 +242,44 @@ void operator /=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfindex &v1)
 }
 
 // ============================================================
-ZFPROPERTY_TYPE_DEFINE(ZFTimeValue, ZFTimeValue)
-ZFPROPERTY_TYPE_DECLARE_SERIALIZE_FROM_DEFINE(ZFTimeValue, ZFTimeValue)
-{
-    result = ZFTimeValueZero;
+ZFPROPERTY_TYPE_DEFINE(ZFTimeValue, ZFTimeValue, {
+        result = ZFTimeValueZero;
 
-    if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTimeValue, serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
-    {
-        return zffalse;
-    }
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTimeValue(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        {
+            return zffalse;
+        }
 
-    const zfchar *element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTimeValue_sec);
-    if(element != zfnull && zftimetFromString(result.sec, element) != zfnull)
-    {
-        ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_sec, element);
-        return zffalse;
-    }
+        const zfchar *element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTimeValue_sec);
+        if(element != zfnull && zftimetFromString(result.sec, element) != zfnull)
+        {
+            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_sec, element);
+            return zffalse;
+        }
 
-    element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTimeValue_usec);
-    if(element != zfnull && zftimetFromString(result.usec, element) != zfnull)
-    {
-        ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_usec, element);
-        return zffalse;
-    }
+        element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTimeValue_usec);
+        if(element != zfnull && zftimetFromString(result.usec, element) != zfnull)
+        {
+            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_usec, element);
+            return zffalse;
+        }
 
-    serializableData.resolveMark();
-    return zftrue;
-}
-ZFPROPERTY_TYPE_DECLARE_SERIALIZE_TO_DEFINE(ZFTimeValue, ZFTimeValue)
-{
-    serializableData.itemClassSet(ZFPropertyTypeId_ZFTimeValue);
+        serializableData.resolveMark();
+        return zftrue;
+    }, {
+        serializableData.itemClassSet(ZFPropertyTypeId_ZFTimeValue());
 
-    if(v.sec != 0)
-    {
-        serializableData.attributeSet(ZFSerializableKeyword_ZFTimeValue_sec, zftimetToString(v.sec));
-    }
-    if(v.usec != 0)
-    {
-        serializableData.attributeSet(ZFSerializableKeyword_ZFTimeValue_usec, zftimetToString(v.usec));
-    }
+        if(v.sec != 0)
+        {
+            serializableData.attributeSet(ZFSerializableKeyword_ZFTimeValue_sec, zftimetToString(v.sec));
+        }
+        if(v.usec != 0)
+        {
+            serializableData.attributeSet(ZFSerializableKeyword_ZFTimeValue_usec, zftimetToString(v.usec));
+        }
 
-    return zftrue;
-}
+        return zftrue;
+    })
 
 // ============================================================
 ZFOUTPUT_TYPE_DEFINE(ZFTimeValue, {output << ZFTimeValueToString(v);})

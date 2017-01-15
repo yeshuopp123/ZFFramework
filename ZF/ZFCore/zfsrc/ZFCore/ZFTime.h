@@ -39,7 +39,6 @@ public:
  *   />
  * @endcode
  */
-#define ZFPropertyTypeId_ZFTimeValue zfText("ZFTimeValue")
 ZFPROPERTY_TYPE_DECLARE(ZFTimeValue, ZFTimeValue)
 
 /** @brief keyword for serialize */
@@ -140,7 +139,7 @@ extern ZF_ENV_EXPORT ZFCompareResult ZFTimeValueCompare(ZF_IN const ZFTimeValue 
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFTimeValue, ZFTimeValue)
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFTimeValue, ZFTimeValue)
-ZFVAR_CONVERT_DECLARE_COMMON(ZFTimeValue, ZFTimeValue)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFTimeValue, ZFTimeValue)
 
 /**
  * @brief convert ZFTimeValue to more readable string, see #ZFTimeValueToString
@@ -182,11 +181,9 @@ extern ZF_ENV_EXPORT void operator *=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfi
 /** @brief overrided operator for ZFTimeValue calculate */
 extern ZF_ENV_EXPORT void operator /=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfindex &v1);
 
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFTimeValue, e0, ZFTimeValue, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFTimeValue, e0, ZFTimeValue, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFTimeValue, e0, ZFTimeValue, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 ZFOUTPUT_TYPE_DECLARE(ZFTimeValue)
 ZFOUTPUT_TYPE(const ZFTimeValue *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
@@ -231,11 +228,9 @@ inline ZFTimeInfo ZFTimeInfoMake(ZF_IN zfint const &year,
 }
 
 ZFCORE_POD_COMPARER_DECLARE(ZFTimeInfo)
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFTimeInfo, e0, ZFTimeInfo, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFTimeInfo, e0, ZFTimeInfo, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFTimeInfo, e0, ZFTimeInfo, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 ZFOUTPUT_TYPE_DECLARE(ZFTimeInfo)
 ZFOUTPUT_TYPE(const ZFTimeInfo *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})

@@ -12,48 +12,44 @@
 #include "ZFPropertyTypeDef.h"
 
 ZF_NAMESPACE_GLOBAL_BEGIN
-ZFPROPERTY_TYPE_DEFINE(ZFClass, const ZFClass *)
-ZFPROPERTY_TYPE_DECLARE_SERIALIZE_FROM_DEFINE(ZFClass, const ZFClass *)
-{
-    if(zfscmpTheSame(serializableData.itemClass(), ZFSerializableKeyword_null))
-    {
-        result = zfnull;
+ZFPROPERTY_TYPE_DEFINE(ZFClass, const ZFClass *, {
+        if(zfscmpTheSame(serializableData.itemClass(), ZFSerializableKeyword_null))
+        {
+            result = zfnull;
+            serializableData.resolveMark();
+            return zftrue;
+        }
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFClass(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        {
+            return zffalse;
+        }
+        const zfchar *className = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFClass_className, outErrorHintToAppend, outErrorPos);
+        if(className == zfnull)
+        {
+            return zffalse;
+        }
+        result = ZFClass::classForName(className);
+        if(result == zfnull)
+        {
+            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+                zfText("no such class \"%s\""), className);
+            return zffalse;
+        }
+
         serializableData.resolveMark();
         return zftrue;
-    }
-    if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFClass, serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
-    {
-        return zffalse;
-    }
-    const zfchar *className = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFClass_className, outErrorHintToAppend, outErrorPos);
-    if(className == zfnull)
-    {
-        return zffalse;
-    }
-    result = ZFClass::classForName(className);
-    if(result == zfnull)
-    {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
-            zfText("no such class \"%s\""), className);
-        return zffalse;
-    }
+    }, {
+        if(v == zfnull)
+        {
+            serializableData.itemClassSet(ZFSerializableKeyword_null);
+            return zftrue;
+        }
 
-    serializableData.resolveMark();
-    return zftrue;
-}
-ZFPROPERTY_TYPE_DECLARE_SERIALIZE_TO_DEFINE(ZFClass, const ZFClass *)
-{
-    if(v == zfnull)
-    {
-        serializableData.itemClassSet(ZFSerializableKeyword_null);
+        serializableData.itemClassSet(ZFPropertyTypeId_ZFClass());
+        serializableData.attributeSet(ZFSerializableKeyword_ZFClass_className, v->className());
+
         return zftrue;
-    }
-
-    serializableData.itemClassSet(ZFPropertyTypeId_ZFClass);
-    serializableData.attributeSet(ZFSerializableKeyword_ZFClass_className, v->className());
-
-    return zftrue;
-}
+    })
 
 ZF_NAMESPACE_GLOBAL_END
 

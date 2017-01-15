@@ -54,7 +54,6 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  *   </ZFCallback>
  * @endcode
  */
-#define ZFPropertyTypeId_ZFCallback zfText("ZFCallback")
 ZFPROPERTY_TYPE_DECLARE(ZFCallback, ZFCallback)
 
 /** @brief keyword for serialize */

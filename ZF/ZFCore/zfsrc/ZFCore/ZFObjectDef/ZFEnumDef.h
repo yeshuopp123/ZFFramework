@@ -459,8 +459,6 @@ extern ZF_ENV_EXPORT _ZFP_ZFEnumData *_ZFP_ZFEnumDataAccess(const zfchar *name);
     typedef ChildEnum::ZFEnumType ChildEnum##Enum; \
     _ZFP_ZFENUM_CONVERTER_DECLARE(ChildEnum) \
     ZFPROPERTY_TYPE_DECLARE(ChildEnum##Enum, ChildEnum##Enum) \
-    /** @brief see @ref ChildEnum##Enum */ \
-    extern ZF_ENV_EXPORT const zfchar *ZFPropertyTypeId_##ChildEnum##Enum; \
     ZFVAR_CONVERT_DECLARE(ChildEnum##Enum, { \
             ChildEnum *wrap = ZFCastZFObject(ChildEnum *, from); \
             if(wrap == zfnull) \
@@ -502,9 +500,7 @@ extern ZF_ENV_EXPORT _ZFP_ZFEnumData *_ZFP_ZFEnumDataAccess(const zfchar *name);
 
 /** @brief see #ZFENUM_BEGIN */
 #define ZFENUM_DEFINE(ChildEnum) \
-    const zfchar *ZFPropertyTypeId_##ChildEnum##Enum = ZFM_TOSTRING(ChildEnum##Enum); \
-    ZFPROPERTY_TYPE_DEFINE(ChildEnum##Enum, ChildEnum##Enum) \
-    ZFPROPERTY_TYPE_DECLARE_SERIALIZE_CONVERTER_DEFINE(ChildEnum##Enum, ChildEnum##Enum, ZFM_TOSTRING(ChildEnum##Enum)) \
+    ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ChildEnum##Enum, ChildEnum##Enum) \
     _ZFP_ZFENUM_CONVERTER_DEFINE(ChildEnum) \
     ZFOBJECT_REGISTER(ChildEnum) \
     ZFOBJECT_REGISTER(ChildEnum##Editable)
@@ -574,11 +570,9 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
     ZFOUTPUT_TYPE(const EnumName##Enum *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}}) \
     ZFOUTPUT_TYPE(EnumName##Enum *, {output << (const EnumName##Enum *)v;}) \
     ZFINPUT_TYPE_DECLARE(EnumName##Enum, EnumName##Enum) \
-    ZFCOMPARER_DEFAULT_DECLARE_BEGIN(EnumName##Enum, e0, EnumName##Enum, e1) \
-    { \
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable); \
-    } \
-    ZFCOMPARER_DEFAULT_DECLARE_END(EnumName##Enum, e0, EnumName##Enum, e1)
+    ZFCOMPARER_DEFAULT_DECLARE(EnumName##Enum, e0, EnumName##Enum, e1, { \
+            return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable); \
+        })
 #define _ZFP_ZFENUM_CONVERTER_DEFINE(EnumName) \
     void EnumName##ToString(ZF_IN_OUT zfstring &ret, ZF_IN EnumName *const &value) \
     { \
@@ -675,9 +669,7 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
         /** @endcond */ \
     private: \
         ZFEnumValue flags; \
-    }; \
-    /** @brief see @ref EnumName */ \
-    extern ZF_ENV_EXPORT const zfchar *ZFPropertyTypeId_##EnumFlagsName;
+    };
 #define _ZFP_ZFENUM_FLAGS_CONVERTER_DECLARE(EnumName, EnumFlagsName) \
     /** @brief see @ref EnumName, #zfflagsToString */ \
     extern ZF_ENV_EXPORT void EnumFlagsName##ToString(ZF_IN_OUT zfstring &ret, \
@@ -773,7 +765,7 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
     ZFPROPERTY_TYPE_DECLARE(EnumFlagsName, EnumFlagsName) \
     _ZFP_ZFENUM_FLAGS_CONVERTER_DECLARE(EnumName, EnumFlagsName) \
     ZFVAR_CONVERT_WRAPPER_DECLARE(EnumFlagsName, EnumFlagsName) \
-    ZFVAR_CONVERT_DECLARE_COMMON(EnumFlagsName, EnumFlagsName)
+    ZFVAR_CONVERT_DECLARE_BY_WRAPPER(EnumFlagsName, EnumFlagsName)
 #define _ZFP_ZFENUM_FLAGS_DEFAULT_EXPAND(EnumName, EnumFlagsName, defaultValue) \
     public: \
         /** @brief default value for EnumFlagsName (defaultValue) */ \
@@ -790,13 +782,11 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
     ZFPROPERTY_TYPE_DECLARE(EnumFlagsName, EnumFlagsName) \
     _ZFP_ZFENUM_FLAGS_CONVERTER_DECLARE(EnumName, EnumFlagsName) \
     ZFVAR_CONVERT_WRAPPER_DECLARE(EnumFlagsName, EnumFlagsName) \
-    ZFVAR_CONVERT_DECLARE_COMMON(EnumFlagsName, EnumFlagsName)
+    ZFVAR_CONVERT_DECLARE_BY_WRAPPER(EnumFlagsName, EnumFlagsName)
 
 /** @brief see #ZFENUM_FLAGS_DECLARE */
 #define ZFENUM_FLAGS_DEFINE(EnumName, EnumFlagsName) \
-    const zfchar *ZFPropertyTypeId_##EnumFlagsName = ZFM_TOSTRING(EnumFlagsName); \
-    ZFPROPERTY_TYPE_DEFINE(EnumFlagsName, EnumFlagsName) \
-    ZFPROPERTY_TYPE_DECLARE_SERIALIZE_CONVERTER_DEFINE(EnumFlagsName, EnumFlagsName, ZFM_TOSTRING(EnumFlagsName)) \
+    ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(EnumFlagsName, EnumFlagsName) \
     _ZFP_ZFENUM_FLAGS_CONVERTER_DEFINE(EnumName, EnumFlagsName) \
     void EnumFlagsName::objectInfoT(ZF_IN_OUT zfstring &ret) const \
     { \

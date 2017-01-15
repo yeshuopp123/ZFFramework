@@ -522,11 +522,9 @@ private:
     friend zfclassFwd _ZFP_ZFSerializableDataPrivate;
 };
 
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFSerializableData, e0, ZFSerializableData, e1)
-{
-    return e0.objectCompare(e1);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFSerializableData, e0, ZFSerializableData, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFSerializableData, e0, ZFSerializableData, e1, {
+        return e0.objectCompare(e1);
+    })
 
 /**
  * @brief usually for debug use only

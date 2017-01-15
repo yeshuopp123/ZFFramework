@@ -87,11 +87,9 @@ typedef enum {
 /** @brief string tokens */
 #define ZFTOKEN_ZFClassFilterTypeExcludeParentTypeOf zfText("ExcludeParentTypeOf")
 
-ZFCOMPARER_DEFAULT_DECLARE_BEGIN(ZFClassFilterType, e0, ZFClassFilterType, e1)
-{
-    return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
-}
-ZFCOMPARER_DEFAULT_DECLARE_END(ZFClassFilterType, e0, ZFClassFilterType, e1)
+ZFCOMPARER_DEFAULT_DECLARE(ZFClassFilterType, e0, ZFClassFilterType, e1, {
+        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFClassFilterType, ZFClassFilterType)
 

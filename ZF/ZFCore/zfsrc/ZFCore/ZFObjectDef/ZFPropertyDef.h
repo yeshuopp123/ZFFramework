@@ -28,7 +28,7 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  */
 #define ZFPropertyTypeId_none zfText("")
 
-#define _ZFP_ZFPropertyTypeId_ZFObject zfText("_ZFP_ZFPropertyTypeId_ZFObject")
+#define _ZFP_ZFPropertyTypeIdForRetainProperty zfText("_ZFP_ZFPropertyTypeIdForRetainProperty")
 
 // ============================================================
 /**

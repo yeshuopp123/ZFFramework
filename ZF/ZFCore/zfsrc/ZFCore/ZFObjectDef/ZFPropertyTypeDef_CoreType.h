@@ -27,7 +27,6 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  *   </zfbool>
  * @endcode
  */
-#define ZFPropertyTypeId_zfbool zfText("zfbool")
 ZFPROPERTY_TYPE_DECLARE(zfbool, zfbool)
 
 /**
@@ -39,7 +38,6 @@ ZFPROPERTY_TYPE_DECLARE(zfbool, zfbool)
  *   </zfbyte>
  * @endcode
  */
-#define ZFPropertyTypeId_zfbyte zfText("zfbyte")
 ZFPROPERTY_TYPE_DECLARE(zfbyte, zfbyte)
 
 /**
@@ -51,7 +49,6 @@ ZFPROPERTY_TYPE_DECLARE(zfbyte, zfbyte)
  *   </zfchar>
  * @endcode
  */
-#define ZFPropertyTypeId_zfchar zfText("zfchar")
 ZFPROPERTY_TYPE_DECLARE(zfchar, zfchar)
 
 /**
@@ -63,7 +60,6 @@ ZFPROPERTY_TYPE_DECLARE(zfchar, zfchar)
  *   </zfstring>
  * @endcode
  */
-#define ZFPropertyTypeId_zfstring zfText("zfstring")
 ZFPROPERTY_TYPE_DECLARE(zfstring, zfstring)
 /**
  * @brief see #zfstringFromSerializableData, designed for performance
@@ -91,7 +87,6 @@ extern ZF_ENV_EXPORT zfbool zfstringToSerializableData(ZF_OUT ZFSerializableData
  *   </zfint>
  * @endcode
  */
-#define ZFPropertyTypeId_zfint zfText("zfint")
 ZFPROPERTY_TYPE_DECLARE(zfint, zfint)
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
@@ -104,7 +99,6 @@ ZFPROPERTY_TYPE_DECLARE(zfint, zfint)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfuint zfText("zfuint")
 ZFPROPERTY_TYPE_DECLARE(zfuint, zfuint)
 
 /**
@@ -118,7 +112,6 @@ ZFPROPERTY_TYPE_DECLARE(zfuint, zfuint)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfindex zfText("zfindex")
 ZFPROPERTY_TYPE_DECLARE(zfindex, zfindex)
 
 /**
@@ -130,7 +123,6 @@ ZFPROPERTY_TYPE_DECLARE(zfindex, zfindex)
  *   </zfint8>
  * @endcode
  */
-#define ZFPropertyTypeId_zfint8 zfText("zfint8")
 ZFPROPERTY_TYPE_DECLARE(zfint8, zfint8)
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
@@ -143,7 +135,6 @@ ZFPROPERTY_TYPE_DECLARE(zfint8, zfint8)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfuint8 zfText("zfuint8")
 ZFPROPERTY_TYPE_DECLARE(zfuint8, zfuint8)
 
 /**
@@ -155,7 +146,6 @@ ZFPROPERTY_TYPE_DECLARE(zfuint8, zfuint8)
  *   </zfint16>
  * @endcode
  */
-#define ZFPropertyTypeId_zfint16 zfText("zfint16")
 ZFPROPERTY_TYPE_DECLARE(zfint16, zfint16)
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
@@ -168,7 +158,6 @@ ZFPROPERTY_TYPE_DECLARE(zfint16, zfint16)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfuint16 zfText("zfuint16")
 ZFPROPERTY_TYPE_DECLARE(zfuint16, zfuint16)
 
 /**
@@ -180,7 +169,6 @@ ZFPROPERTY_TYPE_DECLARE(zfuint16, zfuint16)
  *   </zfint32>
  * @endcode
  */
-#define ZFPropertyTypeId_zfint32 zfText("zfint32")
 ZFPROPERTY_TYPE_DECLARE(zfint32, zfint32)
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
@@ -193,7 +181,6 @@ ZFPROPERTY_TYPE_DECLARE(zfint32, zfint32)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfuint32 zfText("zfuint32")
 ZFPROPERTY_TYPE_DECLARE(zfuint32, zfuint32)
 
 /**
@@ -205,7 +192,6 @@ ZFPROPERTY_TYPE_DECLARE(zfuint32, zfuint32)
  *   </zfint64>
  * @endcode
  */
-#define ZFPropertyTypeId_zfint64 zfText("zfint64")
 ZFPROPERTY_TYPE_DECLARE(zfint64, zfint64)
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
@@ -218,7 +204,6 @@ ZFPROPERTY_TYPE_DECLARE(zfint64, zfint64)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfuint64 zfText("zfuint64")
 ZFPROPERTY_TYPE_DECLARE(zfuint64, zfuint64)
 
 /**
@@ -230,7 +215,6 @@ ZFPROPERTY_TYPE_DECLARE(zfuint64, zfuint64)
  *   </zffloat>
  * @endcode
  */
-#define ZFPropertyTypeId_zffloat zfText("zffloat")
 ZFPROPERTY_TYPE_DECLARE(zffloat, zffloat)
 
 /**
@@ -242,7 +226,6 @@ ZFPROPERTY_TYPE_DECLARE(zffloat, zffloat)
  *   </zfdouble>
  * @endcode
  */
-#define ZFPropertyTypeId_zfdouble zfText("zfdouble")
 ZFPROPERTY_TYPE_DECLARE(zfdouble, zfdouble)
 
 /**
@@ -254,7 +237,6 @@ ZFPROPERTY_TYPE_DECLARE(zfdouble, zfdouble)
  *   </zflongdouble>
  * @endcode
  */
-#define ZFPropertyTypeId_zflongdouble zfText("zflongdouble")
 ZFPROPERTY_TYPE_DECLARE(zflongdouble, zflongdouble)
 
 /**
@@ -266,7 +248,6 @@ ZFPROPERTY_TYPE_DECLARE(zflongdouble, zflongdouble)
  *   </zftimet>
  * @endcode
  */
-#define ZFPropertyTypeId_zftimet zfText("zftimet")
 ZFPROPERTY_TYPE_DECLARE(zftimet, zftimet)
 
 /**
@@ -280,7 +261,6 @@ ZFPROPERTY_TYPE_DECLARE(zftimet, zftimet)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfflags zfText("zfflags")
 ZFPROPERTY_TYPE_DECLARE(zfflags, zfflags)
 
 /**
@@ -294,7 +274,6 @@ ZFPROPERTY_TYPE_DECLARE(zfflags, zfflags)
  * @note for portability of unsigned types,
  *   we'll use "-1" to store max unsigned value
  */
-#define ZFPropertyTypeId_zfidentity zfText("zfidentity")
 ZFPROPERTY_TYPE_DECLARE(zfidentity, zfidentity)
 
 /**
@@ -306,7 +285,6 @@ ZFPROPERTY_TYPE_DECLARE(zfidentity, zfidentity)
  *   </ZFCompereResult>
  * @endcode
  */
-#define ZFPropertyTypeId_ZFCompareResult zfText("ZFCompareResult")
 ZFPROPERTY_TYPE_DECLARE(ZFCompareResult, ZFCompareResult)
 
 /**
@@ -318,7 +296,6 @@ ZFPROPERTY_TYPE_DECLARE(ZFCompareResult, ZFCompareResult)
  *   </ZFSeekPos>
  * @endcode
  */
-#define ZFPropertyTypeId_ZFSeekPos zfText("ZFSeekPos")
 ZFPROPERTY_TYPE_DECLARE(ZFSeekPos, ZFSeekPos)
 
 /**
@@ -332,7 +309,6 @@ ZFPROPERTY_TYPE_DECLARE(ZFSeekPos, ZFSeekPos)
  *   </zfindexRange>
  * @endcode
  */
-#define ZFPropertyTypeId_zfindexRange zfText("zfindexRange")
 ZFPROPERTY_TYPE_DECLARE(zfindexRange, zfindexRange)
 /** @brief keyword for serialize */
 #define ZFSerializableKeyword_zfindexRange_start zfText("start")
@@ -348,7 +324,6 @@ ZFPROPERTY_TYPE_DECLARE(zfindexRange, zfindexRange)
  *   </ZFFilterType>
  * @endcode
  */
-#define ZFPropertyTypeId_ZFFilterType zfText("ZFFilterType")
 ZFPROPERTY_TYPE_DECLARE(ZFFilterType, ZFFilterType)
 
 /**
@@ -360,7 +335,6 @@ ZFPROPERTY_TYPE_DECLARE(ZFFilterType, ZFFilterType)
  *   </ZFClassFilterType>
  * @endcode
  */
-#define ZFPropertyTypeId_ZFClassFilterType zfText("ZFClassFilterType")
 ZFPROPERTY_TYPE_DECLARE(ZFClassFilterType, ZFClassFilterType)
 
 ZF_NAMESPACE_GLOBAL_END
