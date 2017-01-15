@@ -49,16 +49,16 @@ public:
 };
 typedef zfstlmap<zfstlstringZ, _ZFP_ZFIdMapModuleData> _ZFP_ZFIdMapModuleDataMapType;
 
-ZF_STATIC_INITIALIZER_INIT(ZFIdMapDataHolder)
+static _ZFP_ZFIdMapModuleDataMapType &_ZFP_ZFIdMapModuleDataMap(void)
 {
+    static _ZFP_ZFIdMapModuleDataMapType d;
+    return d;
 }
-_ZFP_ZFIdMapModuleDataMapType d;
-ZF_STATIC_INITIALIZER_END(ZFIdMapDataHolder)
 
 const zfidentity *_ZFP_ZFIdMapRegister(ZF_IN zfbool *ZFCoreLibDestroyFlag, ZF_IN const zfchar *moduleName, ZF_IN const zfchar *idName)
 {
     ZFCoreMutexLocker();
-    _ZFP_ZFIdMapModuleData &moduleData = ZF_STATIC_INITIALIZER_INSTANCE(ZFIdMapDataHolder)->d[moduleName];
+    _ZFP_ZFIdMapModuleData &moduleData = _ZFP_ZFIdMapModuleDataMap()[moduleName];
     _ZFP_ZFIdMapDataIdMapType &dataIdMap = moduleData.dataIdMap;
     _ZFP_ZFIdMapDataNameMapType &dataNameMap = moduleData.dataNameMap;
 
@@ -88,7 +88,7 @@ const zfidentity *_ZFP_ZFIdMapRegister(ZF_IN zfbool *ZFCoreLibDestroyFlag, ZF_IN
 void _ZFP_ZFIdMapUnregister(ZF_IN zfbool *ZFCoreLibDestroyFlag, ZF_IN const zfchar *moduleName, ZF_IN zfidentity idValue)
 {
     ZFCoreMutexLocker();
-    _ZFP_ZFIdMapModuleData &moduleData = ZF_STATIC_INITIALIZER_INSTANCE(ZFIdMapDataHolder)->d[moduleName];
+    _ZFP_ZFIdMapModuleData &moduleData = _ZFP_ZFIdMapModuleDataMap()[moduleName];
     _ZFP_ZFIdMapDataIdMapType &dataIdMap = moduleData.dataIdMap;
     _ZFP_ZFIdMapDataNameMapType &dataNameMap = moduleData.dataNameMap;
 
@@ -111,7 +111,7 @@ void _ZFP_ZFIdMapUnregister(ZF_IN zfbool *ZFCoreLibDestroyFlag, ZF_IN const zfch
 const zfchar *ZFIdMapGetName(ZF_IN const zfchar *moduleName, ZF_IN const zfidentity &idValue)
 {
     ZFCoreMutexLocker();
-    _ZFP_ZFIdMapModuleData &moduleData = ZF_STATIC_INITIALIZER_INSTANCE(ZFIdMapDataHolder)->d[moduleName];
+    _ZFP_ZFIdMapModuleData &moduleData = _ZFP_ZFIdMapModuleDataMap()[moduleName];
     _ZFP_ZFIdMapDataIdMapType &dataIdMap = moduleData.dataIdMap;
 
     _ZFP_ZFIdMapDataIdMapType::const_iterator it = dataIdMap.find(idValue);
@@ -124,7 +124,7 @@ const zfchar *ZFIdMapGetName(ZF_IN const zfchar *moduleName, ZF_IN const zfident
 zfidentity ZFIdMapGetId(ZF_IN const zfchar *moduleName, ZF_IN const zfchar *idName)
 {
     ZFCoreMutexLocker();
-    _ZFP_ZFIdMapModuleData &moduleData = ZF_STATIC_INITIALIZER_INSTANCE(ZFIdMapDataHolder)->d[moduleName];
+    _ZFP_ZFIdMapModuleData &moduleData = _ZFP_ZFIdMapModuleDataMap()[moduleName];
     _ZFP_ZFIdMapDataNameMapType &dataNameMap = moduleData.dataNameMap;
 
     _ZFP_ZFIdMapDataNameMapType::const_iterator it = dataNameMap.find(idName);
@@ -137,7 +137,7 @@ zfidentity ZFIdMapGetId(ZF_IN const zfchar *moduleName, ZF_IN const zfchar *idNa
 void ZFIdMapGetAll(ZF_IN const zfchar *moduleName, ZF_OUT ZFCoreArrayPOD<zfidentity> &idValues, ZF_OUT ZFCoreArrayPOD<const zfchar *> &idNames)
 {
     ZFCoreMutexLocker();
-    _ZFP_ZFIdMapModuleData &moduleData = ZF_STATIC_INITIALIZER_INSTANCE(ZFIdMapDataHolder)->d[moduleName];
+    _ZFP_ZFIdMapModuleData &moduleData = _ZFP_ZFIdMapModuleDataMap()[moduleName];
 
     idValues.capacitySet(idValues.count() + moduleData.dataIdMap.size());
     idNames.capacitySet(idNames.count() + moduleData.dataIdMap.size());

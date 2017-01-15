@@ -50,6 +50,7 @@ zfautoObject ZFUIKit_test_prepareSettingButton(ZF_IN ZFArray *settings)
 {
     zfblockedAlloc(ZFUIKit_test_Button, settingsButton);
     settingsButton->buttonLabelTextStringSet(zfText("settings"));
+    settingsButton->tagSet(zfText("settingsHolder"), settings);
 
     zfblockedAlloc(ZFUIKit_test_Window, window);
     settingsButton->tagSet(zfText("setting window"), window);
@@ -87,12 +88,22 @@ zfautoObject ZFUIKit_test_prepareSettingButton(ZF_IN ZFArray *settings)
             ZFUIButtonBasic *button = ZFAny(listenerData.sender);
 
             setting->buttonClickListener().execute(ZFListenerData(zfidentityInvalid, button), setting->userData());
+            setting->settingUpdate();
+        })
+        button->observerAdd(ZFUIButton::EventButtonOnClick(), onButtonClick, setting);
+
+        zfblockedAlloc(ZFObject, settingChangeUserData);
+        settingChangeUserData->tagSet(zfText("setting"), setting);
+        settingChangeUserData->tagSet(zfText("button"), button);
+        ZFLISTENER_LOCAL(settingOnChange, {
+            ZFUIKit_test_SettingData *setting = userData->tagGet<ZFUIKit_test_SettingData *>(zfText("setting"));
+            ZFUIButtonBasic *button = userData->tagGet<ZFUIButtonBasic *>(zfText("button"));
 
             zfblockedAlloc(ZFStringEditable, buttonText);
             setting->buttonTextGetter().execute(ZFListenerData(zfidentityInvalid, button, buttonText), setting->userData());
             button->buttonLabelTextStringSet(buttonText->stringValue());
         })
-        button->observerAdd(ZFUIButton::EventButtonOnClick(), onButtonClick, setting);
+        setting->observerAdd(ZFUIKit_test_SettingData::EventSettingOnChange(), settingOnChange, settingChangeUserData);
 
         zfblockedAlloc(ZFStringEditable, buttonText);
         setting->buttonTextGetter().execute(ZFListenerData(zfidentityInvalid, button, buttonText), setting->userData());
@@ -186,6 +197,49 @@ void ZFUIKit_test_prepareSettingForLayoutRequest(ZF_IN_OUT ZFArrayEditable *sett
     })
 
     settings->add(zflineAlloc(ZFUIKit_test_SettingData, buttonTextGetter, buttonClickListener, view->objectHolder()));
+}
+
+void ZFUIKit_test_prepareSettingForResetProperty(ZF_IN_OUT ZFArrayEditable *settings,
+                                                 ZF_IN ZFObject *obj,
+                                                 ZF_IN const ZFCoreArrayPOD<const ZFProperty *> &propertyList)
+{
+    zfblockedAlloc(ZFUIKit_test_SettingData, setting);
+    settings->add(setting);
+    setting->userDataSet(zflineAlloc(ZFObject));
+    setting->userData()->tagSet(zfText("obj"), obj->objectHolder());
+    setting->userData()->tagSet(zfText("settings"), settings->objectHolder());
+    zfblockedAlloc(ZFTypeHolder, propertyListHolder,
+        zfnew(ZFCoreArrayPOD<const ZFProperty *>, propertyList),
+        ZFTypeHolder::DeleteObject<ZFCoreArrayPOD<const ZFProperty *> *>);
+    setting->userData()->tagSet(zfText("propertyList"), propertyListHolder);
+
+    ZFLISTENER_LOCAL(buttonTextGetter, {
+        ZFStringEditable *text = listenerData.param0->to<ZFStringEditable *>();
+        text->stringValueSet(zfText("reset setting"));
+    })
+    setting->buttonTextGetterSet(buttonTextGetter);
+
+    ZFLISTENER_LOCAL(buttonClickListener, {
+        ZFObject *obj = userData->tagGet<ZFObjectHolder *>(zfText("obj"))->holdedObj;
+        ZFArray *settings = userData->tagGet<ZFObjectHolder *>(zfText("settings"))->holdedObj;
+        const ZFCoreArrayPOD<const ZFProperty *> &toReset = userData->tagGet<ZFTypeHolder *>(zfText("propertyList"))->holdedDataRef<const ZFCoreArrayPOD<const ZFProperty *> &>();
+
+        if(obj == zfnull || settings == zfnull || toReset.isEmpty())
+        {
+            return ;
+        }
+
+        zfautoObject fromObj = obj->classData()->newInstance();
+        for(zfindex i = 0; i < toReset.count(); ++i)
+        {
+            ZFPropertyCopy(toReset[i], obj, fromObj);
+        }
+        for(zfindex i = 0; i < settings->count(); ++i)
+        {
+            settings->get<ZFUIKit_test_SettingData *>(i)->settingUpdate();
+        }
+    })
+    setting->buttonClickListenerSet(buttonClickListener);
 }
 
 ZF_NAMESPACE_GLOBAL_END

@@ -78,7 +78,7 @@ private:
     {
         zfblockedAlloc(ZFArrayEditable, settings);
 
-        ZFUIKit_test_prepareSettingForBoolProperty(settings, animatedImageView, ZFPropertyAccess(ZFUIAnimatedImageView, animatedImageWrap));
+        ZFUIKit_test_prepareSettingForBoolProperty(settings, animatedImageView, ZFPropertyAccess(ZFUIAnimatedImageView, animatedImageWrapToImage));
 
         ZFUIKit_test_prepareSettingButtonWithTestWindow(window, settings);
     }

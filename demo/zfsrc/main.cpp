@@ -18,30 +18,21 @@
 #include "ZFUIKit/protocol/ZFProtocolZFUISysWindow.h"
 
 static zfbool _autoLeakTestOn = zftrue;
-static void leakTestBegin(void)
+static zfbool _ZFP_ZFFramework_test_protocolCheck(void);
+static zfautoObject _ZFP_ZFFramework_test_containerViewPrepare(void);
+static void _ZFP_ZFFramework_test_prepareTestCase(ZF_IN ZFUIView *containerView);
+
+ZFMAIN_ENTRY(params)
 {
-    if(_autoLeakTestOn)
+    if(_ZFP_ZFFramework_test_protocolCheck())
     {
-#if 0
-        zfLogTrimT() << zfText("leakTest begin");
-#endif
-        ZFLeakTestBegin();
+        zfautoObject containerView = _ZFP_ZFFramework_test_containerViewPrepare();
+        _ZFP_ZFFramework_test_prepareTestCase(containerView);
     }
-}
-static void leakTestEnd(void)
-{
-    if(_autoLeakTestOn)
-    {
-        ZFLeakTestPrintStatus(ZFLeakTestObjectFilter().filterAddName(ZFThreadTaskRequestData::ClassData()->className()));
-        ZFLeakTestEnd();
-#if 0
-        zfLogTrimT() << zfText("leakTest end");
-#endif
-    }
+    return 0;
 }
 
-static void _ZFP_ZFFramework_test_prepareTestCase(ZF_IN ZFUIView *containerView);
-ZFMAIN_ENTRY(params)
+static zfbool _ZFP_ZFFramework_test_protocolCheck(void)
 {
     {
         ZFCoreArray<ZFProtocolImplInfoData> implDatas = ZFProtocolImplInfoDataGetNotImplemented();
@@ -72,9 +63,12 @@ ZFMAIN_ENTRY(params)
        || !ZFPROTOCOL_IS_AVAILABLE(ZFThreadTaskRequest))
     {
         ZFTestCaseRunAllStart();
-        return 0;
+        return zffalse;
     }
-
+    return zftrue;
+}
+static zfautoObject _ZFP_ZFFramework_test_containerViewPrepare(void)
+{
     zfblockedAlloc(ZFUIWindow, window);
     window->windowShow();
 
@@ -127,11 +121,24 @@ ZFMAIN_ENTRY(params)
         separator->viewBackgroundColorSet(ZFUIColorGray);
     }
 
-    _ZFP_ZFFramework_test_prepareTestCase(containerView);
-
-    return 0;
+    return zfautoObjectCreate(containerView);
 }
 
+static void leakTestBegin(void)
+{
+    if(_autoLeakTestOn)
+    {
+        ZFLeakTestBegin();
+    }
+}
+static void leakTestEnd(void)
+{
+    if(_autoLeakTestOn)
+    {
+        ZFLeakTestPrintStatus(ZFLeakTestObjectFilter().filterAddName(ZFThreadTaskRequestData::ClassData()->className()));
+        ZFLeakTestEnd();
+    }
+}
 static void _ZFP_ZFFramework_test_prepareTestCaseSubModule(ZF_IN ZFUIView *containerView,
                                                            ZF_IN const zfchar *subModuleName,
                                                            ZF_IN ZFCoreArrayPOD<const ZFClass *> const &testCases);

@@ -41,8 +41,8 @@ public:
      * -  false: this view would not be measured when image frame updated,
      *   and this view's size would be measured to the max size of all image frame
      */
-    ZFPROPERTY_ASSIGN_WITH_INIT(zfbool, animatedImageWrap, ZFPropertyInitValue(zffalse))
-    ZFPROPERTY_CUSTOM_SETTER_DECLARE(zfbool, animatedImageWrap);
+    ZFPROPERTY_ASSIGN_WITH_INIT(zfbool, animatedImageWrapToImage, ZFPropertyInitValue(zffalse))
+    ZFPROPERTY_CUSTOM_SETTER_DECLARE(zfbool, animatedImageWrapToImage);
 
 public:
     /** @brief see #ZFUIAnimatedImage::aniStart */

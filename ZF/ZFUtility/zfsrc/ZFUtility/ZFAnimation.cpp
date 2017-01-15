@@ -11,6 +11,14 @@
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
+zfclass _ZFP_I_ZFAnimationAniList : zfextends ZFObject
+{
+    ZFOBJECT_DECLARE(_ZFP_I_ZFAnimationAniList, ZFObject)
+public:
+    ZFCoreArrayPOD<ZFAnimation *> aniList;
+};
+
+// ============================================================
 // _ZFP_ZFAnimationPrivate
 zfclassNotPOD _ZFP_ZFAnimationPrivate
 {
@@ -109,7 +117,8 @@ ZFObject *ZFAnimation::aniTarget(void)
 
 void ZFAnimation::aniStart(void)
 {
-    zfCoreAssertWithMessage(!d->aniRunning, zfTextA("start an animation which already started"));
+    this->_ZFP_ZFAnimation_aniReadyStart();
+
     d->aniStoppedByUser = zffalse;
     if(!this->aniValid())
     {
@@ -126,15 +135,16 @@ void ZFAnimation::aniStart(void)
     d->aniIdGenerator.next();
     this->aniOnStart();
 
-    if(this->aniDelay() <= 0)
+    if(this->aniDelay() > 0)
+    {
+        d->aniDelaying = zftrue;
+        this->aniImplDelay();
+    }
+    else
     {
         d->aniDelaying = zffalse;
         this->aniImplStart();
-        return ;
     }
-
-    d->aniDelaying = zftrue;
-    this->aniImplDelay();
 }
 zfbool ZFAnimation::aniRunning(void)
 {
@@ -186,6 +196,38 @@ void ZFAnimation::_ZFP_ZFAnimation_aniImplDelayNotifyFinish(ZF_IN zfidentity tas
         this->aniImplDelayNotifyFinish();
     }
 }
+void ZFAnimation::_ZFP_ZFAnimation_aniReadyStart(void)
+{
+    if(this->aniTarget() != zfnull)
+    {
+        _ZFP_I_ZFAnimationAniList *aniList = this->aniTarget()->tagGet<_ZFP_I_ZFAnimationAniList *>(_ZFP_I_ZFAnimationAniList::ClassData()->className());
+        if(aniList == zfnull)
+        {
+            aniList = zfAllocWithoutLeakTest(_ZFP_I_ZFAnimationAniList);
+            this->aniTarget()->tagSet(_ZFP_I_ZFAnimationAniList::ClassData()->className(), aniList);
+            zfReleaseWithoutLeakTest(aniList);
+        }
+        if(this->aniAutoStopPrev())
+        {
+            while(!aniList->aniList.isEmpty())
+            {
+                aniList->aniList.getFirst()->aniStop();
+            }
+        }
+        aniList->aniList.add(this);
+    }
+}
+void ZFAnimation::_ZFP_ZFAnimation_aniReadyStop(void)
+{
+    if(this->aniTarget() != zfnull)
+    {
+        _ZFP_I_ZFAnimationAniList *aniList = this->aniTarget()->tagGet<_ZFP_I_ZFAnimationAniList *>(_ZFP_I_ZFAnimationAniList::ClassData()->className());
+        if(aniList != zfnull)
+        {
+            aniList->aniList.removeElement(this);
+        }
+    }
+}
 void ZFAnimation::aniImplDelay(void)
 {
     ++(d->aniDelayTaskId);
@@ -219,6 +261,7 @@ void ZFAnimation::aniImplStop(void)
 void ZFAnimation::aniImplNotifyStop(void)
 {
     zfCoreAssertWithMessage(d->aniRunning, zfTextA("notify stop an animation which not started"));
+    this->_ZFP_ZFAnimation_aniReadyStop();
     ZFObject *aniTargetToRelease = this->aniTarget();
 
     d->aniRunning = zffalse;

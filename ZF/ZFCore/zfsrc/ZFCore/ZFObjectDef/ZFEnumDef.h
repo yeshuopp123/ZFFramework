@@ -21,6 +21,7 @@
 #include "ZFVarConvertDef.h"
 ZF_NAMESPACE_GLOBAL_BEGIN
 
+// ============================================================
 /**
  * @brief value type for ZFEnum, equal to zfint
  */
@@ -34,6 +35,7 @@ typedef zfflags ZFEnumValue;
  */
 #define ZFEnumValueNameInvalid zfText("ZFEnumValueInvalid")
 
+// ============================================================
 /**
  * @brief abstract base class of all enum type of ZFFramework
  *
@@ -183,6 +185,7 @@ private:
     ZFEnumValue _ZFP_ZFEnum_value;
 };
 
+// ============================================================
 zfclassFwd _ZFP_ZFEnumDataPrivate;
 zfclassNotPOD ZF_ENV_EXPORT _ZFP_ZFEnumData
 {
@@ -211,6 +214,7 @@ private:
 };
 extern ZF_ENV_EXPORT _ZFP_ZFEnumData *_ZFP_ZFEnumDataAccess(const zfchar *name);
 
+// ============================================================
 /**
  * @brief macros to define a key-value map for enum type
  *

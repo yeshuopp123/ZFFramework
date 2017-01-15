@@ -156,6 +156,16 @@ ZFCoreArray<T_Element> &ZFCoreArray<T_Element>::operator =(ZF_IN const ZFCoreArr
     return *this;
 }
 template<typename T_Element>
+zfbool ZFCoreArray<T_Element>::operator ==(ZF_IN const ZFCoreArray<T_Element> &ref) const
+{
+    return (d == ref.d);
+}
+template<typename T_Element>
+zfbool ZFCoreArray<T_Element>::operator !=(ZF_IN const ZFCoreArray<T_Element> &ref) const
+{
+    return (d != ref.d);
+}
+template<typename T_Element>
 void ZFCoreArray<T_Element>::copyFrom(ZF_IN const ZFCoreArray<T_Element> &ref)
 {
     if(d != ref.d)

@@ -870,7 +870,6 @@ EXCLUDE_SYMBOLS       += _ZFP_*
 EXCLUDE_SYMBOLS       += _ZFI_*
 EXCLUDE_SYMBOLS       += _ZFT_*
 EXCLUDE_SYMBOLS       += *zfstl_impl*
-EXCLUDE_SYMBOLS       += ZFPrivate_*
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or directories
 # that contain example code fragments that are included (see the \include

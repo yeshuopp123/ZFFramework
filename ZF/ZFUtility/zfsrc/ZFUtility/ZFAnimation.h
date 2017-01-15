@@ -91,6 +91,12 @@ public:
      */
     ZFPROPERTY_ASSIGN_WITH_INIT(zftimet, aniDuration,
                                 ZFPropertyInitValue(250))
+    /**
+     * @brief whether automatically stop previous animation attached to #aniTarget,
+     *   true by default
+     */
+    ZFPROPERTY_ASSIGN_WITH_INIT(zfbool, aniAutoStopPrev,
+                                ZFPropertyInitValue(zftrue))
 
 public:
     /**
@@ -160,6 +166,8 @@ protected:
     virtual zfbool aniImplCheckValid(void);
 public:
     zffinal void _ZFP_ZFAnimation_aniImplDelayNotifyFinish(ZF_IN zfidentity taskId);
+    zffinal void _ZFP_ZFAnimation_aniReadyStart(void);
+    zffinal void _ZFP_ZFAnimation_aniReadyStop(void);
 protected:
     /**
      * @brief for subclass to achieve delay logic

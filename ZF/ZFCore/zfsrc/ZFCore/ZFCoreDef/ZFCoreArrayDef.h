@@ -66,6 +66,14 @@ public:
      */
     virtual ZFCoreArray<T_Element> &operator =(ZF_IN const ZFCoreArray<T_Element> &ref);
     /**
+     * @brief compare by pointer
+     */
+    virtual zfbool operator ==(ZF_IN const ZFCoreArray<T_Element> &ref) const;
+    /**
+     * @brief compare by pointer
+     */
+    virtual zfbool operator !=(ZF_IN const ZFCoreArray<T_Element> &ref) const;
+    /**
      * @brief copy all settings and contents from another array
      */
     void copyFrom(ZF_IN const ZFCoreArray<T_Element> &ref);

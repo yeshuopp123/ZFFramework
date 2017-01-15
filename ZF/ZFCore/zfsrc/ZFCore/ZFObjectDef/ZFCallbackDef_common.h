@@ -201,9 +201,13 @@ ZFCALLBACK_DECLARE_END(ZFOutputCallback, ZFIOCallback)
  *
  * usage:
  * @code
+ *   // in header file
  *   ZFOUTPUT_TYPE_DECLARE(YourType)
- *   ...
+ *   // in source file
  *   ZFOUTPUT_TYPE_DEFINE(YourType, {doYourStuff();})
+ *
+ *   // or, the inline version
+ *   ZFOUTPUT_TYPE(YourType, {doYourStuff();})
  * @endcode
  */
 #define ZFOUTPUT_TYPE_DECLARE(T_Type) \
@@ -332,9 +336,13 @@ ZFCALLBACK_DECLARE_END(ZFInputCallback, ZFIOCallback)
  *
  * usage:
  * @code
+ *   // in header file
  *   ZFINPUT_TYPE_DECLARE(YourType)
- *   ...
+ *   // in source file
  *   ZFINPUT_TYPE_DEFINE(YourType, {doYourStuff();})
+ *
+ *   // or, the inline version
+ *   ZFINPUT_TYPE(YourType, {doYourStuff();})
  * @endcode
  */
 #define ZFINPUT_TYPE_DECLARE(T_TypeName, T_Type) \

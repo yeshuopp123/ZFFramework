@@ -465,6 +465,13 @@ ZF_ENV_SENSITIVE
  *   // value would be true only if "ClassToCheck" has such member method:
  *   // void ClassToCheck::yourMethodName(void); // can be static or virtual
  *   zfbool value = ZFM_CLASS_HAS_MEMBER(YourNamespace, yourMethodName, ClassToCheck);
+ *
+ *   // typical method sig:
+ *   static void func(void)
+ *       : void (*F)(void)
+ *         note: if parent have the method, child type would also have
+ *   virtual void func(void)
+ *       : void (T::*F)(void)
  * @endcode
  */
 #define ZFM_CLASS_HAS_MEMBER_DECLARE(NameSpace, memberName, memberSig) \

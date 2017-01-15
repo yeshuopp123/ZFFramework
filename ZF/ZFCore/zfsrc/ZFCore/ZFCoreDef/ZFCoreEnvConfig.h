@@ -86,6 +86,9 @@ PREDEFINED            += ZFIMPLEMENTS_DECLARE(...):=
 PREDEFINED            += zftCounterGet(...):=1
 PREDEFINED            += zftCounterInc(...):=
 
+EXPAND_AS_DEFINED     += ZF_NAMESPACE_BEGIN
+EXPAND_AS_DEFINED     += ZF_NAMESPACE_END
+EXPAND_AS_DEFINED     += ZF_NAMESPACE_USE
 EXPAND_AS_DEFINED     += ZF_IN
 EXPAND_AS_DEFINED     += ZF_IN_OPT
 EXPAND_AS_DEFINED     += ZF_OUT
@@ -263,7 +266,6 @@ EXCLUDE_SYMBOLS       += _ZFP_*
 EXCLUDE_SYMBOLS       += _ZFI_*
 EXCLUDE_SYMBOLS       += _ZFT_*
 EXCLUDE_SYMBOLS       += *zfstl_impl*
-EXCLUDE_SYMBOLS       += ZFPrivate_*
 /* ============================================================ */
 #endif
 

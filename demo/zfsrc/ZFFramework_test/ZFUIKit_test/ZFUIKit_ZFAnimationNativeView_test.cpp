@@ -53,57 +53,35 @@ private:
     {
         zfblockedAlloc(ZFArrayEditable, settings);
 
-        { // reset setting
-            zfblockedAlloc(ZFUIKit_test_SettingData, setting);
-            settings->add(setting);
-            setting->userDataSet(zflineAlloc(ZFObject));
-            setting->userData()->tagSet(zfText("ani"), ani->objectHolder());
-            ZFLISTENER_LOCAL(buttonTextGetter, {
-                ZFStringEditable *text = listenerData.param0->to<ZFStringEditable *>();
-                text->stringValueSet(zfText("reset setting"));
-            })
-            setting->buttonTextGetterSet(buttonTextGetter);
-            ZFLISTENER_LOCAL(buttonClickListener, {
-                ZFAnimationNativeView *ani = userData->tagGet<ZFObjectHolder *>(zfText("ani"))->holdedObj;
-                ZFCoreArrayPOD<const ZFProperty *> toReset;
-
-                {
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniCurve));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniAlphaFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniAlphaTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniScaleXFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniScaleXTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniScaleYFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniScaleYTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniScaleZFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniScaleZTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslateXFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslateXTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslateYFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslateYTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslateZFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslateZTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelXFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelXTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelYFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelYTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelZFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelZTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniRotateXFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniRotateXTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniRotateYFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniRotateYTo));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniRotateZFrom));
-                    toReset.add(ZFPropertyAccess(ZFAnimationNativeView, aniRotateZTo));
-                }
-
-                for(zfindex i = 0; i < toReset.count(); ++i)
-                {
-                    ZFPropertyResetInitValue(toReset[i], ani);
-                }
-            })
-            setting->buttonClickListenerSet(buttonClickListener);
-        }
+        ZFUIKit_test_prepareSettingForResetProperty(settings, ani, ZFCoreArrayPODCreate(const ZFProperty *
+                , ZFPropertyAccess(ZFAnimationNativeView, aniCurve)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniAlphaFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniAlphaTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniScaleXFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniScaleXTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniScaleYFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniScaleYTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniScaleZFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniScaleZTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslateXFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslateXTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslateYFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslateYTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslateZFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslateZTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelXFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelXTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelYFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelYTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelZFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniTranslatePixelZTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniRotateXFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniRotateXTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniRotateYFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniRotateYTo)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniRotateZFrom)
+                , ZFPropertyAccess(ZFAnimationNativeView, aniRotateZTo)
+            ));
 
         ZFUIKit_test_prepareSettingForNormalProperty(settings, ani, zftimet, ZFPropertyAccess(ZFAnimationNativeView, aniDuration),
             ZFCoreArrayPODCreate(zftimet

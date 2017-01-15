@@ -23,7 +23,7 @@ public:
     static ZFLISTENER_PROTOTYPE_EXPAND(animatedImageOnUpdate)
     {
         ZFUIAnimatedImageView *view = userData->to<ZFObjectHolder *>()->holdedObj;
-        if(view->animatedImageWrap())
+        if(view->animatedImageWrapToImage())
         {
             view->imageContentSet(view->animatedImage()->aniFrameImageCurrent());
         }
@@ -40,9 +40,9 @@ ZF_GLOBAL_INITIALIZER_END(ZFUIAnimatedImageViewDataHolder)
 // ZFUIAnimatedImageView
 ZFOBJECT_REGISTER(ZFUIAnimatedImageView)
 
-ZFPROPERTY_CUSTOM_SETTER_DEFINE(ZFUIAnimatedImageView, zfbool, animatedImageWrap)
+ZFPROPERTY_CUSTOM_SETTER_DEFINE(ZFUIAnimatedImageView, zfbool, animatedImageWrapToImage)
 {
-    this->animatedImageWrapSetInternal(newValue);
+    this->animatedImageWrapToImageSetInternal(newValue);
     this->layoutRequest();
 }
 
@@ -73,7 +73,7 @@ void ZFUIAnimatedImageView::layoutOnMeasure(ZF_OUT ZFUISize &ret,
                                             ZF_IN const ZFUISize &sizeHint,
                                             ZF_IN const ZFUISizeParam &sizeParam)
 {
-    if(this->animatedImageWrap())
+    if(this->animatedImageWrapToImage())
     {
         zfsuper::layoutOnMeasure(ret, sizeHint, sizeParam);
     }

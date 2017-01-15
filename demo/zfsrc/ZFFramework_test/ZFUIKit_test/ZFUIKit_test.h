@@ -100,12 +100,21 @@ zfclass ZFUIKit_test_SettingData : zfextends ZFObject
     ZFOBJECT_DECLARE(ZFUIKit_test_SettingData, ZFObject)
 
 public:
+    ZFOBSERVER_EVENT(SettingOnChange)
+
+public:
     /**
      * param0 is a #ZFStringEditable to get the button's text
      */
     ZFPROPERTY_ASSIGN_NOT_SERIALIZABLE(ZFListener, buttonTextGetter)
     ZFPROPERTY_ASSIGN_NOT_SERIALIZABLE(ZFListener, buttonClickListener)
     ZFPROPERTY_RETAIN(ZFObject *, userData)
+
+public:
+    zffinal void settingUpdate(void)
+    {
+        this->observerNotify(zfself::EventSettingOnChange());
+    }
 
 public:
     virtual ZFObject *objectOnInit(ZF_IN const ZFListener &buttonTextGetter,
@@ -218,6 +227,10 @@ public:
 
 extern void ZFUIKit_test_prepareSettingForLayoutRequest(ZF_IN_OUT ZFArrayEditable *settings,
                                                         ZF_IN ZFUIView *view);
+
+extern void ZFUIKit_test_prepareSettingForResetProperty(ZF_IN_OUT ZFArrayEditable *settings,
+                                                        ZF_IN ZFObject *obj,
+                                                        ZF_IN const ZFCoreArrayPOD<const ZFProperty *> &propertyList);
 
 ZF_NAMESPACE_GLOBAL_END
 
