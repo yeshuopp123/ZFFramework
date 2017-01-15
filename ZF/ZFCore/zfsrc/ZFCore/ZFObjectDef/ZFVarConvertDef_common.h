@@ -61,7 +61,7 @@ zfclass ZF_ENV_EXPORT ZFVarConvertBase : zfextends ZFObject
     public: \
         zfoverride \
         virtual ZFObject *objectOnInit(void) {return zfsuper::objectOnInit();} \
-        zfoverride \
+        /** @brief construct from value */ \
         virtual ZFObject *objectOnInit(ZF_IN Type const &v) {this->objectOnInit(); this->value = v; return this;} \
     };
 /**
