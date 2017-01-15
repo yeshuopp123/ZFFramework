@@ -36,6 +36,8 @@ public:
     ZFIdentityGenerator(void);
     ZFIdentityGenerator(ZF_IN ZFIdentityGenerator const &ref);
     ZFIdentityGenerator &operator = (ZF_IN ZFIdentityGenerator const &ref);
+    zfbool operator == (ZF_IN ZFIdentityGenerator const &ref) const;
+    zfbool operator != (ZF_IN ZFIdentityGenerator const &ref) const;
     ~ZFIdentityGenerator(void);
     /** @endcond */
 

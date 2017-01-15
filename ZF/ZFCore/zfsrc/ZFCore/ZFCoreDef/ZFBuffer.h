@@ -230,6 +230,16 @@ public:
         }
         return *this;
     }
+    /** @brief true if same ref */
+    zffinal zfbool operator == (ZF_IN const ZFBuffer &ref) const
+    {
+        return (d == ref.d);
+    }
+    /** @brief true if not same ref */
+    zffinal zfbool operator != (ZF_IN const ZFBuffer &ref) const
+    {
+        return (d != ref.d);
+    }
     ~ZFBuffer(void)
     {
         --(d->refCount);

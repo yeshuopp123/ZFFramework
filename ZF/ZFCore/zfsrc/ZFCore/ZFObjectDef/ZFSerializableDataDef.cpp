@@ -125,6 +125,14 @@ ZFSerializableData &ZFSerializableData::operator =(ZF_IN const ZFSerializableDat
     }
     return *this;
 }
+zfbool ZFSerializableData::operator ==(ZF_IN const ZFSerializableData &ref) const
+{
+    return (d == ref.d);
+}
+zfbool ZFSerializableData::operator !=(ZF_IN const ZFSerializableData &ref) const
+{
+    return (d != ref.d);
+}
 ZFSerializableData::~ZFSerializableData(void)
 {
     --(d->refCount);

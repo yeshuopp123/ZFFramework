@@ -60,6 +60,14 @@ public:
      * @brief retain the ref, to copy, use #copyFrom
      */
     zffinal ZFCoreMap &operator =(ZF_IN const ZFCoreMap &ref);
+    /**
+     * @brief true if same ref
+     */
+    zffinal zfbool operator ==(ZF_IN const ZFCoreMap &ref) const;
+    /**
+     * @brief true if not same ref
+     */
+    zffinal zfbool operator !=(ZF_IN const ZFCoreMap &ref) const;
     ~ZFCoreMap(void);
 
 public:

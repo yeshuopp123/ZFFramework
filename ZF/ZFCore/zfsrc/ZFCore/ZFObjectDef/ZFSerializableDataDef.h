@@ -94,6 +94,14 @@ public:
      * @brief retain from another ref
      */
     ZFSerializableData &operator =(ZF_IN const ZFSerializableData &ref);
+    /**
+     * @brief true if same ref
+     */
+    zfbool operator ==(ZF_IN const ZFSerializableData &ref) const;
+    /**
+     * @brief true if not same ref
+     */
+    zfbool operator !=(ZF_IN const ZFSerializableData &ref) const;
     ~ZFSerializableData(void);
 
 public:

@@ -52,6 +52,14 @@ ZFIdentityGenerator &ZFIdentityGenerator::operator = (ZF_IN ZFIdentityGenerator 
     }
     return *this;
 }
+zfbool ZFIdentityGenerator::operator == (ZF_IN ZFIdentityGenerator const &ref) const
+{
+    return (d == ref.d);
+}
+zfbool ZFIdentityGenerator::operator != (ZF_IN ZFIdentityGenerator const &ref) const
+{
+    return (d != ref.d);
+}
 ZFIdentityGenerator::~ZFIdentityGenerator(void)
 {
     --(d->refCount);
