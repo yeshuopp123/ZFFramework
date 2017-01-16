@@ -31,19 +31,48 @@ extern ZF_ENV_EXPORT zfindex ZFCoreStringCheckMatch(ZF_IN const zfchar **tokens,
  * @brief util macro to declare type string converter for ZFFramework
  */
 #define ZFCORETYPE_STRING_CONVERTER_DECLARE(TypeName, Type) \
-    /** @brief util method to convert TypeName to string */ \
-    extern ZF_ENV_EXPORT void TypeName##ToString(ZF_IN_OUT zfstring &ret, ZF_IN Type const &value); \
-    /** @brief util method to convert TypeName to string */ \
-    inline zfstring TypeName##ToString(ZF_IN Type const &value) \
-    { \
-        zfstring ret; \
-        TypeName##ToString(ret, value); \
-        return ret; \
-    } \
     /** @brief util method to convert TypeName from string, return null if success or error position if fail */ \
-    extern ZF_ENV_EXPORT const zfchar *TypeName##FromString(ZF_OUT Type &ret, \
+    extern ZF_ENV_EXPORT const zfchar *TypeName##FromString(ZF_OUT Type &v, \
                                                             ZF_IN const zfchar *src, \
-                                                            ZF_IN_OPT zfindex srcLen = zfindexMax);
+                                                            ZF_IN_OPT zfindex srcLen = zfindexMax); \
+    /** @brief util method to convert TypeName to string */ \
+    extern ZF_ENV_EXPORT void TypeName##ToString(ZF_IN_OUT zfstring &s, ZF_IN Type const &v); \
+    /** @brief util method to convert TypeName to string */ \
+    inline zfstring TypeName##ToString(ZF_IN Type const &v) \
+    { \
+        zfstring s; \
+        TypeName##ToString(s, v); \
+        return s; \
+    }
+/**
+ * @brief util macro to declare type string converter for ZFFramework
+ *
+ * @code
+ *   ZFCORETYPE_STRING_CONVERTER_DEFINE(YourTypeName, YourType, {
+ *           // proto type:
+ *           //   const zfchar *YourTypeNameFromString(ZF_OUT YourType &v,
+ *           //       ZF_IN const zfchar *src,
+ *           //       ZF_IN_OPT zfindex srcLen = zfindexMax);
+ *           // return null if success, or error position if fail
+ *       }, {
+ *           // proto type:
+ *           //   void YourTypeNameToString(ZF_IN_OUT zfstring &s,
+ *           //       ZF_IN YourType const &v);
+ *           // append result to s
+ *       })
+ * @endcode
+ */
+#define ZFCORETYPE_STRING_CONVERTER_DEFINE(TypeName, Type, convertFromStringAction, convertToStringAction) \
+    const zfchar *TypeName##FromString(ZF_OUT Type &v, \
+                                       ZF_IN const zfchar *src, \
+                                       ZF_IN_OPT zfindex srcLen /* = zfindexMax */) \
+    { \
+        convertFromStringAction \
+    } \
+    void TypeName##ToString(ZF_IN_OUT zfstring &s, ZF_IN Type const &v) \
+    { \
+        convertToStringAction \
+    }
 
 // ============================================================
 ZFCORETYPE_STRING_CONVERTER_DECLARE(zfchar, zfchar)
@@ -51,19 +80,24 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(zfchar, zfchar)
 // ============================================================
 ZFCORETYPE_STRING_CONVERTER_DECLARE(zfstring, zfstring)
 /** @cond ZFPrivateDoc */
-inline void zfstringToString(ZF_IN_OUT zfstring &ret,
-                             ZF_IN const zfchar *value)
+inline void zfstringToString(ZF_IN_OUT zfstring &s,
+                             ZF_IN const zfchar *v)
 {
-    ret += value;
+    s += v;
 }
-inline zfstring zfstringToString(ZF_IN const zfchar *value)
+inline zfstring zfstringToString(ZF_IN const zfchar *v)
 {
-    return zfstring(value);
+    return zfstring(v);
 }
-inline const zfchar *zfstringFromString(ZF_OUT const zfchar *&ret,
-                                        ZF_IN const zfchar *src)
+inline const zfchar *zfstringFromString(ZF_OUT const zfchar *&v,
+                                        ZF_IN const zfchar *src,
+                                        ZF_IN_OPT zfindex srcLen = zfindexMax)
 {
-    ret = src;
+    if(srcLen != zfindexMax && src[srcLen] != '\0')
+    {
+        return src + srcLen;
+    }
+    v = src;
     return zfnull;
 }
 /** @endcond */

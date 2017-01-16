@@ -13,31 +13,25 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 // ============================================================
 // ZFUIPoint
 const ZFUIPoint ZFUIPointZero = {0, 0};
-void ZFUIPointToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFUIPoint const &value)
-{
-    zfstringAppend(ret, zfText("(%d, %d)"), value.x, value.y);
-}
-const zfchar *ZFUIPointFromString(ZF_OUT ZFUIPoint &ret,
-                                  ZF_IN const zfchar *src,
-                                  ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    zfCoreAssert(src != zfnull);
-    ZFCoreArrayPOD<zfint> buf;
-    const zfchar *errPos = zfCoreDataPairSplitInt(buf, 2, src, srcLen);
-    if(errPos != zfnull)
-    {
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFUIPoint, ZFUIPoint, {
+        zfCoreAssert(src != zfnull);
+        ZFCoreArrayPOD<zfint> buf;
+        const zfchar *errPos = zfCoreDataPairSplitInt(buf, 2, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
+        v.x = buf[0];
+        v.y = buf[1];
         return errPos;
-    }
-    ret.x = buf[0];
-    ret.y = buf[1];
-    return errPos;
-}
+    }, {
+        zfstringAppend(s, zfText("(%d, %d)"), v.x, v.y);
+    })
 
 ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ZFUIPoint, ZFUIPoint)
 
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFUIPoint)
 
-ZFOUTPUT_TYPE_DEFINE(ZFUIPoint, {output << ZFUIPointToString(v);})
 ZFINPUT_TYPE_DEFINE(ZFUIPoint, ZFUIPoint, {
     v = ZFUIPointZero;
     ZFCoreArrayPOD<zfint> elementsTmp;
@@ -53,33 +47,27 @@ ZFINPUT_TYPE_DEFINE(ZFUIPoint, ZFUIPoint, {
 // ============================================================
 // ZFUIMargin
 const ZFUIMargin ZFUIMarginZero = {0, 0, 0, 0};
-void ZFUIMarginToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFUIMargin const &value)
-{
-    zfstringAppend(ret, zfText("(%d, %d, %d, %d)"), value.left, value.top, value.right, value.bottom);
-}
-const zfchar *ZFUIMarginFromString(ZF_OUT ZFUIMargin &ret,
-                                   ZF_IN const zfchar *src,
-                                   ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    zfCoreAssert(src != zfnull);
-    ZFCoreArrayPOD<zfint> buf;
-    const zfchar *errPos = zfCoreDataPairSplitInt(buf, 4, src, srcLen);
-    if(errPos != zfnull)
-    {
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFUIMargin, ZFUIMargin, {
+        zfCoreAssert(src != zfnull);
+        ZFCoreArrayPOD<zfint> buf;
+        const zfchar *errPos = zfCoreDataPairSplitInt(buf, 4, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
+        v.left = buf[0];
+        v.top = buf[1];
+        v.right = buf[2];
+        v.bottom = buf[3];
         return errPos;
-    }
-    ret.left = buf[0];
-    ret.top = buf[1];
-    ret.right = buf[2];
-    ret.bottom = buf[3];
-    return errPos;
-}
+    }, {
+        zfstringAppend(s, zfText("(%d, %d, %d, %d)"), v.left, v.top, v.right, v.bottom);
+    })
 
 ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ZFUIMargin, ZFUIMargin)
 
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFUIMargin)
 
-ZFOUTPUT_TYPE_DEFINE(ZFUIMargin, {output << ZFUIMarginToString(v);})
 ZFINPUT_TYPE_DEFINE(ZFUIMargin, ZFUIMargin, {
     v = ZFUIMarginZero;
     ZFCoreArrayPOD<zfint> elementsTmp;
@@ -98,25 +86,20 @@ ZFINPUT_TYPE_DEFINE(ZFUIMargin, ZFUIMargin, {
 // ZFUISize
 const ZFUISize ZFUISizeZero = {0, 0};
 const ZFUISize ZFUISizeInvalid = {-1, -1};
-void ZFUISizeToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFUISize const &value)
-{
-    zfstringAppend(ret, zfText("(%d, %d)"), value.width, value.height);
-}
-const zfchar *ZFUISizeFromString(ZF_OUT ZFUISize &ret,
-                                 ZF_IN const zfchar *src,
-                                 ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    zfCoreAssert(src != zfnull);
-    ZFCoreArrayPOD<zfint> buf;
-    const zfchar *errPos = zfCoreDataPairSplitInt(buf, 2, src, srcLen);
-    if(errPos != zfnull)
-    {
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFUISize, ZFUISize, {
+        zfCoreAssert(src != zfnull);
+        ZFCoreArrayPOD<zfint> buf;
+        const zfchar *errPos = zfCoreDataPairSplitInt(buf, 2, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
+        v.width = buf[0];
+        v.height = buf[1];
         return errPos;
-    }
-    ret.width = buf[0];
-    ret.height = buf[1];
-    return errPos;
-}
+    }, {
+        zfstringAppend(s, zfText("(%d, %d)"), v.width, v.height);
+    })
 
 void ZFUISizeApplyAspectRatio(ZF_OUT ZFUISize &ret,
                               ZF_IN const ZFUISize &size,
@@ -151,7 +134,6 @@ ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ZFUISize, ZFUISize)
 
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFUISize)
 
-ZFOUTPUT_TYPE_DEFINE(ZFUISize, {output << ZFUISizeToString(v);})
 ZFINPUT_TYPE_DEFINE(ZFUISize, ZFUISize, {
     v = ZFUISizeZero;
     ZFCoreArrayPOD<zfint> elementsTmp;
@@ -167,33 +149,27 @@ ZFINPUT_TYPE_DEFINE(ZFUISize, ZFUISize, {
 // ============================================================
 // ZFUIRect
 const ZFUIRect ZFUIRectZero = {{0, 0}, {0, 0}};
-void ZFUIRectToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFUIRect const &value)
-{
-    zfstringAppend(ret, zfText("(%d, %d, %d, %d)"), value.point.x, value.point.y, value.size.width, value.size.height);
-}
-const zfchar *ZFUIRectFromString(ZF_OUT ZFUIRect &ret,
-                                 ZF_IN const zfchar *src,
-                                 ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    zfCoreAssert(src != zfnull);
-    ZFCoreArrayPOD<zfint> buf;
-    const zfchar *errPos = zfCoreDataPairSplitInt(buf, 4, src, srcLen);
-    if(errPos != zfnull)
-    {
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFUIRect, ZFUIRect, {
+        zfCoreAssert(src != zfnull);
+        ZFCoreArrayPOD<zfint> buf;
+        const zfchar *errPos = zfCoreDataPairSplitInt(buf, 4, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
+        v.point.x = buf[0];
+        v.point.y = buf[1];
+        v.size.width = buf[2];
+        v.size.height = buf[3];
         return errPos;
-    }
-    ret.point.x = buf[0];
-    ret.point.y = buf[1];
-    ret.size.width = buf[2];
-    ret.size.height = buf[3];
-    return errPos;
-}
+    }, {
+        zfstringAppend(s, zfText("(%d, %d, %d, %d)"), v.point.x, v.point.y, v.size.width, v.size.height);
+    })
 
 ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ZFUIRect, ZFUIRect)
 
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFUIRect)
 
-ZFOUTPUT_TYPE_DEFINE(ZFUIRect, {output << ZFUIRectToString(v);})
 ZFINPUT_TYPE_DEFINE(ZFUIRect, ZFUIRect, {
     v = ZFUIRectZero;
     ZFCoreArrayPOD<zfint> elementsTmp;
@@ -355,63 +331,57 @@ ZFUIAlignEnum ZFUIAlignGetY(ZF_IN const ZFUIAlignFlags &align)
 // ZFUIColor
 ZFUIColor ZFUIColorZero(0x00000000);
 
-void ZFUIColorToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFUIColor const &value)
-{
-    zfstringAppend(ret, zfText("#%02X%02X%02X%02X"),
-        ZFUIColorGetA(value),
-        ZFUIColorGetR(value),
-        ZFUIColorGetG(value),
-        ZFUIColorGetB(value));
-}
-const zfchar *ZFUIColorFromString(ZF_OUT ZFUIColor &color,
-                                  ZF_IN const zfchar *s,
-                                  ZF_IN_OPT zfindex count /* = zfindexMax */)
-{
-    zfuint32 c = 0;
-    do
-    {
-        if(s == zfnull
-            || (count != zfindexMax && count != 9))
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFUIColor, ZFUIColor, {
+        zfuint32 c = 0;
+        do
         {
-            return s;
-        }
-        if(*s != '#') {return s;} ++s;
-        zfuint tmp = 0;
-        const zfchar *tmpPos = zfnull;
+            if(src == zfnull
+                || (srcLen != zfindexMax && srcLen != 9))
+            {
+                return src;
+            }
+            if(*src != '#') {return src;} ++src;
+            zfuint tmp = 0;
+            const zfchar *tmpPos = zfnull;
 
-        tmp = 0;
-        tmpPos = zfsToInt(tmp, s, 2, 16);
-        if(tmpPos != zfnull) {return tmpPos;} s += 2;
-        ZFBitSet(c, (tmp << 24));
+            tmp = 0;
+            tmpPos = zfsToInt(tmp, src, 2, 16);
+            if(tmpPos != zfnull) {return tmpPos;} src += 2;
+            ZFBitSet(c, (tmp << 24));
 
-        tmp = 0;
-        tmpPos = zfsToInt(tmp, s, 2, 16);
-        if(tmpPos != zfnull) {return tmpPos;} s += 2;
-        ZFBitSet(c, (tmp << 16));
+            tmp = 0;
+            tmpPos = zfsToInt(tmp, src, 2, 16);
+            if(tmpPos != zfnull) {return tmpPos;} src += 2;
+            ZFBitSet(c, (tmp << 16));
 
-        tmp = 0;
-        tmpPos = zfsToInt(tmp, s, 2, 16);
-        if(tmpPos != zfnull) {return tmpPos;} s += 2;
-        ZFBitSet(c, (tmp << 8));
+            tmp = 0;
+            tmpPos = zfsToInt(tmp, src, 2, 16);
+            if(tmpPos != zfnull) {return tmpPos;} src += 2;
+            ZFBitSet(c, (tmp << 8));
 
-        tmp = 0;
-        tmpPos = zfsToInt(tmp, s, 2, 16);
-        if(tmpPos != zfnull) {return tmpPos;} s += 2;
-        ZFBitSet(c, (tmp));
+            tmp = 0;
+            tmpPos = zfsToInt(tmp, src, 2, 16);
+            if(tmpPos != zfnull) {return tmpPos;} src += 2;
+            ZFBitSet(c, (tmp));
 
-        ZFUNUSED(s);
-    } while(zffalse);
+            ZFUNUSED(src);
+        } while(zffalse);
 
-    color = c;
+        v = c;
 
-    return zfnull;
-}
+        return zfnull;
+    }, {
+        zfstringAppend(s, zfText("#%02X%02X%02X%02X"),
+            ZFUIColorGetA(v),
+            ZFUIColorGetR(v),
+            ZFUIColorGetG(v),
+            ZFUIColorGetB(v));
+    })
 
 ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ZFUIColor, ZFUIColor)
 
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFUIColor)
 
-ZFOUTPUT_TYPE_DEFINE(ZFUIColor, {output << ZFUIColorToString(v);})
 ZFINPUT_TYPE_DEFINE(ZFUIColor, ZFUIColor, {
     v = ZFUIColorZero;
     zfchar buf[16] = {0};

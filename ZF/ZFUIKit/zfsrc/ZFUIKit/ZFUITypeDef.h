@@ -125,6 +125,9 @@ public:
     zfint x;   /**< @brief x */
     zfint y;   /**< @brief y */
 };
+
+ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIPoint, ZFUIPoint)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  *
@@ -136,11 +139,10 @@ public:
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIPoint, ZFUIPoint)
-
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIPoint, ZFUIPoint)
 ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIPoint, ZFUIPoint)
 
-ZFOUTPUT_TYPE_DECLARE(ZFUIPoint)
+ZFOUTPUT_TYPE(ZFUIPoint, {output << ZFUIPointToString(v);})
 ZFOUTPUT_TYPE(const ZFUIPoint *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
 ZFOUTPUT_TYPE(ZFUIPoint *, {output << (const ZFUIPoint *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUIPoint, ZFUIPoint)
@@ -154,8 +156,6 @@ ZFCOMPARER_DEFAULT_DECLARE(ZFUIPoint, ZFUIPoint, {
  * @brief (0, 0)
  */
 extern ZF_ENV_EXPORT const ZFUIPoint ZFUIPointZero;
-
-ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIPoint, ZFUIPoint)
 
 /**
  * @brief make a ZFUIPoint
@@ -215,6 +215,9 @@ public:
     zfint right;   /**< @brief right margin */
     zfint bottom;  /**< @brief bottom margin */
 };
+
+ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIMargin, ZFUIMargin)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  *
@@ -226,11 +229,10 @@ public:
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIMargin, ZFUIMargin)
-
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIMargin, ZFUIMargin)
 ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIMargin, ZFUIMargin)
 
-ZFOUTPUT_TYPE_DECLARE(ZFUIMargin)
+ZFOUTPUT_TYPE(ZFUIMargin, {output << ZFUIMarginToString(v);})
 ZFOUTPUT_TYPE(const ZFUIMargin *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
 ZFOUTPUT_TYPE(ZFUIMargin *, {output << (const ZFUIMargin *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUIMargin, ZFUIMargin)
@@ -244,8 +246,6 @@ ZFCOMPARER_DEFAULT_DECLARE(ZFUIMargin, ZFUIMargin, {
  * @brief (0, 0, 0, 0)
  */
 extern ZF_ENV_EXPORT const ZFUIMargin ZFUIMarginZero;
-
-ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIMargin, ZFUIMargin)
 
 /**
  * @brief make a margin
@@ -435,6 +435,9 @@ public:
     zfint width;   /**< @brief width */
     zfint height;  /**< @brief height */
 };
+
+ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISize, ZFUISize)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  *
@@ -446,11 +449,10 @@ public:
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUISize, ZFUISize)
-
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUISize, ZFUISize)
 ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUISize, ZFUISize)
 
-ZFOUTPUT_TYPE_DECLARE(ZFUISize)
+ZFOUTPUT_TYPE(ZFUISize, {output << ZFUISizeToString(v);})
 ZFOUTPUT_TYPE(const ZFUISize *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
 ZFOUTPUT_TYPE(ZFUISize *, {output << (const ZFUISize *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUISize, ZFUISize)
@@ -471,8 +473,6 @@ extern ZF_ENV_EXPORT const ZFUISize ZFUISizeZero;
  * we supply -1 as special size to indicate an invalid size
  */
 extern ZF_ENV_EXPORT const ZFUISize ZFUISizeInvalid;
-
-ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISize, ZFUISize)
 
 /**
  * @brief make a ZFUISize
@@ -631,6 +631,9 @@ public:
     ZFUIPoint point;      /**< @brief top-left point */
     ZFUISize size;        /**< @brief size of rect */
 };
+
+ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIRect, ZFUIRect)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  *
@@ -642,11 +645,10 @@ public:
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIRect, ZFUIRect)
-
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIRect, ZFUIRect)
 ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIRect, ZFUIRect)
 
-ZFOUTPUT_TYPE_DECLARE(ZFUIRect)
+ZFOUTPUT_TYPE(ZFUIRect, {output << ZFUIRectToString(v);})
 ZFOUTPUT_TYPE(const ZFUIRect *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
 ZFOUTPUT_TYPE(ZFUIRect *, {output << (const ZFUIRect *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUIRect, ZFUIRect)
@@ -660,8 +662,6 @@ ZFCOMPARER_DEFAULT_DECLARE(ZFUIRect, ZFUIRect, {
  * @brief (0, 0, 0, 0)
  */
 extern ZF_ENV_EXPORT const ZFUIRect ZFUIRectZero;
-
-ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIRect, ZFUIRect)
 
 /**
  * @brief make a ZFUIRect
@@ -1126,6 +1126,9 @@ public:
 private:
     zfuint32 color;
 };
+
+ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIColor, ZFUIColor)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  *
@@ -1136,11 +1139,10 @@ private:
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIColor, ZFUIColor)
-
 ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIColor, ZFUIColor)
 ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIColor, ZFUIColor)
 
-ZFOUTPUT_TYPE_DECLARE(ZFUIColor)
+ZFOUTPUT_TYPE(ZFUIColor, {output << ZFUIColorToString(v);})
 ZFOUTPUT_TYPE(const ZFUIColor *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
 ZFOUTPUT_TYPE(ZFUIColor *, {output << (const ZFUIColor *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUIColor, ZFUIColor)
@@ -1152,7 +1154,6 @@ inline zfbool ZFUIColorIsEqual(ZF_IN ZFUIColor const &v0, ZF_IN ZFUIColor const 
 {
     return (v0 == v1);
 }
-
 ZFCOMPARER_DEFAULT_DECLARE(ZFUIColor, ZFUIColor, {
         return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
@@ -1216,8 +1217,6 @@ ZFCOMPARER_DEFAULT_DECLARE(ZFUIColor, ZFUIColor, {
 
 /** @brief 0x00000000 */
 extern ZF_ENV_EXPORT ZFUIColor ZFUIColorZero;
-
-ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIColor, ZFUIColor)
 
 // ============================================================
 // ZFUITextAppearance

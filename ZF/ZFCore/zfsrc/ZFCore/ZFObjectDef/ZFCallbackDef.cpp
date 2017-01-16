@@ -24,57 +24,52 @@ void _ZFP_ZFCallback_executeNullCallback(ZF_IN const zfchar *createInfo)
 }
 
 // ============================================================
-void ZFCallbackTypeToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFCallbackType const &value)
-{
-    switch(value)
-    {
-        case ZFCallbackTypeDummy:
-            ret += ZFTOKEN_ZFCallbackTypeDummy;
-            return ;
-        case ZFCallbackTypeMethod:
-            ret += ZFTOKEN_ZFCallbackTypeMethod;
-            return ;
-        case ZFCallbackTypeMemberMethod:
-            ret += ZFTOKEN_ZFCallbackTypeMemberMethod;
-            return ;
-        case ZFCallbackTypeRawFunction:
-            ret += ZFTOKEN_ZFCallbackTypeRawFunction;
-            return ;
-        default:
-            zfCoreCriticalShouldNotGoHere();
-            return ;
-    }
-}
-const zfchar *ZFCallbackTypeFromString(ZF_OUT ZFCallbackType &ret,
-                                       ZF_IN const zfchar *src,
-                                       ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_ZFCallbackTypeDummy,
-        ZFTOKEN_ZFCallbackTypeMethod,
-        ZFTOKEN_ZFCallbackTypeMemberMethod,
-        ZFTOKEN_ZFCallbackTypeRawFunction,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = ZFCallbackTypeDummy;
-    switch(matched)
-    {
-        case 0:
-            ret = ZFCallbackTypeDummy;
-            return zfnull;
-        case 1:
-            ret = ZFCallbackTypeMethod;
-            return zfnull;
-        case 2:
-            ret = ZFCallbackTypeMemberMethod;
-            return zfnull;
-        case 3:
-            ret = ZFCallbackTypeRawFunction;
-            return zfnull;
-        default:
-            return src;
-    }
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFCallbackType, ZFCallbackType, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_ZFCallbackTypeDummy,
+            ZFTOKEN_ZFCallbackTypeMethod,
+            ZFTOKEN_ZFCallbackTypeMemberMethod,
+            ZFTOKEN_ZFCallbackTypeRawFunction,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = ZFCallbackTypeDummy;
+        switch(matched)
+        {
+            case 0:
+                v = ZFCallbackTypeDummy;
+                return zfnull;
+            case 1:
+                v = ZFCallbackTypeMethod;
+                return zfnull;
+            case 2:
+                v = ZFCallbackTypeMemberMethod;
+                return zfnull;
+            case 3:
+                v = ZFCallbackTypeRawFunction;
+                return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        switch(v)
+        {
+            case ZFCallbackTypeDummy:
+                s += ZFTOKEN_ZFCallbackTypeDummy;
+                return ;
+            case ZFCallbackTypeMethod:
+                s += ZFTOKEN_ZFCallbackTypeMethod;
+                return ;
+            case ZFCallbackTypeMemberMethod:
+                s += ZFTOKEN_ZFCallbackTypeMemberMethod;
+                return ;
+            case ZFCallbackTypeRawFunction:
+                s += ZFTOKEN_ZFCallbackTypeRawFunction;
+                return ;
+            default:
+                zfCoreCriticalShouldNotGoHere();
+                return ;
+        }
+    })
 
 // ============================================================
 // _ZFP_ZFCallbackPrivate

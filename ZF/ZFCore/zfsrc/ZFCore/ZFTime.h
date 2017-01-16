@@ -28,6 +28,9 @@ public:
     zftimet sec;     /**< second */
     zftimet usec;    /**< micro second */
 };
+
+ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFTimeValue, ZFTimeValue)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  *
@@ -40,6 +43,18 @@ public:
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFTimeValue, ZFTimeValue)
+ZFVAR_CONVERT_WRAPPER_DECLARE(ZFTimeValue, ZFTimeValue)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFTimeValue, ZFTimeValue)
+
+ZFOUTPUT_TYPE(ZFTimeValue, {output << ZFTimeValueToString(v);})
+ZFOUTPUT_TYPE(const ZFTimeValue *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
+ZFOUTPUT_TYPE(ZFTimeValue *, {output << (const ZFTimeValue *)v;})
+ZFINPUT_TYPE_DECLARE(ZFTimeValue, ZFTimeValue)
+
+ZFCORE_POD_COMPARER_DECLARE(ZFTimeValue)
+ZFCOMPARER_DEFAULT_DECLARE(ZFTimeValue, ZFTimeValue, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
+    })
 
 /** @brief keyword for serialize */
 #define ZFSerializableKeyword_ZFTimeValue_sec zfText("sec")
@@ -137,25 +152,20 @@ extern ZF_ENV_EXPORT ZFTimeValue ZFTimeValueDiv(ZF_IN const ZFTimeValue &tv,
 extern ZF_ENV_EXPORT ZFCompareResult ZFTimeValueCompare(ZF_IN const ZFTimeValue &tv1,
                                                         ZF_IN const ZFTimeValue &tv2);
 
-ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFTimeValue, ZFTimeValue)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFTimeValue, ZFTimeValue)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFTimeValue, ZFTimeValue)
-
 /**
  * @brief convert ZFTimeValue to more readable string, see #ZFTimeValueToString
  *
  * can't be converted back from string, usually for debug use only
  */
-extern ZF_ENV_EXPORT void ZFTimeValueToStringFriendly(ZF_IN_OUT zfstring &ret, ZF_IN ZFTimeValue const &value);
+extern ZF_ENV_EXPORT void ZFTimeValueToStringFriendly(ZF_IN_OUT zfstring &s, ZF_IN ZFTimeValue const &v);
 /** @brief see #ZFTimeValueToStringFriendly */
-inline zfstring ZFTimeValueToStringFriendly(ZF_IN ZFTimeValue const &value)
+inline zfstring ZFTimeValueToStringFriendly(ZF_IN ZFTimeValue const &v)
 {
-    zfstring ret;
-    ZFTimeValueToStringFriendly(ret, value);
-    return ret;
+    zfstring s;
+    ZFTimeValueToStringFriendly(s, v);
+    return s;
 }
 
-ZFCORE_POD_COMPARER_DECLARE(ZFTimeValue)
 /** @brief overrided operator for ZFTimeValue calculate */
 extern ZF_ENV_EXPORT zfbool operator <(ZF_IN const ZFTimeValue &v0, ZF_IN const ZFTimeValue &v1);
 /** @brief overrided operator for ZFTimeValue calculate */
@@ -180,15 +190,6 @@ extern ZF_ENV_EXPORT ZFTimeValue operator /(ZF_IN const ZFTimeValue &v0, ZF_IN c
 extern ZF_ENV_EXPORT void operator *=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfindex &v1);
 /** @brief overrided operator for ZFTimeValue calculate */
 extern ZF_ENV_EXPORT void operator /=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfindex &v1);
-
-ZFCOMPARER_DEFAULT_DECLARE(ZFTimeValue, ZFTimeValue, {
-        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
-    })
-
-ZFOUTPUT_TYPE_DECLARE(ZFTimeValue)
-ZFOUTPUT_TYPE(const ZFTimeValue *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
-ZFOUTPUT_TYPE(ZFTimeValue *, {output << (const ZFTimeValue *)v;})
-ZFINPUT_TYPE_DECLARE(ZFTimeValue, ZFTimeValue)
 
 // ============================================================
 // ZFTimeInfo
@@ -232,21 +233,21 @@ ZFCOMPARER_DEFAULT_DECLARE(ZFTimeInfo, ZFTimeInfo, {
         return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
-ZFOUTPUT_TYPE_DECLARE(ZFTimeInfo)
-ZFOUTPUT_TYPE(const ZFTimeInfo *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
-ZFOUTPUT_TYPE(ZFTimeInfo *, {output << (const ZFTimeInfo *)v;})
-
 /**
  * @brief convert ZFTimeInfo to string
  */
-extern ZF_ENV_EXPORT void ZFTimeInfoToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFTimeInfo const &value);
+extern ZF_ENV_EXPORT void ZFTimeInfoToString(ZF_IN_OUT zfstring &s, ZF_IN ZFTimeInfo const &v);
 /** @brief see #ZFTimeInfoToString */
-inline zfstring ZFTimeInfoToString(ZF_IN ZFTimeInfo const &value)
+inline zfstring ZFTimeInfoToString(ZF_IN ZFTimeInfo const &v)
 {
-    zfstring ret;
-    ZFTimeInfoToString(ret, value);
-    return ret;
+    zfstring s;
+    ZFTimeInfoToString(s, v);
+    return s;
 }
+
+ZFOUTPUT_TYPE(ZFTimeInfo, {output << ZFTimeInfoToString(v);})
+ZFOUTPUT_TYPE(const ZFTimeInfo *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
+ZFOUTPUT_TYPE(ZFTimeInfo *, {output << (const ZFTimeInfo *)v;})
 
 // ============================================================
 // ZFTime

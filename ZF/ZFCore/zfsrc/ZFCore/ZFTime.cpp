@@ -133,62 +133,57 @@ ZFCompareResult ZFTimeValueCompare(ZF_IN const ZFTimeValue &tv1,
     }
 }
 
-void ZFTimeValueToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFTimeValue const &value)
-{
-    ret += zfText("(");
-    zfsFromIntT(ret, value.sec);
-    ret += zfText(", ");
-    zfsFromIntT(ret, value.usec);
-    ret += zfText(")");
-}
-const zfchar *ZFTimeValueFromString(ZF_OUT ZFTimeValue &ret,
-                                    ZF_IN const zfchar *src,
-                                    ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    ZFCoreArrayPOD<zftimet> tmp;
-    const zfchar *errPos = zfCoreDataPairSplitInt(tmp, 2, src, srcLen);
-    if(errPos != zfnull)
-    {
-        return errPos;
-    }
-    ret.sec = tmp[0];
-    ret.usec = tmp[1];
-    return zfnull;
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFTimeValue, ZFTimeValue, {
+        ZFCoreArrayPOD<zftimet> tmp;
+        const zfchar *errPos = zfCoreDataPairSplitInt(tmp, 2, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
+        v.sec = tmp[0];
+        v.usec = tmp[1];
+        return zfnull;
+    }, {
+        s += zfText("(");
+        zfsFromIntT(s, v.sec);
+        s += zfText(", ");
+        zfsFromIntT(s, v.usec);
+        s += zfText(")");
+    })
 
-void ZFTimeValueToStringFriendly(ZF_IN_OUT zfstring &ret, ZF_IN ZFTimeValue const &value)
+void ZFTimeValueToStringFriendly(ZF_IN_OUT zfstring &s, ZF_IN ZFTimeValue const &v)
 {
     ZFTimeInfo ti;
-    if(ZFTime::timeInfoFromTimeValue(ti, value))
+    if(ZFTime::timeInfoFromTimeValue(ti, v))
     {
         if(ti.year != 0)
         {
-            zfstringAppend(ret, zfText("%02d-"), ti.year);
+            zfstringAppend(s, zfText("%02d-"), ti.year);
         }
-        if(!ret.isEmpty() || ti.month != 0 || ti.day != 0)
+        if(!s.isEmpty() || ti.month != 0 || ti.day != 0)
         {
-            zfstringAppend(ret, zfText("%02u-%02u "), ti.month + 1, ti.day + 1);
-        }
-
-        if(!ret.isEmpty() || ti.hour != 0 || ti.minute != 0)
-        {
-            zfstringAppend(ret, zfText("%02u:%02u:"), ti.hour, ti.minute);
+            zfstringAppend(s, zfText("%02u-%02u "), ti.month + 1, ti.day + 1);
         }
 
-        if(!ret.isEmpty())
+        if(!s.isEmpty() || ti.hour != 0 || ti.minute != 0)
         {
-            zfstringAppend(ret, zfText("%02u."), ti.second);
+            zfstringAppend(s, zfText("%02u:%02u:"), ti.hour, ti.minute);
+        }
+
+        if(!s.isEmpty())
+        {
+            zfstringAppend(s, zfText("%02u."), ti.second);
         }
         else
         {
-            zfstringAppend(ret, zfText("%u."), ti.second);
+            zfstringAppend(s, zfText("%u."), ti.second);
         }
 
-        zfstringAppend(ret, zfText("%03u%03u"), ti.miliSecond, ti.microSecond);
+        zfstringAppend(s, zfText("%03u%03u"), ti.miliSecond, ti.microSecond);
     }
     else
     {
-        zfstringAppend(ret, zfText("%s.%06s"), zfsFromInt(value.sec).cString(), zfsFromInt(value.usec).cString());
+        zfstringAppend(s, zfText("%s.%06s"), zfsFromInt(v.sec).cString(), zfsFromInt(v.usec).cString());
     }
 }
 
@@ -282,7 +277,6 @@ ZFPROPERTY_TYPE_DEFINE(ZFTimeValue, ZFTimeValue, {
     })
 
 // ============================================================
-ZFOUTPUT_TYPE_DEFINE(ZFTimeValue, {output << ZFTimeValueToString(v);})
 ZFINPUT_TYPE_DEFINE(ZFTimeValue, ZFTimeValue, {
     v = ZFTimeValueZero;
     ZFCoreArrayPOD<zftimet> elementsTmp;
@@ -299,16 +293,13 @@ ZFINPUT_TYPE_DEFINE(ZFTimeValue, ZFTimeValue, {
 // ZFTimeInfo
 const ZFTimeInfo ZFTimeInfoZero = {0, 0, 0, 0, 0, 0, 0, 0};
 
-void ZFTimeInfoToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFTimeInfo const &value)
+void ZFTimeInfoToString(ZF_IN_OUT zfstring &s, ZF_IN ZFTimeInfo const &v)
 {
-    zfstringAppend(ret, zfText("%d-%02u-%02u %02u:%02u:%02u.%03u %03u"),
-        value.year, value.month + 1, value.day + 1,
-        value.hour, value.minute, value.second,
-        value.miliSecond, value.microSecond);
+    zfstringAppend(s, zfText("%d-%02u-%02u %02u:%02u:%02u.%03u %03u"),
+        v.year, v.month + 1, v.day + 1,
+        v.hour, v.minute, v.second,
+        v.miliSecond, v.microSecond);
 }
-
-// ============================================================
-ZFOUTPUT_TYPE_DEFINE(ZFTimeInfo, {output << ZFTimeInfoToString(v);})
 
 // ============================================================
 #define _ZFP_ZFTimeImpl ZFPROTOCOL_ACCESS(ZFTime)

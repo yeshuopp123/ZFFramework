@@ -11,43 +11,34 @@
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
-void ZFFileBOMToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFFileBOM const &value)
-{
-    for(zfindex i = 0; value.BOM[i] != 0x00; ++i)
-    {
-        zfstringAppend(ret, zfText("%02X"), value.BOM[i]);
-    }
-}
-const zfchar *ZFFileBOMFromString(ZF_OUT ZFFileBOM &ret,
-                                  ZF_IN const zfchar *src,
-                                  ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    if(srcLen == zfindexMax)
-    {
-        srcLen = zfslen(src);
-    }
-    if((srcLen % 2) != 0 || srcLen >= ZFFileBOMMaxSize)
-    {
-        return src;
-    }
-
-    zfmemset(ret.BOM, 0, sizeof(ret.BOM));
-
-    for(zfindex i = 0; ; ++i, src += 2)
-    {
-        if(zfnull != zfsToInt(ret.BOM[i], src, 2, 16))
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFFileBOM, ZFFileBOM, {
+        if(srcLen == zfindexMax)
+        {
+            srcLen = zfslen(src);
+        }
+        if((srcLen % 2) != 0 || srcLen >= ZFFileBOMMaxSize)
         {
             return src;
         }
-    }
 
-    return zfnull;
-}
+        zfmemset(v.BOM, 0, sizeof(v.BOM));
 
-void ZFFileBOMListToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFCoreArrayPOD<ZFFileBOM> const &value)
-{
-    ZFFileBOMListToString(ret, value.arrayBuf(), value.count());
-}
+        for(zfindex i = 0; ; ++i, src += 2)
+        {
+            if(zfnull != zfsToInt(v.BOM[i], src, 2, 16))
+            {
+                return src;
+            }
+        }
+
+        return zfnull;
+    }, {
+        for(zfindex i = 0; v.BOM[i] != 0x00; ++i)
+        {
+            zfstringAppend(s, zfText("%02X"), v.BOM[i]);
+        }
+    })
+
 void ZFFileBOMListToString(ZF_IN_OUT zfstring &ret,
                            ZF_IN const ZFFileBOM *BOMList,
                            ZF_IN zfindex BOMListCount)
@@ -63,30 +54,29 @@ void ZFFileBOMListToString(ZF_IN_OUT zfstring &ret,
     }
     ret += zfText(")");
 }
-const zfchar *ZFFileBOMListFromString(ZF_OUT ZFCoreArrayPOD<ZFFileBOM> &ret,
-                                      ZF_IN const zfchar *src,
-                                      ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    ZFCoreArrayPOD<zfindexRange> pos;
-    const zfchar *tmp = zfCoreDataPairSplitString(pos, zfindexMax, src, srcLen);
-    if(tmp != zfnull)
-    {
-        return zfnull;
-    }
-
-    for(zfindex i = 0; i < pos.count(); ++i)
-    {
-        ZFFileBOM bom;
-        tmp = ZFFileBOMFromString(bom, src + pos[i].start, pos[i].count);
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFFileBOMList, ZFCoreArrayPOD<ZFFileBOM>, {
+        ZFCoreArrayPOD<zfindexRange> pos;
+        const zfchar *tmp = zfCoreDataPairSplitString(pos, zfindexMax, src, srcLen);
         if(tmp != zfnull)
         {
-            return tmp;
+            return zfnull;
         }
-        ret.add(bom);
-    }
 
-    return zfnull;
-}
+        for(zfindex i = 0; i < pos.count(); ++i)
+        {
+            ZFFileBOM bom;
+            tmp = ZFFileBOMFromString(bom, src + pos[i].start, pos[i].count);
+            if(tmp != zfnull)
+            {
+                return tmp;
+            }
+            v.add(bom);
+        }
+
+        return zfnull;
+    }, {
+        ZFFileBOMListToString(s, v.arrayBuf(), v.count());
+    })
 
 const ZFFileBOM &_ZFP_ZFFileBOMUTF8(void)
 {

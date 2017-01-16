@@ -52,6 +52,9 @@ public:
     ZFUISizeTypeEnum width;   /**< @brief width */
     ZFUISizeTypeEnum height;  /**< @brief height */
 };
+
+ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISizeParam, ZFUISizeParam)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  *
@@ -63,13 +66,18 @@ public:
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUISizeParam, ZFUISizeParam)
+ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUISizeParam, ZFUISizeParam)
+ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUISizeParam, ZFUISizeParam)
+
+ZFOUTPUT_TYPE(ZFUISizeParam, {output << ZFUISizeParamToString(v);})
+ZFOUTPUT_TYPE(const ZFUISizeParam *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
+ZFOUTPUT_TYPE(ZFUISizeParam *, {output << (const ZFUISizeParam *)v;})
+ZFINPUT_TYPE_DECLARE(ZFUISizeParam, ZFUISizeParam)
 
 ZFCORE_POD_COMPARER_DECLARE(ZFUISizeParam)
 ZFCOMPARER_DEFAULT_DECLARE(ZFUISizeParam, ZFUISizeParam, {
         return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
-
-ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISizeParam, ZFUISizeParam)
 
 /**
  * @brief make a ZFUISizeParam
@@ -105,14 +113,6 @@ extern ZF_ENV_EXPORT const ZFUISizeParam ZFUISizeParamWrapWidthFillHeight;
  * @brief #ZFUISizeParamMake(#ZFUISizeType::e_Fill, #ZFUISizeType::e_Fill)
  */
 extern ZF_ENV_EXPORT const ZFUISizeParam ZFUISizeParamFillWidthFillHeight;
-
-// ============================================================
-ZFOUTPUT_TYPE_DECLARE(ZFUISizeParam)
-ZFOUTPUT_TYPE(const ZFUISizeParam *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
-ZFOUTPUT_TYPE(ZFUISizeParam *, {output << (const ZFUISizeParam *)v;})
-ZFINPUT_TYPE_DECLARE(ZFUISizeParam, ZFUISizeParam)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUISizeParam, ZFUISizeParam)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUISizeParam, ZFUISizeParam)
 
 // ============================================================
 // ZFUILayoutParam

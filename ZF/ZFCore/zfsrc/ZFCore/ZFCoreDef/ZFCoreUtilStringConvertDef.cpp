@@ -173,117 +173,87 @@ const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
 }
 
 // ============================================================
-void zfcharToString(ZF_IN_OUT zfstring &ret, ZF_IN zfchar const &value)
-{
-    ret += value;
-}
-const zfchar *zfcharFromString(ZF_OUT zfchar &ret,
-                               ZF_IN const zfchar *src,
-                               ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    if(src == zfnull)
-    {
-        return src;
-    }
-    ret = *src;
-    return zfnull;
-}
-
-// ============================================================
-void zfstringToString(ZF_IN_OUT zfstring &ret, ZF_IN zfstring const &value)
-{
-    ret += value;
-}
-const zfchar *zfstringFromString(ZF_OUT zfstring &ret,
-                                 ZF_IN const zfchar *src,
-                                 ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    if(src == zfnull)
-    {
-        return src;
-    }
-    ret.append(src, srcLen);
-    return zfnull;
-}
-
-// ============================================================
-void zfboolToString(ZF_IN_OUT zfstring &ret, ZF_IN zfbool const &value)
-{
-    ret += (value ? ZFTOKEN_zfbool_zftrue : ZFTOKEN_zfbool_zffalse);
-}
-const zfchar *zfboolFromString(ZF_OUT zfbool &ret,
-                               ZF_IN const zfchar *src,
-                               ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_zfbool_zftrue,
-        ZFTOKEN_zfbool_zffalse,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = zffalse;
-    switch(matched)
-    {
-        case 0:
-            ret = zftrue;
-            return zfnull;
-        case 1:
-            ret = zffalse;
-            return zfnull;
-        default:
+ZFCORETYPE_STRING_CONVERTER_DEFINE(zfchar, zfchar, {
+        if(src == zfnull)
+        {
             return src;
-    }
-}
+        }
+        v = *src;
+        return zfnull;
+    }, {
+        s += v;
+    })
 
 // ============================================================
-void zfbyteToString(ZF_IN_OUT zfstring &ret, ZF_IN zfbyte const &value)
-{
-    zfsFromIntT(ret, value, 16);
-}
-const zfchar *zfbyteFromString(ZF_OUT zfbyte &ret,
-                               ZF_IN const zfchar *src,
-                               ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    return zfsToInt(ret, src, srcLen, 16, zffalse);
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(zfstring, zfstring, {
+        if(src == zfnull)
+        {
+            return src;
+        }
+        v.append(src, srcLen);
+        return zfnull;
+    }, {
+        s += v;
+    })
+
+// ============================================================
+ZFCORETYPE_STRING_CONVERTER_DEFINE(zfbool, zfbool, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_zfbool_zftrue,
+            ZFTOKEN_zfbool_zffalse,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = zffalse;
+        switch(matched)
+        {
+            case 0:
+                v = zftrue;
+                return zfnull;
+            case 1:
+                v = zffalse;
+                return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        s += (v ? ZFTOKEN_zfbool_zftrue : ZFTOKEN_zfbool_zffalse);
+    })
+
+// ============================================================
+ZFCORETYPE_STRING_CONVERTER_DEFINE(zfbyte, zfbyte, {
+        return zfsToInt(v, src, srcLen, 16, zffalse);
+    }, {
+        zfsFromIntT(s, v, 16);
+    })
 
 // ============================================================
 #define _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_allow_negative(TypeName, Type) \
-    void TypeName##ToString(ZF_IN_OUT zfstring &ret, ZF_IN Type const &value) \
-    { \
-        zfsFromIntT(ret, value); \
-    } \
-    const zfchar *TypeName##FromString(ZF_OUT Type &ret, \
-                                       ZF_IN const zfchar *src, \
-                                       ZF_IN_OPT zfindex srcLen /* = zfindexMax */) \
-    { \
-        return zfsToInt(ret, src, srcLen, 10, zftrue); \
-    }
+    ZFCORETYPE_STRING_CONVERTER_DEFINE(TypeName, Type, { \
+            return zfsToInt(v, src, srcLen, 10, zftrue); \
+        }, { \
+            zfsFromIntT(s, v); \
+        })
 #define _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(TypeName, Type) \
-    void TypeName##ToString(ZF_IN_OUT zfstring &ret, ZF_IN Type const &value) \
-    { \
-        if(value == ((Type)-1)) \
-        { \
-            ret += zfText("-1"); \
-        } \
-        else \
-        { \
-            zfsFromIntT(ret, value); \
-        } \
-    } \
-    const zfchar *TypeName##FromString(ZF_OUT Type &ret, \
-                                       ZF_IN const zfchar *src, \
-                                       ZF_IN_OPT zfindex srcLen /* = zfindexMax */) \
-    { \
-        if(srcLen >= 2 && src != zfnull && zfsncmp(src, zfText("-1"), srcLen) == 0) \
-        { \
-            ret = (Type)-1; \
-            return zfnull; \
-        } \
-        else \
-        { \
-            return zfsToInt(ret, src, srcLen, 10, zffalse); \
-        } \
-    }
+    ZFCORETYPE_STRING_CONVERTER_DEFINE(TypeName, Type, { \
+            if(srcLen >= 2 && src != zfnull && zfsncmp(src, zfText("-1"), srcLen) == 0) \
+            { \
+                v = (Type)-1; \
+                return zfnull; \
+            } \
+            else \
+            { \
+                return zfsToInt(v, src, srcLen, 10, zffalse); \
+            } \
+        }, { \
+            if(v == ((Type)-1)) \
+            { \
+                s += zfText("-1"); \
+            } \
+            else \
+            { \
+                zfsFromIntT(s, v); \
+            } \
+        })
 
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_allow_negative(zfint, zfint)
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfuint, zfuint)
@@ -300,16 +270,11 @@ _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfuint64, zfuint64
 
 // ============================================================
 #define _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_float(TypeName, Type) \
-    void TypeName##ToString(ZF_IN_OUT zfstring &ret, ZF_IN Type const &value) \
-    { \
-        zfsFromFloatT(ret, value); \
-    } \
-    const zfchar *TypeName##FromString(ZF_OUT Type &ret, \
-                                       ZF_IN const zfchar *src, \
-                                       ZF_IN_OPT zfindex srcLen /* = zfindexMax */) \
-    { \
-        return zfsToFloat(ret, src, srcLen); \
-    }
+    ZFCORETYPE_STRING_CONVERTER_DEFINE(TypeName, Type, { \
+            return zfsToFloat(v, src, srcLen); \
+        }, { \
+            zfsFromFloatT(s, v); \
+        })
 
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_float(zffloat, zffloat)
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_float(zfdouble, zfdouble)
@@ -325,131 +290,116 @@ _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfflags, zfflags)
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfidentity, zfidentity)
 
 // ============================================================
-void ZFCompareResultToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFCompareResult const &value)
-{
-    switch(value)
-    {
-        case ZFCompareUncomparable:
-            ret += ZFTOKEN_ZFCompareUncomparable;
-            return ;
-        case ZFCompareSmaller:
-            ret += ZFTOKEN_ZFCompareSmaller;
-            return ;
-        case ZFCompareTheSame:
-            ret += ZFTOKEN_ZFCompareTheSame;
-            return ;
-        case ZFCompareGreater:
-            ret += ZFTOKEN_ZFCompareGreater;
-            return ;
-        default:
-            zfCoreCriticalShouldNotGoHere();
-            return ;
-    }
-}
-const zfchar *ZFCompareResultFromString(ZF_OUT ZFCompareResult &ret,
-                                        ZF_IN const zfchar *src,
-                                        ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    if(src == zfnull) {return zfnull;}
-    if(zfsncmp(src, ZFTOKEN_ZFCompareTheSame, srcLen) == 0)
-    {
-        ret = ZFCompareTheSame;
-        return zfnull;
-    }
-    else if(zfsncmp(src, ZFTOKEN_ZFCompareSmaller, srcLen) == 0)
-    {
-        ret = ZFCompareSmaller;
-        return zfnull;
-    }
-    else if(zfsncmp(src, ZFTOKEN_ZFCompareGreater, srcLen) == 0)
-    {
-        ret = ZFCompareGreater;
-        return zfnull;
-    }
-    else if(zfsncmp(src, ZFTOKEN_ZFCompareUncomparable, srcLen) == 0)
-    {
-        ret = ZFCompareUncomparable;
-        return zfnull;
-    }
-    else
-    {
-        return src;
-    }
-}
-
-// ============================================================
-void ZFSeekPosToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFSeekPos const &value)
-{
-    switch(value)
-    {
-        case ZFSeekPosBegin:
-            ret += ZFTOKEN_ZFSeekPosBegin;
-            return ;
-        case ZFSeekPosCur:
-            ret += ZFTOKEN_ZFSeekPosCur;
-            return ;
-        case ZFSeekPosCurReversely:
-            ret += ZFTOKEN_ZFSeekPosCurReversely;
-            return ;
-        case ZFSeekPosEnd:
-            ret += ZFTOKEN_ZFSeekPosEnd;
-            return ;
-        default:
-            zfCoreCriticalShouldNotGoHere();
-            return ;
-    }
-}
-const zfchar *ZFSeekPosFromString(ZF_OUT ZFSeekPos &ret,
-                                  ZF_IN const zfchar *src,
-                                  ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_ZFSeekPosBegin,
-        ZFTOKEN_ZFSeekPosCur,
-        ZFTOKEN_ZFSeekPosCurReversely,
-        ZFTOKEN_ZFSeekPosEnd,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = ZFSeekPosBegin;
-    switch(matched)
-    {
-        case 0:
-            ret = ZFSeekPosBegin;
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFCompareResult, ZFCompareResult, {
+        if(src == zfnull) {return zfnull;}
+        if(zfsncmp(src, ZFTOKEN_ZFCompareTheSame, srcLen) == 0)
+        {
+            v = ZFCompareTheSame;
             return zfnull;
-        case 1:
-            ret = ZFSeekPosCur;
+        }
+        else if(zfsncmp(src, ZFTOKEN_ZFCompareSmaller, srcLen) == 0)
+        {
+            v = ZFCompareSmaller;
             return zfnull;
-        case 2:
-            ret = ZFSeekPosCurReversely;
+        }
+        else if(zfsncmp(src, ZFTOKEN_ZFCompareGreater, srcLen) == 0)
+        {
+            v = ZFCompareGreater;
             return zfnull;
-        case 3:
-            ret = ZFSeekPosEnd;
+        }
+        else if(zfsncmp(src, ZFTOKEN_ZFCompareUncomparable, srcLen) == 0)
+        {
+            v = ZFCompareUncomparable;
             return zfnull;
-        default:
+        }
+        else
+        {
             return src;
-    }
-}
+        }
+    }, {
+        switch(v)
+        {
+            case ZFCompareUncomparable:
+                s += ZFTOKEN_ZFCompareUncomparable;
+                return ;
+            case ZFCompareSmaller:
+                s += ZFTOKEN_ZFCompareSmaller;
+                return ;
+            case ZFCompareTheSame:
+                s += ZFTOKEN_ZFCompareTheSame;
+                return ;
+            case ZFCompareGreater:
+                s += ZFTOKEN_ZFCompareGreater;
+                return ;
+            default:
+                zfCoreCriticalShouldNotGoHere();
+                return ;
+        }
+    })
 
 // ============================================================
-void zfindexRangeToString(ZF_IN_OUT zfstring &ret, ZF_IN zfindexRange const &value)
-{
-    zfstringAppend(ret, zfText("(%zi, %zi)"), value.start, value.count);
-}
-const zfchar *zfindexRangeFromString(ZF_OUT zfindexRange &ret,
-                                     ZF_IN const zfchar *src,
-                                     ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    ret = zfindexRangeZero;
-    ZFCoreArrayPOD<zfindex> pair;
-    const zfchar *errPos = zfCoreDataPairSplitInt(pair, 2, src, srcLen);
-    if(errPos != zfnull)
-    {
-        return errPos;
-    }
-    ret.start = pair[0];
-    ret.count = pair[1];
-    return zfnull;
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFSeekPos, ZFSeekPos, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_ZFSeekPosBegin,
+            ZFTOKEN_ZFSeekPosCur,
+            ZFTOKEN_ZFSeekPosCurReversely,
+            ZFTOKEN_ZFSeekPosEnd,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = ZFSeekPosBegin;
+        switch(matched)
+        {
+            case 0:
+                v = ZFSeekPosBegin;
+                return zfnull;
+            case 1:
+                v = ZFSeekPosCur;
+                return zfnull;
+            case 2:
+                v = ZFSeekPosCurReversely;
+                return zfnull;
+            case 3:
+                v = ZFSeekPosEnd;
+                return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        switch(v)
+        {
+            case ZFSeekPosBegin:
+                s += ZFTOKEN_ZFSeekPosBegin;
+                return ;
+            case ZFSeekPosCur:
+                s += ZFTOKEN_ZFSeekPosCur;
+                return ;
+            case ZFSeekPosCurReversely:
+                s += ZFTOKEN_ZFSeekPosCurReversely;
+                return ;
+            case ZFSeekPosEnd:
+                s += ZFTOKEN_ZFSeekPosEnd;
+                return ;
+            default:
+                zfCoreCriticalShouldNotGoHere();
+                return ;
+        }
+    })
+
+// ============================================================
+ZFCORETYPE_STRING_CONVERTER_DEFINE(zfindexRange, zfindexRange, {
+        v = zfindexRangeZero;
+        ZFCoreArrayPOD<zfindex> pair;
+        const zfchar *errPos = zfCoreDataPairSplitInt(pair, 2, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
+        v.start = pair[0];
+        v.count = pair[1];
+        return zfnull;
+    }, {
+        zfstringAppend(s, zfText("(%zi, %zi)"), v.start, v.count);
+    })
 
 ZF_NAMESPACE_GLOBAL_END
 

@@ -174,31 +174,26 @@ const ZFBezier ZFBezierBounceOut(0, 0, 0.8f, 1.5f);
 const ZFBezier ZFBezierBounceInOut(0.2f, -0.5f, 0.8f, 1.5f);
 
 // ============================================================
-void ZFBezierToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFBezier const &value)
-{
-    ret += zfText("(");
-    zfsFromFloatT(ret, value.p0x);
-    ret += zfText(", ");
-    zfsFromFloatT(ret, value.p0y);
-    ret += zfText(", ");
-    zfsFromFloatT(ret, value.p1x);
-    ret += zfText(", ");
-    zfsFromFloatT(ret, value.p1y);
-    ret += zfText(")");
-}
-const zfchar *ZFBezierFromString(ZF_OUT ZFBezier &ret,
-                                 ZF_IN const zfchar *src,
-                                 ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    ZFCoreArrayPOD<zffloat> tmp;
-    const zfchar *errPos = zfCoreDataPairSplitFloat(tmp, 4, src, srcLen);
-    if(errPos != zfnull)
-    {
-        return errPos;
-    }
-    ret.controlPointSet(tmp[0], tmp[1], tmp[2], tmp[3]);
-    return zfnull;
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFBezier, ZFBezier, {
+        ZFCoreArrayPOD<zffloat> tmp;
+        const zfchar *errPos = zfCoreDataPairSplitFloat(tmp, 4, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
+        v.controlPointSet(tmp[0], tmp[1], tmp[2], tmp[3]);
+        return zfnull;
+    }, {
+        s += zfText("(");
+        zfsFromFloatT(s, v.p0x);
+        s += zfText(", ");
+        zfsFromFloatT(s, v.p0y);
+        s += zfText(", ");
+        zfsFromFloatT(s, v.p1x);
+        s += zfText(", ");
+        zfsFromFloatT(s, v.p1y);
+        s += zfText(")");
+    })
 
 // ============================================================
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFBezier)

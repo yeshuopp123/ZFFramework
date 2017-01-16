@@ -12,99 +12,94 @@
 
 ZF_NAMESPACE_GLOBAL_BEGIN
 
-void ZFClassFilterTypeToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFClassFilterType const &value)
-{
-    switch(value)
-    {
-        case ZFClassFilterTypeInclude:
-            ret += ZFTOKEN_ZFClassFilterTypeInclude;
-            return ;
-        case ZFClassFilterTypeExclude:
-            ret += ZFTOKEN_ZFClassFilterTypeExclude;
-            return ;
-        case ZFClassFilterTypeIncludeChildOf:
-            ret += ZFTOKEN_ZFClassFilterTypeIncludeChildOf;
-            return ;
-        case ZFClassFilterTypeIncludeChildTypeOf:
-            ret += ZFTOKEN_ZFClassFilterTypeIncludeChildTypeOf;
-            return ;
-        case ZFClassFilterTypeIncludeParentOf:
-            ret += ZFTOKEN_ZFClassFilterTypeIncludeParentOf;
-            return ;
-        case ZFClassFilterTypeIncludeParentTypeOf:
-            ret += ZFTOKEN_ZFClassFilterTypeIncludeParentTypeOf;
-            return ;
-        case ZFClassFilterTypeExcludeChildOf:
-            ret += ZFTOKEN_ZFClassFilterTypeExcludeChildOf;
-            return ;
-        case ZFClassFilterTypeExcludeChildTypeOf:
-            ret += ZFTOKEN_ZFClassFilterTypeExcludeChildTypeOf;
-            return ;
-        case ZFClassFilterTypeExcludeParentOf:
-            ret += ZFTOKEN_ZFClassFilterTypeExcludeParentOf;
-            return ;
-        case ZFClassFilterTypeExcludeParentTypeOf:
-            ret += ZFTOKEN_ZFClassFilterTypeExcludeParentTypeOf;
-            return ;
-        default:
-            zfCoreCriticalShouldNotGoHere();
-            return ;
-    }
-}
-const zfchar *ZFClassFilterTypeFromString(ZF_OUT ZFClassFilterType &ret,
-                                          ZF_IN const zfchar *src,
-                                          ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_ZFClassFilterTypeInclude,
-        ZFTOKEN_ZFClassFilterTypeExclude,
-        ZFTOKEN_ZFClassFilterTypeIncludeChildOf,
-        ZFTOKEN_ZFClassFilterTypeIncludeChildTypeOf,
-        ZFTOKEN_ZFClassFilterTypeIncludeParentOf,
-        ZFTOKEN_ZFClassFilterTypeIncludeParentTypeOf,
-        ZFTOKEN_ZFClassFilterTypeExcludeChildOf,
-        ZFTOKEN_ZFClassFilterTypeExcludeChildTypeOf,
-        ZFTOKEN_ZFClassFilterTypeExcludeParentOf,
-        ZFTOKEN_ZFClassFilterTypeExcludeParentTypeOf,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = ZFClassFilterTypeInclude;
-    switch(matched)
-    {
-        case 0:
-            ret = ZFClassFilterTypeInclude;
-            return zfnull;
-        case 1:
-            ret = ZFClassFilterTypeExclude;
-            return zfnull;
-        case 2:
-            ret = ZFClassFilterTypeIncludeChildOf;
-            return zfnull;
-        case 3:
-            ret = ZFClassFilterTypeIncludeChildTypeOf;
-            return zfnull;
-        case 4:
-            ret = ZFClassFilterTypeIncludeParentOf;
-            return zfnull;
-        case 5:
-            ret = ZFClassFilterTypeIncludeParentTypeOf;
-            return zfnull;
-        case 6:
-            ret = ZFClassFilterTypeExcludeChildOf;
-            return zfnull;
-        case 7:
-            ret = ZFClassFilterTypeExcludeChildTypeOf;
-            return zfnull;
-        case 8:
-            ret = ZFClassFilterTypeExcludeParentOf;
-            return zfnull;
-        case 9:
-            ret = ZFClassFilterTypeExcludeParentTypeOf;
-            return zfnull;
-        default:
-            return src;
-    }
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFClassFilterType, ZFClassFilterType, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_ZFClassFilterTypeInclude,
+            ZFTOKEN_ZFClassFilterTypeExclude,
+            ZFTOKEN_ZFClassFilterTypeIncludeChildOf,
+            ZFTOKEN_ZFClassFilterTypeIncludeChildTypeOf,
+            ZFTOKEN_ZFClassFilterTypeIncludeParentOf,
+            ZFTOKEN_ZFClassFilterTypeIncludeParentTypeOf,
+            ZFTOKEN_ZFClassFilterTypeExcludeChildOf,
+            ZFTOKEN_ZFClassFilterTypeExcludeChildTypeOf,
+            ZFTOKEN_ZFClassFilterTypeExcludeParentOf,
+            ZFTOKEN_ZFClassFilterTypeExcludeParentTypeOf,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = ZFClassFilterTypeInclude;
+        switch(matched)
+        {
+            case 0:
+                v = ZFClassFilterTypeInclude;
+                return zfnull;
+            case 1:
+                v = ZFClassFilterTypeExclude;
+                return zfnull;
+            case 2:
+                v = ZFClassFilterTypeIncludeChildOf;
+                return zfnull;
+            case 3:
+                v = ZFClassFilterTypeIncludeChildTypeOf;
+                return zfnull;
+            case 4:
+                v = ZFClassFilterTypeIncludeParentOf;
+                return zfnull;
+            case 5:
+                v = ZFClassFilterTypeIncludeParentTypeOf;
+                return zfnull;
+            case 6:
+                v = ZFClassFilterTypeExcludeChildOf;
+                return zfnull;
+            case 7:
+                v = ZFClassFilterTypeExcludeChildTypeOf;
+                return zfnull;
+            case 8:
+                v = ZFClassFilterTypeExcludeParentOf;
+                return zfnull;
+            case 9:
+                v = ZFClassFilterTypeExcludeParentTypeOf;
+                return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        switch(v)
+        {
+            case ZFClassFilterTypeInclude:
+                s += ZFTOKEN_ZFClassFilterTypeInclude;
+                return ;
+            case ZFClassFilterTypeExclude:
+                s += ZFTOKEN_ZFClassFilterTypeExclude;
+                return ;
+            case ZFClassFilterTypeIncludeChildOf:
+                s += ZFTOKEN_ZFClassFilterTypeIncludeChildOf;
+                return ;
+            case ZFClassFilterTypeIncludeChildTypeOf:
+                s += ZFTOKEN_ZFClassFilterTypeIncludeChildTypeOf;
+                return ;
+            case ZFClassFilterTypeIncludeParentOf:
+                s += ZFTOKEN_ZFClassFilterTypeIncludeParentOf;
+                return ;
+            case ZFClassFilterTypeIncludeParentTypeOf:
+                s += ZFTOKEN_ZFClassFilterTypeIncludeParentTypeOf;
+                return ;
+            case ZFClassFilterTypeExcludeChildOf:
+                s += ZFTOKEN_ZFClassFilterTypeExcludeChildOf;
+                return ;
+            case ZFClassFilterTypeExcludeChildTypeOf:
+                s += ZFTOKEN_ZFClassFilterTypeExcludeChildTypeOf;
+                return ;
+            case ZFClassFilterTypeExcludeParentOf:
+                s += ZFTOKEN_ZFClassFilterTypeExcludeParentOf;
+                return ;
+            case ZFClassFilterTypeExcludeParentTypeOf:
+                s += ZFTOKEN_ZFClassFilterTypeExcludeParentTypeOf;
+                return ;
+            default:
+                zfCoreCriticalShouldNotGoHere();
+                return ;
+        }
+    })
 
 // ============================================================
 /** @cond ZFPrivateDoc */

@@ -11,134 +11,129 @@
 
 ZF_NAMESPACE_GLOBAL_BEGIN
 
-void ZFLevelToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFLevel const &value)
-{
-    switch(value)
-    {
-        case ZFLevelZFFrameworkStatic:
-            ret += ZFTOKEN_ZFLevelZFFrameworkStatic;
-            return ;
-        case ZFLevelZFFrameworkEssential:
-            ret += ZFTOKEN_ZFLevelZFFrameworkEssential;
-            return ;
-        case ZFLevelZFFrameworkHigh:
-            ret += ZFTOKEN_ZFLevelZFFrameworkHigh;
-            return ;
-        case ZFLevelZFFrameworkNormal:
-            ret += ZFTOKEN_ZFLevelZFFrameworkNormal;
-            return ;
-        case ZFLevelZFFrameworkLow:
-            ret += ZFTOKEN_ZFLevelZFFrameworkLow;
-            return ;
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFLevel, ZFLevel, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_ZFLevelZFFrameworkStatic,
+            ZFTOKEN_ZFLevelZFFrameworkEssential,
+            ZFTOKEN_ZFLevelZFFrameworkHigh,
+            ZFTOKEN_ZFLevelZFFrameworkNormal,
+            ZFTOKEN_ZFLevelZFFrameworkLow,
 
-        case ZFLevelAppEssential:
-            ret += ZFTOKEN_ZFLevelAppEssential;
-            return ;
-        case ZFLevelAppHigh:
-            ret += ZFTOKEN_ZFLevelAppHigh;
-            return ;
-        case ZFLevelAppNormal:
-            ret += ZFTOKEN_ZFLevelAppNormal;
-            return ;
-        case ZFLevelAppLow:
-            ret += ZFTOKEN_ZFLevelAppLow;
-            return ;
+            ZFTOKEN_ZFLevelAppEssential,
+            ZFTOKEN_ZFLevelAppHigh,
+            ZFTOKEN_ZFLevelAppNormal,
+            ZFTOKEN_ZFLevelAppLow,
 
-        case ZFLevelZFFrameworkPostLow:
-            ret += ZFTOKEN_ZFLevelZFFrameworkPostLow;
-            return ;
-        case ZFLevelZFFrameworkPostNormal:
-            ret += ZFTOKEN_ZFLevelZFFrameworkPostNormal;
-            return ;
-        case ZFLevelZFFrameworkPostHigh:
-            ret += ZFTOKEN_ZFLevelZFFrameworkPostHigh;
-            return ;
-        case ZFLevelZFFrameworkPostEssential:
-            ret += ZFTOKEN_ZFLevelZFFrameworkPostEssential;
-            return ;
-        case ZFLevelZFFrameworkPostStatic:
-            ret += ZFTOKEN_ZFLevelZFFrameworkPostStatic;
-            return ;
+            ZFTOKEN_ZFLevelZFFrameworkPostLow,
+            ZFTOKEN_ZFLevelZFFrameworkPostNormal,
+            ZFTOKEN_ZFLevelZFFrameworkPostHigh,
+            ZFTOKEN_ZFLevelZFFrameworkPostEssential,
+            ZFTOKEN_ZFLevelZFFrameworkPostStatic,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = ZFLevelAppLow;
+        switch(matched)
+        {
+            case 0:
+                v = ZFLevelZFFrameworkStatic;
+                return zfnull;
+            case 1:
+                v = ZFLevelZFFrameworkEssential;
+                return zfnull;
+            case 2:
+                v = ZFLevelZFFrameworkHigh;
+                return zfnull;
+            case 3:
+                v = ZFLevelZFFrameworkNormal;
+                return zfnull;
+            case 4:
+                v = ZFLevelZFFrameworkLow;
+                return zfnull;
 
-        default:
-            return ;
-    }
-}
-const zfchar *ZFLevelFromString(ZF_OUT ZFLevel &ret,
-                                ZF_IN const zfchar *src,
-                                ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_ZFLevelZFFrameworkStatic,
-        ZFTOKEN_ZFLevelZFFrameworkEssential,
-        ZFTOKEN_ZFLevelZFFrameworkHigh,
-        ZFTOKEN_ZFLevelZFFrameworkNormal,
-        ZFTOKEN_ZFLevelZFFrameworkLow,
+            case 5:
+                v = ZFLevelAppEssential;
+                return zfnull;
+            case 6:
+                v = ZFLevelAppHigh;
+                return zfnull;
+            case 7:
+                v = ZFLevelAppNormal;
+                return zfnull;
+            case 8:
+                v = ZFLevelAppLow;
+                return zfnull;
 
-        ZFTOKEN_ZFLevelAppEssential,
-        ZFTOKEN_ZFLevelAppHigh,
-        ZFTOKEN_ZFLevelAppNormal,
-        ZFTOKEN_ZFLevelAppLow,
+            case 9:
+                v = ZFLevelZFFrameworkPostLow;
+                return zfnull;
+            case 10:
+                v = ZFLevelZFFrameworkPostNormal;
+                return zfnull;
+            case 11:
+                v = ZFLevelZFFrameworkPostHigh;
+                return zfnull;
+            case 12:
+                v = ZFLevelZFFrameworkPostEssential;
+                return zfnull;
+            case 13:
+                v = ZFLevelZFFrameworkPostStatic;
+                return zfnull;
 
-        ZFTOKEN_ZFLevelZFFrameworkPostLow,
-        ZFTOKEN_ZFLevelZFFrameworkPostNormal,
-        ZFTOKEN_ZFLevelZFFrameworkPostHigh,
-        ZFTOKEN_ZFLevelZFFrameworkPostEssential,
-        ZFTOKEN_ZFLevelZFFrameworkPostStatic,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = ZFLevelAppLow;
-    switch(matched)
-    {
-        case 0:
-            ret = ZFLevelZFFrameworkStatic;
-            return zfnull;
-        case 1:
-            ret = ZFLevelZFFrameworkEssential;
-            return zfnull;
-        case 2:
-            ret = ZFLevelZFFrameworkHigh;
-            return zfnull;
-        case 3:
-            ret = ZFLevelZFFrameworkNormal;
-            return zfnull;
-        case 4:
-            ret = ZFLevelZFFrameworkLow;
-            return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        switch(v)
+        {
+            case ZFLevelZFFrameworkStatic:
+                s += ZFTOKEN_ZFLevelZFFrameworkStatic;
+                return ;
+            case ZFLevelZFFrameworkEssential:
+                s += ZFTOKEN_ZFLevelZFFrameworkEssential;
+                return ;
+            case ZFLevelZFFrameworkHigh:
+                s += ZFTOKEN_ZFLevelZFFrameworkHigh;
+                return ;
+            case ZFLevelZFFrameworkNormal:
+                s += ZFTOKEN_ZFLevelZFFrameworkNormal;
+                return ;
+            case ZFLevelZFFrameworkLow:
+                s += ZFTOKEN_ZFLevelZFFrameworkLow;
+                return ;
 
-        case 5:
-            ret = ZFLevelAppEssential;
-            return zfnull;
-        case 6:
-            ret = ZFLevelAppHigh;
-            return zfnull;
-        case 7:
-            ret = ZFLevelAppNormal;
-            return zfnull;
-        case 8:
-            ret = ZFLevelAppLow;
-            return zfnull;
+            case ZFLevelAppEssential:
+                s += ZFTOKEN_ZFLevelAppEssential;
+                return ;
+            case ZFLevelAppHigh:
+                s += ZFTOKEN_ZFLevelAppHigh;
+                return ;
+            case ZFLevelAppNormal:
+                s += ZFTOKEN_ZFLevelAppNormal;
+                return ;
+            case ZFLevelAppLow:
+                s += ZFTOKEN_ZFLevelAppLow;
+                return ;
 
-        case 9:
-            ret = ZFLevelZFFrameworkPostLow;
-            return zfnull;
-        case 10:
-            ret = ZFLevelZFFrameworkPostNormal;
-            return zfnull;
-        case 11:
-            ret = ZFLevelZFFrameworkPostHigh;
-            return zfnull;
-        case 12:
-            ret = ZFLevelZFFrameworkPostEssential;
-            return zfnull;
-        case 13:
-            ret = ZFLevelZFFrameworkPostStatic;
-            return zfnull;
+            case ZFLevelZFFrameworkPostLow:
+                s += ZFTOKEN_ZFLevelZFFrameworkPostLow;
+                return ;
+            case ZFLevelZFFrameworkPostNormal:
+                s += ZFTOKEN_ZFLevelZFFrameworkPostNormal;
+                return ;
+            case ZFLevelZFFrameworkPostHigh:
+                s += ZFTOKEN_ZFLevelZFFrameworkPostHigh;
+                return ;
+            case ZFLevelZFFrameworkPostEssential:
+                s += ZFTOKEN_ZFLevelZFFrameworkPostEssential;
+                return ;
+            case ZFLevelZFFrameworkPostStatic:
+                s += ZFTOKEN_ZFLevelZFFrameworkPostStatic;
+                return ;
 
-        default:
-            return src;
-    }
-}
+            default:
+                return ;
+        }
+    })
 
 ZF_NAMESPACE_GLOBAL_END
 

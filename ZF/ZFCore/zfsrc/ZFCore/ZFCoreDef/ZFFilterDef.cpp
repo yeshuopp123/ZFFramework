@@ -11,89 +11,79 @@
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
-void ZFFilterTypeToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFFilterType const &value)
-{
-    switch(value)
-    {
-        case ZFFilterTypeInclude:
-            ret += ZFTOKEN_ZFFilterTypeInclude;
-            return ;
-        case ZFFilterTypeExclude:
-            ret += ZFTOKEN_ZFFilterTypeExclude;
-            return ;
-        default:
-            zfCoreCriticalShouldNotGoHere();
-            return ;
-    }
-}
-const zfchar *ZFFilterTypeFromString(ZF_OUT ZFFilterType &ret,
-                                     ZF_IN const zfchar *src,
-                                     ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_ZFFilterTypeInclude,
-        ZFTOKEN_ZFFilterTypeExclude,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = ZFFilterTypeInclude;
-    switch(matched)
-    {
-        case 0:
-            ret = ZFFilterTypeInclude;
-            return zfnull;
-        case 1:
-            ret = ZFFilterTypeExclude;
-            return zfnull;
-        default:
-            return src;
-    }
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFFilterType, ZFFilterType, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_ZFFilterTypeInclude,
+            ZFTOKEN_ZFFilterTypeExclude,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = ZFFilterTypeInclude;
+        switch(matched)
+        {
+            case 0:
+                v = ZFFilterTypeInclude;
+                return zfnull;
+            case 1:
+                v = ZFFilterTypeExclude;
+                return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        switch(v)
+        {
+            case ZFFilterTypeInclude:
+                s += ZFTOKEN_ZFFilterTypeInclude;
+                return ;
+            case ZFFilterTypeExclude:
+                s += ZFTOKEN_ZFFilterTypeExclude;
+                return ;
+            default:
+                zfCoreCriticalShouldNotGoHere();
+                return ;
+        }
+    })
 
 // ============================================================
-void ZFFilterCallbackResultToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFFilterCallbackResult const &value)
-{
-    switch(value)
-    {
-        case ZFFilterCallbackResultNotSpecified:
-            ret += ZFTOKEN_ZFFilterCallbackResultNotSpecified;
-            return ;
-        case ZFFilterCallbackResultActive:
-            ret += ZFTOKEN_ZFFilterCallbackResultActive;
-            return ;
-        case ZFFilterCallbackResultNotActive:
-            ret += ZFTOKEN_ZFFilterCallbackResultNotActive;
-            return ;
-        default:
-            zfCoreCriticalShouldNotGoHere();
-            return ;
-    }
-}
-const zfchar *ZFFilterCallbackResultFromString(ZF_OUT ZFFilterCallbackResult &ret,
-                                               ZF_IN const zfchar *src,
-                                               ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_ZFFilterCallbackResultNotSpecified,
-        ZFTOKEN_ZFFilterCallbackResultActive,
-        ZFTOKEN_ZFFilterCallbackResultNotActive,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = ZFFilterCallbackResultNotSpecified;
-    switch(matched)
-    {
-        case 0:
-            ret = ZFFilterCallbackResultNotSpecified;
-            return zfnull;
-        case 1:
-            ret = ZFFilterCallbackResultActive;
-            return zfnull;
-        case 2:
-            ret = ZFFilterCallbackResultNotActive;
-            return zfnull;
-        default:
-            return src;
-    }
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFFilterCallbackResult, ZFFilterCallbackResult, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_ZFFilterCallbackResultNotSpecified,
+            ZFTOKEN_ZFFilterCallbackResultActive,
+            ZFTOKEN_ZFFilterCallbackResultNotActive,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = ZFFilterCallbackResultNotSpecified;
+        switch(matched)
+        {
+            case 0:
+                v = ZFFilterCallbackResultNotSpecified;
+                return zfnull;
+            case 1:
+                v = ZFFilterCallbackResultActive;
+                return zfnull;
+            case 2:
+                v = ZFFilterCallbackResultNotActive;
+                return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        switch(v)
+        {
+            case ZFFilterCallbackResultNotSpecified:
+                s += ZFTOKEN_ZFFilterCallbackResultNotSpecified;
+                return ;
+            case ZFFilterCallbackResultActive:
+                s += ZFTOKEN_ZFFilterCallbackResultActive;
+                return ;
+            case ZFFilterCallbackResultNotActive:
+                s += ZFTOKEN_ZFFilterCallbackResultNotActive;
+                return ;
+            default:
+                zfCoreCriticalShouldNotGoHere();
+                return ;
+        }
+    })
 
 ZF_NAMESPACE_GLOBAL_END
 

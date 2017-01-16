@@ -16,40 +16,35 @@ ZFENUM_DEFINE(ZFUISizeType)
 // ZFUISizeParam
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFUISizeParam)
 
-void ZFUISizeParamToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFUISizeParam const &value)
-{
-    ret += zfText("(");
-    ZFUISizeTypeEnumToString(ret, value.width);
-    ret += zfText(", ");
-    ZFUISizeTypeEnumToString(ret, value.height);
-    ret += zfText(")");
-}
-const zfchar *ZFUISizeParamFromString(ZF_OUT ZFUISizeParam &ret,
-                                      ZF_IN const zfchar *src,
-                                      ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    zfCoreAssert(src != zfnull);
-    ZFCoreArrayPOD<zfindexRange> pos;
-    const zfchar *errPos = zfCoreDataPairSplitString(pos, 2, src, srcLen);
-    if(errPos != zfnull)
-    {
-        return errPos;
-    }
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFUISizeParam, ZFUISizeParam, {
+        zfCoreAssert(src != zfnull);
+        ZFCoreArrayPOD<zfindexRange> pos;
+        const zfchar *errPos = zfCoreDataPairSplitString(pos, 2, src, srcLen);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
 
-    errPos = ZFUISizeTypeEnumFromString(ret.width, src + pos[0].start, pos[0].count);
-    if(errPos != zfnull)
-    {
-        return errPos;
-    }
+        errPos = ZFUISizeTypeEnumFromString(v.width, src + pos[0].start, pos[0].count);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
 
-    errPos = ZFUISizeTypeEnumFromString(ret.height, src + pos[1].start, pos[1].count);
-    if(errPos != zfnull)
-    {
-        return errPos;
-    }
+        errPos = ZFUISizeTypeEnumFromString(v.height, src + pos[1].start, pos[1].count);
+        if(errPos != zfnull)
+        {
+            return errPos;
+        }
 
-    return zfnull;
-}
+        return zfnull;
+    }, {
+        s += zfText("(");
+        ZFUISizeTypeEnumToString(s, v.width);
+        s += zfText(", ");
+        ZFUISizeTypeEnumToString(s, v.height);
+        s += zfText(")");
+    })
 
 // ============================================================
 ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(ZFUISizeParam, ZFUISizeParam)
@@ -61,7 +56,6 @@ const ZFUISizeParam ZFUISizeParamFillWidthFillHeight = ZFUISizeParamMake(ZFUISiz
 
 // ============================================================
 
-ZFOUTPUT_TYPE_DEFINE(ZFUISizeParam, {output << ZFUISizeParamToString(v);})
 ZFINPUT_TYPE_DEFINE(ZFUISizeParam, ZFUISizeParam, {
     v = ZFUISizeParamWrapWidthWrapHeight;
     ZFCoreArray<zfstring> elementsTmp;

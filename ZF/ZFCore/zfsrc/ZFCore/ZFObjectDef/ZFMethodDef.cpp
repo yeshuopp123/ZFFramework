@@ -12,50 +12,45 @@
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
-void ZFMethodPrivilegeTypeToString(ZF_IN_OUT zfstring &ret, ZF_IN ZFMethodPrivilegeType const &value)
-{
-    switch(value)
-    {
-        case ZFMethodPrivilegeTypePublic:
-            ret += ZFTOKEN_ZFMethodPrivilegeTypePublic;
-            return ;
-        case ZFMethodPrivilegeTypeProtected:
-            ret += ZFTOKEN_ZFMethodPrivilegeTypeProtected;
-            return ;
-        case ZFMethodPrivilegeTypePrivate:
-            ret += ZFTOKEN_ZFMethodPrivilegeTypePrivate;
-            return ;
-        default:
-            zfCoreCriticalShouldNotGoHere();
-            return ;
-    }
-}
-const zfchar *ZFMethodPrivilegeTypeFromString(ZF_OUT ZFMethodPrivilegeType &ret,
-                                              ZF_IN const zfchar *src,
-                                              ZF_IN_OPT zfindex srcLen /* = zfindexMax */)
-{
-    const zfchar *tokens[] = {
-        ZFTOKEN_ZFMethodPrivilegeTypePublic,
-        ZFTOKEN_ZFMethodPrivilegeTypeProtected,
-        ZFTOKEN_ZFMethodPrivilegeTypePrivate,
-    };
-    zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
-    ret = ZFMethodPrivilegeTypePublic;
-    switch(matched)
-    {
-        case 0:
-            ret = ZFMethodPrivilegeTypePublic;
-            return zfnull;
-        case 1:
-            ret = ZFMethodPrivilegeTypeProtected;
-            return zfnull;
-        case 2:
-            ret = ZFMethodPrivilegeTypePrivate;
-            return zfnull;
-        default:
-            return src;
-    }
-}
+ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFMethodPrivilegeType, ZFMethodPrivilegeType, {
+        const zfchar *tokens[] = ZFM_EXPAND({
+            ZFTOKEN_ZFMethodPrivilegeTypePublic,
+            ZFTOKEN_ZFMethodPrivilegeTypeProtected,
+            ZFTOKEN_ZFMethodPrivilegeTypePrivate,
+        });
+        zfindex matched = ZFCoreStringCheckMatch(tokens, ZFM_ARRAY_SIZE(tokens), src, srcLen);
+        v = ZFMethodPrivilegeTypePublic;
+        switch(matched)
+        {
+            case 0:
+                v = ZFMethodPrivilegeTypePublic;
+                return zfnull;
+            case 1:
+                v = ZFMethodPrivilegeTypeProtected;
+                return zfnull;
+            case 2:
+                v = ZFMethodPrivilegeTypePrivate;
+                return zfnull;
+            default:
+                return src;
+        }
+    }, {
+        switch(v)
+        {
+            case ZFMethodPrivilegeTypePublic:
+                s += ZFTOKEN_ZFMethodPrivilegeTypePublic;
+                return ;
+            case ZFMethodPrivilegeTypeProtected:
+                s += ZFTOKEN_ZFMethodPrivilegeTypeProtected;
+                return ;
+            case ZFMethodPrivilegeTypePrivate:
+                s += ZFTOKEN_ZFMethodPrivilegeTypePrivate;
+                return ;
+            default:
+                zfCoreCriticalShouldNotGoHere();
+                return ;
+        }
+    })
 
 // ============================================================
 void ZFMethod::_ZFP_ZFMethod_init(ZF_IN zfbool methodIsUserRegister,
