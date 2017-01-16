@@ -40,8 +40,7 @@ it's designed to be a complete and complex framework, current code status:
 
 * this piece of code shows how to show a hello world on UI and log output
 
-
-```
+``` c++
     #include "ZFUIKit.h" // for UI module
     ZFMAIN_ENTRY(params) // app starts from here
     {
