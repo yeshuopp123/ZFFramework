@@ -1,3 +1,6 @@
+Welcome to ZFFramework {#mainpage}
+===
+
 # Introduction
 
 welcome to [ZFFramework](http://ZFFramework.com), a cross-platform, lightweight, mid-level application framework in C++
@@ -20,54 +23,52 @@ it's designed to be a complete and complex framework, current code status:
 
 ![ZF2048_iOS](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/code_summary.jpg)
 
-finished:
-
-* core module (memory management, reflection, serialization)
-* basic UI module (view, window, label, image view, button, layout, scroll view, list view)
-* basic algorithm (xml, json, regexp, md5, base64, crc32, encryption)
-* common platform implementations (iOS, Android, Qt)
-
-working:
-
-* auto script binding (still under feasibility testing)
-* more useful UI modules
-* basic network module
-* basic database module
-
-future:
-
-* standalone visual UI editor
-* more IDE / compile env integrations
-* more platform implementations
+* finished
+    * core module (memory management, reflection, serialization)
+    * basic UI module (view, window, label, image view, button, layout, scroll view, list view)
+    * basic algorithm (xml, json, regexp, md5, base64, crc32, encryption)
+    * common platform implementations (iOS, Android, Qt)
+* working
+    * auto script binding (still under feasibility testing)
+    * more useful UI modules
+    * basic network module
+    * basic database module
+* future
+    * standalone visual UI editor
+    * more IDE / compile env integrations
+    * more platform implementations
 
 
 # Quick overview
 
-this piece of code shows how to show a hello world on UI and log output
+* this piece of code shows how to show a hello world on UI and log output
 
-``` c++
-#include "ZFUIKit.h" // for UI module
-ZFMAIN_ENTRY(params) // app starts from here
-{
-    // show a hello world as a text view
-    zfblockedAlloc(ZFUIWindow, window);
-    window->windowShow();
-    zfblockedAlloc(ZFUITextView, textView);
-    window->childAdd(textView);
-    textView->textContentStringSet(zfText("hello world"));
-    // show a hello world to log output
-    zfLogT() << zfText("hello wolrd");
-    return 0;
-}
-```
+    <pre><code>
+    #include "ZFUIKit.h" // for UI module
+    ZFMAIN_ENTRY(params) // app starts from here
+    {
+        // show a hello world as a text view
+        zfblockedAlloc(ZFUIWindow, window);
+        window->windowShow();
+        zfblockedAlloc(ZFUITextView, textView);
+        window->childAdd(textView);
+        textView->textContentStringSet(zfText("hello world"));
 
-and here are screenshot of demo 2048 game built by ZFFramework:
+        // show a hello world to log output
+        zfLogT() << zfText("hello wolrd");
+        return 0;
+    }
+    </code></pre>
 
-![ZF2048_iOS](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_iOS.png)
-![ZF2048_Android](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Android.png)
-![ZF2048_Qt_Windows](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Windows.png)
-![ZF2048_Qt_MacOS](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_MacOS.png)
-![ZF2048_Qt_Ubuntu](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Ubuntu.png)
+* and here are screenshot of demo 2048 game built by ZFFramework:
+
+    <table border="0"><tr>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_iOS.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Android.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Windows.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_MacOS.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Ubuntu.png"></td>
+    </tr></table>
 
 
 # Requirement
