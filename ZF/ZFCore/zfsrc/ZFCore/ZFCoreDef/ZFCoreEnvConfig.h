@@ -40,7 +40,6 @@ EXTRACT_LOCAL_METHODS  = NO
 AUTOLINK_SUPPORT       = YES
 
 INPUT                  =
-INPUT                  += ../../../README.md
 INPUT                  += ../docs
 INPUT                  += ../../../ZF/ZF_impl/zfsrc
 INPUT                  += ../../../ZF/ZF_loader_impl/zfsrc

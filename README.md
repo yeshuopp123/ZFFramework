@@ -1,4 +1,4 @@
-# Introduction {#mainpage}
+# Introduction
 
 welcome to [ZFFramework](http://ZFFramework.com), a cross-platform, lightweight, mid-level application framework in C++
 
@@ -40,7 +40,7 @@ it's designed to be a complete and complex framework, current code status:
 
 * this piece of code shows how to show a hello world on UI and log output
 
-    <pre>
+    ``` c++
     #include "ZFUIKit.h" // for UI module
     ZFMAIN_ENTRY(params) // app starts from here
     {
@@ -50,22 +50,19 @@ it's designed to be a complete and complex framework, current code status:
         zfblockedAlloc(ZFUITextView, textView);
         window->childAdd(textView);
         textView->textContentStringSet(zfText("hello world"));
-
         // show a hello world to log output
         zfLogT() << zfText("hello wolrd");
         return 0;
     }
-    </pre>
+    ```
 
 * and here are screenshot of demo 2048 game built by ZFFramework:
 
-    <table border="0"><tr>
-        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_iOS.png"></td>
-        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Android.png"></td>
-        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Windows.png"></td>
-        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_MacOS.png"></td>
-        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Ubuntu.png"></td>
-    </tr></table>
+    ![ZF2048_iOS](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_iOS.png)
+    ![ZF2048_Android](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Android.png)
+    ![ZF2048_Qt_Windows](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Windows.png)
+    ![ZF2048_Qt_MacOS](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_MacOS.png)
+    ![ZF2048_Qt_Ubuntu](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Ubuntu.png)
 
 
 # Requirement
