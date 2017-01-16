@@ -139,13 +139,13 @@ static void _ZFP_ZFString_readyUpdate(_ZFP_ZFStringPrivate *&old)
 ZFOBJECT_REGISTER(ZFString)
 
 zfbool ZFString::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                 ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                  ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     const zfchar *value = zfnull;
-    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_value, zfstring, value);
     this->stringValueSet(value);
 
@@ -153,12 +153,12 @@ zfbool ZFString::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
 }
 zfbool ZFString::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
-    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref,
+    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref,
         ZFSerializableKeyword_value, zfstring, this->stringValue(), ref->stringValue(), zfText(""));
 
     return zftrue;

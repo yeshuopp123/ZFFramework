@@ -405,16 +405,16 @@ static zfbool _ZFP_ZFOutputCallbackForFile_parseImplData(ZF_IN const ZFSerializa
                                                          ZF_OUT const zfchar *&filePath,
                                                          ZF_OUT ZFFileOpenOptionFlags &flags,
                                                          ZF_OUT zfindex &autoFlushSize,
-                                                         ZF_OUT zfstring *outErrorHintToAppend,
+                                                         ZF_OUT zfstring *outErrorHint,
                                                          ZF_OUT ZFSerializableData *outErrorPos)
 {
-    const ZFSerializableData *filePathData = ZFSerializableUtil::requireElementByCategory(serializableData, filePathKeyName, outErrorHintToAppend, outErrorPos);
+    const ZFSerializableData *filePathData = ZFSerializableUtil::requireElementByCategory(serializableData, filePathKeyName, outErrorHint, outErrorPos);
     if(filePathData == zfnull)
     {
         return zffalse;
     }
     filePath = zfnull;
-    if(!zfstringFromSerializableData(filePath, *filePathData, outErrorHintToAppend, outErrorPos))
+    if(!zfstringFromSerializableData(filePath, *filePathData, outErrorHint, outErrorPos))
     {
         return zffalse;
     }
@@ -422,7 +422,7 @@ static zfbool _ZFP_ZFOutputCallbackForFile_parseImplData(ZF_IN const ZFSerializa
     flags = ZFFileOpenOption::e_Create;
     {
         const ZFSerializableData *flagsData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFFileCallback_flags);
-        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHintToAppend, outErrorPos))
+        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -430,7 +430,7 @@ static zfbool _ZFP_ZFOutputCallbackForFile_parseImplData(ZF_IN const ZFSerializa
     autoFlushSize = zfindexMax;
     {
         const ZFSerializableData *autoFlushSizeData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFFileCallback_autoFlushSize);
-        if(autoFlushSizeData != zfnull && !zfindexFromSerializableData(autoFlushSize, *autoFlushSizeData, outErrorHintToAppend, outErrorPos))
+        if(autoFlushSizeData != zfnull && !zfindexFromSerializableData(autoFlushSize, *autoFlushSizeData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -539,16 +539,16 @@ static zfbool _ZFP_ZFInputCallbackForFile_parseImplData(ZF_IN const ZFSerializab
                                                         ZF_OUT const zfchar *&filePath,
                                                         ZF_OUT ZFFileOpenOptionFlags &flags,
                                                         ZF_OUT ZFCoreArrayPOD<ZFFileBOM> &autoSkipBOMTable,
-                                                        ZF_OUT zfstring *outErrorHintToAppend,
+                                                        ZF_OUT zfstring *outErrorHint,
                                                         ZF_OUT ZFSerializableData *outErrorPos)
 {
-    const ZFSerializableData *filePathData = ZFSerializableUtil::requireElementByCategory(serializableData, filePathKeyName, outErrorHintToAppend, outErrorPos);
+    const ZFSerializableData *filePathData = ZFSerializableUtil::requireElementByCategory(serializableData, filePathKeyName, outErrorHint, outErrorPos);
     if(filePathData == zfnull)
     {
         return zffalse;
     }
     filePath = zfnull;
-    if(!zfstringFromSerializableData(filePath, *filePathData, outErrorHintToAppend, outErrorPos))
+    if(!zfstringFromSerializableData(filePath, *filePathData, outErrorHint, outErrorPos))
     {
         return zffalse;
     }
@@ -556,7 +556,7 @@ static zfbool _ZFP_ZFInputCallbackForFile_parseImplData(ZF_IN const ZFSerializab
     flags = ZFFileOpenOption::e_Read;
     {
         const ZFSerializableData *flagsData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFFileCallback_flags);
-        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHintToAppend, outErrorPos))
+        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -567,7 +567,7 @@ static zfbool _ZFP_ZFInputCallbackForFile_parseImplData(ZF_IN const ZFSerializab
         zfstring BOMStringList;
         if(autoSkipBOMTableData != zfnull)
         {
-            if(!zfstringFromSerializableData(BOMStringList, *autoSkipBOMTableData, outErrorHintToAppend, outErrorPos))
+            if(!zfstringFromSerializableData(BOMStringList, *autoSkipBOMTableData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
@@ -575,7 +575,7 @@ static zfbool _ZFP_ZFInputCallbackForFile_parseImplData(ZF_IN const ZFSerializab
 
             if(zfnull != ZFFileBOMListFromString(autoSkipBOMTable, BOMStringList))
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, *autoSkipBOMTableData, zfText("format BOM list error"));
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, *autoSkipBOMTableData, zfText("format BOM list error"));
                 return zffalse;
             }
         }
@@ -640,7 +640,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFOutputCa
             ZFSerializableKeyword_ZFFileCallback_filePath, filePath,
             flags,
             autoFlushSize,
-            outErrorHintToAppend, outErrorPos
+            outErrorHint, outErrorPos
         ))
     {
         return zffalse;
@@ -649,7 +649,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFOutputCa
     result = ZFOutputCallbackForFile(filePath, flags, autoFlushSize);
     if(!result.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("failed to open file: %s"), filePath);
         return zffalse;
     }
@@ -689,7 +689,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
             ZFSerializableKeyword_ZFFileCallback_filePath, filePath,
             flags,
             autoSkipBOMTable,
-            outErrorHintToAppend, outErrorPos
+            outErrorHint, outErrorPos
         ))
     {
         return zffalse;
@@ -698,7 +698,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
     result = ZFInputCallbackForFile(filePath, flags, autoSkipBOMTable.arrayBuf(), autoSkipBOMTable.count());
     if(!result.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("failed to open file: %s"), filePath);
         return zffalse;
     }
@@ -739,7 +739,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
             ZFSerializableKeyword_ZFFileCallback_filePath, filePath,
             flags,
             autoSkipBOMTable,
-            outErrorHintToAppend, outErrorPos
+            outErrorHint, outErrorPos
         ))
     {
         return zffalse;
@@ -748,7 +748,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
     result = ZFInputCallbackForResFile(filePath, autoSkipBOMTable.arrayBuf(), autoSkipBOMTable.count());
     if(!result.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("failed to open res file: %s"), filePath);
         return zffalse;
     }
@@ -835,7 +835,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFOutputCa
             ZFSerializableKeyword_ZFFileCallback_localPath, filePath,
             flags,
             autoFlushSize,
-            outErrorHintToAppend, outErrorPos
+            outErrorHint, outErrorPos
         ))
     {
         return zffalse;
@@ -844,7 +844,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFOutputCa
     result = ZFOutputCallbackForLocalFile(serializableData, filePath, flags, autoFlushSize);
     if(!result.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("failed to open local file: %s"), filePath);
         return zffalse;
     }
@@ -901,7 +901,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
             ZFSerializableKeyword_ZFFileCallback_localPath, filePath,
             flags,
             autoSkipBOMTable,
-            outErrorHintToAppend, outErrorPos
+            outErrorHint, outErrorPos
         ))
     {
         return zffalse;
@@ -910,7 +910,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
     result = ZFInputCallbackForLocalFile(serializableData, filePath, flags, autoSkipBOMTable.arrayBuf(), autoSkipBOMTable.count());
     if(!result.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("failed to open local file: %s"), filePath);
         return zffalse;
     }

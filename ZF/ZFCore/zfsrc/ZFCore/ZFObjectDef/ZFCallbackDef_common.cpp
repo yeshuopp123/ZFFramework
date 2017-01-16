@@ -726,13 +726,13 @@ ZFInputCallback _ZFP_ZFInputCallbackForInputInRange(ZF_IN const zfcharA *ownerFi
 ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCallbackForInputInRange)
 {
     const ZFSerializableData *inputData = ZFSerializableUtil::requireElementByCategory(
-        serializableData, ZFSerializableKeyword_ZFInputCallbackForInputInRange_input, outErrorHintToAppend, outErrorPos);
+        serializableData, ZFSerializableKeyword_ZFInputCallbackForInputInRange_input, outErrorHint, outErrorPos);
     if(inputData == zfnull)
     {
         return zffalse;
     }
     ZFCallback input;
-    if(!ZFCallbackFromSerializableData(input, *inputData, outErrorHintToAppend, outErrorPos))
+    if(!ZFCallbackFromSerializableData(input, *inputData, outErrorHint, outErrorPos))
     {
         return zffalse;
     }
@@ -740,7 +740,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
     zfindex start = 0;
     {
         const ZFSerializableData *startData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFInputCallbackForInputInRange_start);
-        if(startData != zfnull && !zfindexFromSerializableData(start, *startData, outErrorHintToAppend, outErrorPos))
+        if(startData != zfnull && !zfindexFromSerializableData(start, *startData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -748,7 +748,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
     zfindex count = zfindexMax;
     {
         const ZFSerializableData *countData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFInputCallbackForInputInRange_count);
-        if(countData != zfnull && !zfindexFromSerializableData(count, *countData, outErrorHintToAppend, outErrorPos))
+        if(countData != zfnull && !zfindexFromSerializableData(count, *countData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -756,7 +756,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
     zfbool autoRestorePos = zftrue;
     {
         const ZFSerializableData *autoRestorePosData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFInputCallbackForInputInRange_autoRestorePos);
-        if(autoRestorePosData != zfnull && !zfboolFromSerializableData(autoRestorePos, *autoRestorePosData, outErrorHintToAppend, outErrorPos))
+        if(autoRestorePosData != zfnull && !zfboolFromSerializableData(autoRestorePos, *autoRestorePosData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }

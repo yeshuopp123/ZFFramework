@@ -243,24 +243,24 @@ void operator /=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfindex &v1)
 
 // ============================================================
 ZFPROPERTY_TYPE_DEFINE(ZFTimeValue, ZFTimeValue, {
-        result = ZFTimeValueZero;
+        v = ZFTimeValueZero;
 
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTimeValue(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTimeValue(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
 
         const zfchar *element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTimeValue_sec);
-        if(element != zfnull && zftimetFromString(result.sec, element) != zfnull)
+        if(element != zfnull && zftimetFromString(v.sec, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_sec, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_sec, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTimeValue_usec);
-        if(element != zfnull && zftimetFromString(result.usec, element) != zfnull)
+        if(element != zfnull && zftimetFromString(v.usec, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_usec, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTimeValue_usec, element);
             return zffalse;
         }
 
@@ -388,18 +388,18 @@ public:
 ZFOBJECT_REGISTER(ZFTime)
 
 zfbool ZFTime::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     ZFTimeValue timeValue = ZFTimeValueZero;
-    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_ZFTime_timeValue, ZFTimeValue, timeValue);
     this->timeValueSet(timeValue);
 
     ZFTimeValue timeZone = ZFTimeValueZero;
-    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_ZFTime_timeZone, ZFTimeValue, timeZone);
     this->timeZoneSet(timeZone);
 
@@ -407,15 +407,15 @@ zfbool ZFTime::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &s
 }
 zfbool ZFTime::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                              ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                             ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                             ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
-    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref,
+    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref,
         ZFSerializableKeyword_ZFTime_timeValue, ZFTimeValue, this->timeValue(), ref->timeValue(), ZFTimeValueZero);
 
-    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref,
+    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref,
         ZFSerializableKeyword_ZFTime_timeZone, ZFTimeValue, this->timeZone(), ref->timeZone(), ZFTimeValueZero);
 
     return zftrue;

@@ -131,12 +131,12 @@ protected:
  * @endcode
  * for example:
  * @code
- *   ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(YourType, {
+ *   ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(TimeLinePropertyClass, YourType, {
  *       return (fromValue + (YourType)((toValue - fromValue) * progress));
  *   })
  * @endcode
  */
-#define ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLinePropertyClassName, Type, progressFunc) \
+#define ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFTimeLinePropertyClassName, Type, progressFunc) \
     /** @brief see #ZFTimeLineProperty */ \
     zfclass ZF_ENV_EXPORT ZFTimeLinePropertyClassName : zfextends ZFTimeLineProperty \
     { \
@@ -188,10 +188,10 @@ protected:
     };
 
 /**
- * @brief see #ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL
+ * @brief see #ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL
  */
-#define ZFTIMELINEPROPERTY_DECLARE_COMMON(Type) \
-    ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFM_CAT(ZFTimeLineProperty_, Type), Type, { \
+#define ZFTIMELINEPROPERTY_DECLARE_BY_VALUE(Type) \
+    ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFM_CAT(ZFTimeLineProperty_, Type), Type, { \
         return (fromValue + (Type)((toValue - fromValue) * progress)); \
     })
 
@@ -205,7 +205,7 @@ protected:
  * @endcode
  * for example:
  * @code
- *   ZFTIMELINEPROPERTY_DECLARE_CUSTOM(YourType, {
+ *   ZFTIMELINEPROPERTY_DECLARE_CUSTOM(TimeLinePropertyClass, YourType, {
  *       return (YourType)yourFuncWithProgress(progress);
  *   })
  * @endcode

@@ -14,21 +14,21 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 ZFPROPERTY_TYPE_DEFINE(ZFMethod, const ZFMethod *, {
         if(zfscmpTheSame(serializableData.itemClass(), ZFSerializableKeyword_null))
         {
-            result = zfnull;
+            v = zfnull;
             serializableData.resolveMark();
             return zftrue;
         }
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFMethod(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFMethod(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
-        const zfchar *ownerName = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFMethod_owner, outErrorHintToAppend, outErrorPos);
+        const zfchar *ownerName = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFMethod_owner, outErrorHint, outErrorPos);
         if(ownerName == zfnull)
         {
             return zffalse;
         }
 
-        const zfchar *methodName = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFMethod_method, outErrorHintToAppend, outErrorPos);
+        const zfchar *methodName = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFMethod_method, outErrorHint, outErrorPos);
         if(methodName == zfnull)
         {
             return zffalse;
@@ -38,13 +38,13 @@ ZFPROPERTY_TYPE_DEFINE(ZFMethod, const ZFMethod *, {
         const ZFClass *ownerCls = ZFClass::classForName(ownerName);
         if(ownerCls == zfnull)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData, zfText("no class named \"%s\""), ownerName);
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData, zfText("no class named \"%s\""), ownerName);
             return zffalse;
         }
 
-        result = ownerCls->methodForName(methodName, methodId);
+        v = ownerCls->methodForName(methodName, methodId);
 
-        if(result == zfnull)
+        if(v == zfnull)
         {
             zfstring errorHint;
             zfstringAppend(errorHint, zfText("class \"%s\" has no method named \"%s\""), ownerName, methodName);
@@ -52,7 +52,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFMethod, const ZFMethod *, {
             {
                 zfstringAppend(errorHint, zfText(" with method id \"%s\""), methodId);
             }
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData, errorHint.cString());
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData, errorHint.cString());
             return zffalse;
         }
 

@@ -25,12 +25,12 @@ ZFOBJECT_REGISTER(ZFArray)
 
 zfbool ZFArray::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData &serializableData,
                                                      ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                     ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                                     ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
     if(ref == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+        ZFSerializableUtil::errorOccurred(outErrorHint,
             zfText("%s not type of %s"),
             referencedOwnerOrNull->toObject()->objectInfoOfInstance().cString(), zfself::ClassData()->className());
         return zffalse;
@@ -53,7 +53,7 @@ zfbool ZFArray::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableDat
     }
     if(!success)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+        ZFSerializableUtil::errorOccurred(outErrorHint,
             zfText("array contents mismatch, this: %s, ref: %s"),
             this->objectInfoOfContent().cString(), ref->objectInfoOfContent().cString());
         return zffalse;

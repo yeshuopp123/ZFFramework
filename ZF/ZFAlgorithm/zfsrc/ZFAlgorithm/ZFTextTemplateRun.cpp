@@ -32,35 +32,35 @@ ZF_GLOBAL_INITIALIZER_END(ZFTextTemplateRunParamCleaner)
 static zfbool _ZFP_ZFTextTemplateRun_applyName(ZF_IN_OUT zfstring &path,
                                                ZF_IN const ZFTextTemplateParam &textTemplateParam,
                                                ZF_IN const ZFFilterForString &nameFilter,
-                                               ZF_OUT zfstring *errorMessage);
+                                               ZF_OUT zfstring *outErrorHint);
 static zfbool _ZFP_ZFTextTemplateRun_applyFolder(ZF_IN_OUT zfstring &path,
                                                  ZF_IN const ZFTextTemplateParam &textTemplateParam,
                                                  ZF_IN const ZFTextTemplateRunParam &runParam,
-                                                 ZF_OUT zfstring *errorMessage);
+                                                 ZF_OUT zfstring *outErrorHint);
 static zfbool _ZFP_ZFTextTemplateRun_applyFile(ZF_IN_OUT zfstring &path,
                                                ZF_IN const ZFTextTemplateParam &textTemplateParam,
                                                ZF_IN const ZFTextTemplateRunParam &runParam,
-                                               ZF_OUT zfstring *errorMessage);
+                                               ZF_OUT zfstring *outErrorHint);
 zfbool ZFTextTemplateRun(ZF_IN const zfchar *path,
                          ZF_IN const ZFTextTemplateParam &textTemplateParam,
                          ZF_IN_OPT const ZFTextTemplateRunParam &runParam /* = ZFTextTemplateRunParam() */,
-                         ZF_OUT_OPT zfstring *errorMessage /* = zfnull */)
+                         ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
     zfstring pathTmp;
     ZFFile::filePathFormat(pathTmp, path);
     if(!ZFFile::fileIsExist(pathTmp))
     {
-        zfstringAppend(errorMessage, zfText("path not exist: \"%s\""), path);
+        zfstringAppend(outErrorHint, zfText("path not exist: \"%s\""), path);
         return zffalse;
     }
 
     if(ZFFile::fileIsFolder(pathTmp))
     {
-        return _ZFP_ZFTextTemplateRun_applyFolder(pathTmp, textTemplateParam, runParam, errorMessage);
+        return _ZFP_ZFTextTemplateRun_applyFolder(pathTmp, textTemplateParam, runParam, outErrorHint);
     }
     else
     {
-        return _ZFP_ZFTextTemplateRun_applyFile(pathTmp, textTemplateParam, runParam, errorMessage);
+        return _ZFP_ZFTextTemplateRun_applyFile(pathTmp, textTemplateParam, runParam, outErrorHint);
     }
 }
 
@@ -68,7 +68,7 @@ zfbool ZFTextTemplateRun(ZF_IN const zfchar *path,
 static zfbool _ZFP_ZFTextTemplateRun_applyName(ZF_IN_OUT zfstring &path,
                                                ZF_IN const ZFTextTemplateParam &textTemplateParam,
                                                ZF_IN const ZFFilterForString &nameFilter,
-                                               ZF_OUT zfstring *errorMessage)
+                                               ZF_OUT zfstring *outErrorHint)
 {
     if(!nameFilter.filterCheckActive(path))
     {
@@ -98,7 +98,7 @@ static zfbool _ZFP_ZFTextTemplateRun_applyName(ZF_IN_OUT zfstring &path,
 
     if(!ZFFile::fileMove(path, pathNew))
     {
-        zfstringAppend(errorMessage,
+        zfstringAppend(outErrorHint,
             zfText("failed to move from \"%s\" to \"%s\""),
             path.cString(), pathNew.cString());
         return zffalse;
@@ -110,9 +110,9 @@ static zfbool _ZFP_ZFTextTemplateRun_applyName(ZF_IN_OUT zfstring &path,
 static zfbool _ZFP_ZFTextTemplateRun_applyFolder(ZF_IN_OUT zfstring &path,
                                                  ZF_IN const ZFTextTemplateParam &textTemplateParam,
                                                  ZF_IN const ZFTextTemplateRunParam &runParam,
-                                                 ZF_OUT zfstring *errorMessage)
+                                                 ZF_OUT zfstring *outErrorHint)
 {
-    if(!_ZFP_ZFTextTemplateRun_applyName(path, textTemplateParam, runParam.folderNameFilter, errorMessage))
+    if(!_ZFP_ZFTextTemplateRun_applyName(path, textTemplateParam, runParam.folderNameFilter, outErrorHint))
     {
         return zffalse;
     }
@@ -134,7 +134,7 @@ static zfbool _ZFP_ZFTextTemplateRun_applyFolder(ZF_IN_OUT zfstring &path,
             if(fd.fileIsFolder())
             {
                 zfstring folderPath = fd.filePath();
-                if(!_ZFP_ZFTextTemplateRun_applyFolder(folderPath, textTemplateParam, runParam, errorMessage))
+                if(!_ZFP_ZFTextTemplateRun_applyFolder(folderPath, textTemplateParam, runParam, outErrorHint))
                 {
                     ret = zffalse;
                     break;
@@ -143,7 +143,7 @@ static zfbool _ZFP_ZFTextTemplateRun_applyFolder(ZF_IN_OUT zfstring &path,
             else
             {
                 zfstring filePath = fd.filePath();
-                if(!_ZFP_ZFTextTemplateRun_applyFile(filePath, textTemplateParam, runParam, errorMessage))
+                if(!_ZFP_ZFTextTemplateRun_applyFile(filePath, textTemplateParam, runParam, outErrorHint))
                 {
                     ret = zffalse;
                     break;
@@ -157,9 +157,9 @@ static zfbool _ZFP_ZFTextTemplateRun_applyFolder(ZF_IN_OUT zfstring &path,
 static zfbool _ZFP_ZFTextTemplateRun_applyFile(ZF_IN_OUT zfstring &path,
                                                ZF_IN const ZFTextTemplateParam &textTemplateParam,
                                                ZF_IN const ZFTextTemplateRunParam &runParam,
-                                               ZF_OUT zfstring *errorMessage)
+                                               ZF_OUT zfstring *outErrorHint)
 {
-    if(!_ZFP_ZFTextTemplateRun_applyName(path, textTemplateParam, runParam.fileNameFilter, errorMessage))
+    if(!_ZFP_ZFTextTemplateRun_applyName(path, textTemplateParam, runParam.fileNameFilter, outErrorHint))
     {
         return zffalse;
     }
@@ -179,7 +179,7 @@ static zfbool _ZFP_ZFTextTemplateRun_applyFile(ZF_IN_OUT zfstring &path,
         ZFFileToken token = ZFFile::fileOpen(path, ZFFileOpenOption::e_Read);
         if(token == ZFFileTokenInvalid)
         {
-            zfstringAppend(errorMessage, zfText("failed to open file %s"), path.cString());
+            zfstringAppend(outErrorHint, zfText("failed to open file %s"), path.cString());
             return zffalse;
         }
         ZFFileBlockedClose(token);
@@ -193,13 +193,13 @@ static zfbool _ZFP_ZFTextTemplateRun_applyFile(ZF_IN_OUT zfstring &path,
         buf = (zfchar *)zfmalloc(fileSize);
         if(buf == zfnull)
         {
-            zfstringAppend(errorMessage, zfText("failed to malloc buffer for size %zi"), fileSize);
+            zfstringAppend(outErrorHint, zfText("failed to malloc buffer for size %zi"), fileSize);
             return zffalse;
         }
 
         if(ZFFile::fileRead(token, buf, fileSize) != fileSize)
         {
-            zfstringAppend(errorMessage, zfText("failed to read file %s"), path.cString());
+            zfstringAppend(outErrorHint, zfText("failed to read file %s"), path.cString());
             zffree(buf);
             return zffalse;
         }
@@ -209,7 +209,7 @@ static zfbool _ZFP_ZFTextTemplateRun_applyFile(ZF_IN_OUT zfstring &path,
 
     if(ZFTextTemplateApply(textTemplateParam, ZFOutputCallbackForFile(path), buf, bufEnd - buf) == zfindexMax)
     {
-        zfstringAppend(errorMessage, zfText("failed to update template for %s"), path.cString());
+        zfstringAppend(outErrorHint, zfText("failed to update template for %s"), path.cString());
         return zffalse;
     }
     return zftrue;

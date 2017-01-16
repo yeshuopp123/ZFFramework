@@ -248,7 +248,7 @@ public:
      * note that for performance, this method won't check whether serializable before execute
      */
     zffinal zfbool serializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                     ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                     ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                      ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     /**
      * @brief serialize to data, see #ZFSerializable
@@ -256,7 +256,7 @@ public:
      * note that for performance, this method won't check whether serializable before execute
      */
     zffinal zfbool serializeToData(ZF_OUT ZFSerializableData &serializableData,
-                                   ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                    ZF_IN_OPT ZFSerializable *referencedObject = zfnull);
 
 private:
@@ -375,7 +375,7 @@ protected:
      * if not, subclass should leave the data unresoved and return true
      */
     virtual inline zfbool serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                          ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                          ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                           ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull)
     {
         return zftrue;
@@ -387,7 +387,7 @@ protected:
      */
     virtual inline zfbool serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                         ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                        ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull)
+                                                        ZF_OUT_OPT zfstring *outErrorHint = zfnull)
     {
         return zftrue;
     }
@@ -419,7 +419,7 @@ protected:
      */
     virtual zfbool serializableOnSerializePropertyFromData(ZF_IN const ZFSerializableData &propertyData,
                                                            ZF_IN const ZFProperty *property,
-                                                           ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                           ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                            ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     /**
      * @brief see #serializableOnCheckPropertyType, usually you have no need to override this method,
@@ -431,14 +431,14 @@ protected:
     virtual zfbool serializableOnSerializePropertyToData(ZF_OUT ZFSerializableData &propertyData,
                                                          ZF_IN const ZFProperty *property,
                                                          ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                         ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                         ZF_OUT_OPT zfstring *outErrorHint = zfnull);
     /**
      * @brief see #serializableOnCheckPropertyType, usually you have no need to override this method,
      *   see #ZFSerializable
      */
     virtual zfbool serializableOnSerializeEmbededPropertyFromData(ZF_IN const ZFSerializableData &propertyData,
                                                                   ZF_IN const ZFProperty *property,
-                                                                  ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                                  ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                                   ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     /**
      * @brief see #serializableOnCheckPropertyType, usually you have no need to override this method,
@@ -450,7 +450,7 @@ protected:
     virtual zfbool serializableOnSerializeEmbededPropertyToData(ZF_OUT ZFSerializableData &propertyData,
                                                                 ZF_IN const ZFProperty *property,
                                                                 ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                                ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                                ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 public:
     /**
@@ -554,7 +554,7 @@ extern ZF_ENV_EXPORT zfbool ZFObjectIsSerializable(ZF_IN ZFObject *obj);
 extern ZF_ENV_EXPORT zfbool ZFObjectFromString(ZF_OUT zfautoObject &result,
                                                ZF_IN const zfchar *encodedData,
                                                ZF_IN_OPT zfindex encodedDataLen = zfindexMax,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                               ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 /**
  * @brief convenient method to serialize from encoded data
  *
@@ -566,37 +566,37 @@ extern ZF_ENV_EXPORT zfbool ZFObjectFromString(ZF_OUT zfautoObject &result,
  */
 extern ZF_ENV_EXPORT zfautoObject ZFObjectFromString(ZF_IN const zfchar *encodedData,
                                                      ZF_IN_OPT zfindex encodedDataLen = zfindexMax,
-                                                     ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                     ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 /**
  * @brief see #ZFObjectFromString
  */
 extern ZF_ENV_EXPORT zfbool ZFObjectFromInput(ZF_OUT zfautoObject &result,
                                               ZF_IN const ZFInputCallback &input,
-                                              ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                              ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 /**
  * @brief see #ZFObjectFromString
  */
 extern ZF_ENV_EXPORT zfautoObject ZFObjectFromInput(ZF_IN const ZFInputCallback &input,
-                                                    ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                    ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 /**
  * @brief convenient method to serialize to encoded data
  */
 extern ZF_ENV_EXPORT zfbool ZFObjectToString(ZF_OUT zfstring &encodedData,
                                              ZF_IN ZFObject *obj,
-                                             ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                             ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 /**
  * @brief see #ZFObjectToString
  */
 extern ZF_ENV_EXPORT zfstring ZFObjectToString(ZF_IN ZFObject *obj,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                               ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 /**
  * @brief see #ZFObjectToString
  */
 extern ZF_ENV_EXPORT zfbool ZFObjectToOutput(ZF_IN_OUT const ZFInputCallback &output,
                                              ZF_IN ZFObject *obj,
-                                             ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                             ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 // ============================================================
 /**
@@ -609,7 +609,7 @@ extern ZF_ENV_EXPORT zfbool ZFObjectToOutput(ZF_IN_OUT const ZFInputCallback &ou
  *   the result would be null
  */
 extern ZF_ENV_EXPORT zfautoObject ZFObjectFromSerializableData(ZF_IN const ZFSerializableData &serializableData,
-                                                               ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                               ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                                ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 /**
  * @brief convenient method to serialize from serializable data
@@ -618,21 +618,21 @@ extern ZF_ENV_EXPORT zfautoObject ZFObjectFromSerializableData(ZF_IN const ZFSer
  */
 extern ZF_ENV_EXPORT zfbool ZFObjectFromSerializableData(ZF_OUT zfautoObject &result,
                                                          ZF_IN const ZFSerializableData &serializableData,
-                                                         ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                         ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                          ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 /**
  * @brief convenient method to serialize to serializable data
  */
 extern ZF_ENV_EXPORT zfbool ZFObjectToSerializableData(ZF_OUT ZFSerializableData &serializableData,
                                                        ZF_IN ZFObject *obj,
-                                                       ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                       ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                        ZF_IN_OPT ZFSerializable *referencedObject = zfnull);
 /**
  * @brief convenient method to serialize to serializable data
  */
 extern ZF_ENV_EXPORT ZFSerializableData ZFObjectToSerializableData(ZF_IN ZFObject *obj,
                                                                    ZF_OUT_OPT zfbool *outSuccess = zfnull,
-                                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                                    ZF_IN_OPT ZFSerializable *referencedObject = zfnull);
 
 ZF_NAMESPACE_GLOBAL_END

@@ -22,18 +22,18 @@ ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfbyte, zfbyte)
 
 // ============================================================
 ZFPROPERTY_TYPE_DEFINE(zfchar, zfchar, {
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_zfchar(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_zfchar(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
-        const zfchar *propertyValue = ZFSerializableUtil::checkPropertyValue(serializableData);
-        if(propertyValue == zfnull)
+        const zfchar *valueString = ZFSerializableUtil::checkPropertyValue(serializableData);
+        if(valueString == zfnull)
         {
-            result = '\0';
+            v = '\0';
             return zftrue;
         }
         serializableData.resolveMark();
-        result = *propertyValue;
+        v = *valueString;
         return zftrue;
     }, {
         serializableData.itemClassSet(ZFPropertyTypeId_zfchar());
@@ -44,32 +44,32 @@ ZFPROPERTY_TYPE_DEFINE(zfchar, zfchar, {
     })
 
 // ============================================================
-zfbool zfstringFromSerializableData(ZF_OUT const zfchar * &result,
+zfbool zfstringFromSerializableData(ZF_OUT const zfchar * &v,
                                     ZF_IN const ZFSerializableData &serializableData,
-                                    ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                    ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                     ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_zfstring(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+    if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_zfstring(), serializableData, outErrorHint, outErrorPos) == zfnull)
     {
         return zffalse;
     }
-    const zfchar *propertyValue = ZFSerializableUtil::checkPropertyValue(serializableData);
-    if(propertyValue == zfnull)
+    const zfchar *valueString = ZFSerializableUtil::checkPropertyValue(serializableData);
+    if(valueString == zfnull)
     {
-        result = zfnull;
+        v = zfnull;
         return zftrue;
     }
     serializableData.resolveMark();
-    result = propertyValue;
+    v = valueString;
     return zftrue;
 }
 zfbool zfstringToSerializableData(ZF_OUT ZFSerializableData &serializableData,
                                   ZF_IN const zfchar * const &v,
-                                  ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                  ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
     if(v == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+        ZFSerializableUtil::errorOccurred(outErrorHint,
             zfText("null string"));
         return zffalse;
     }
@@ -79,18 +79,18 @@ zfbool zfstringToSerializableData(ZF_OUT ZFSerializableData &serializableData,
     return zftrue;
 }
 ZFPROPERTY_TYPE_DEFINE(zfstring, zfstring, {
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_zfstring(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_zfstring(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
-        const zfchar *propertyValue = ZFSerializableUtil::checkPropertyValue(serializableData);
-        if(propertyValue == zfnull)
+        const zfchar *valueString = ZFSerializableUtil::checkPropertyValue(serializableData);
+        if(valueString == zfnull)
         {
-            result.removeAll();
+            v.removeAll();
             return zftrue;
         }
         serializableData.resolveMark();
-        result = propertyValue;
+        v = valueString;
         return zftrue;
     }, {
         serializableData.itemClassSet(ZFPropertyTypeId_zfstring());

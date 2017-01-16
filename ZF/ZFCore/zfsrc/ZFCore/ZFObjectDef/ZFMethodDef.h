@@ -35,8 +35,8 @@ typedef enum
 /** @brief string tokens */
 #define ZFTOKEN_ZFMethodPrivilegeTypePrivate zfText("private")
 
-ZFCOMPARER_DEFAULT_DECLARE(ZFMethodPrivilegeType, e0, ZFMethodPrivilegeType, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFMethodPrivilegeType, ZFMethodPrivilegeType, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFMethodPrivilegeType, ZFMethodPrivilegeType)
@@ -103,6 +103,8 @@ zfclassFwd ZFClass;
 /**
  * @brief reflectable method for ZFObject
  *
+ * (for function type of ZFMethod, please refer to #ZFMETHOD_FUNC_DECLARE_0)\n
+ * \n
  * to use ZFMethod, you must first declare it in your class:
  * @code
  *   zfclass YourClass : zfextends ZFObject

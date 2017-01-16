@@ -10,13 +10,13 @@
 
 ZF_NAMESPACE_GLOBAL_BEGIN
 
-ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(ZFSerializableDataRefType_xml, serializableData, data, outErrorHintToAppend, outErrorPos)
+ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(ZFSerializableDataRefType_xml)
 {
-    ZFXmlItem xmlElement = ZFXmlParseFirstElement(ZFInputCallbackForFileDescriptor(data));
+    ZFXmlItem xmlElement = ZFXmlParseFirstElement(ZFInputCallbackForFileDescriptor(refData));
     if(xmlElement.xmlType() == ZFXmlType::e_XmlNull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
-            zfText("failed to load xml element from \"%s\""), data);
+        ZFSerializableUtil::errorOccurred(outErrorHint,
+            zfText("failed to load xml element from \"%s\""), refData);
         return zffalse;
     }
     return ZFXmlParseToSerializableData(serializableData, xmlElement);
@@ -39,12 +39,12 @@ ZFOBJECT_CREATOR_DEFINE(ZFObjectCreatorType_xml, data)
 
 static zfbool _ZFP_ZFXmlParseToSerializableData(ZF_OUT ZFSerializableData &serializableData,
                                                 ZF_IN const ZFXmlItem &xmlElement,
-                                                ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                 ZF_OUT_OPT ZFXmlItem *outErrorPos = zfnull)
 {
     if(xmlElement.xmlIsNull())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, zfText("null xml element"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("null xml element"));
         if(outErrorPos != zfnull)
         {
             *outErrorPos = xmlElement;
@@ -53,7 +53,7 @@ static zfbool _ZFP_ZFXmlParseToSerializableData(ZF_OUT ZFSerializableData &seria
     }
     if(xmlElement.xmlType() != ZFXmlType::e_XmlElement)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, zfText("param not type of xml element"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("param not type of xml element"));
         if(outErrorPos != zfnull)
         {
             *outErrorPos = xmlElement;
@@ -63,7 +63,7 @@ static zfbool _ZFP_ZFXmlParseToSerializableData(ZF_OUT ZFSerializableData &seria
 
     if(xmlElement.xmlName() == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, zfText("missing xml node name"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("missing xml node name"));
         if(outErrorPos != zfnull)
         {
             *outErrorPos = xmlElement;
@@ -77,7 +77,7 @@ static zfbool _ZFP_ZFXmlParseToSerializableData(ZF_OUT ZFSerializableData &seria
     {
         if(attribute.xmlName() == zfnull)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, zfText("missing xml attribute name"));
+            ZFSerializableUtil::errorOccurred(outErrorHint, zfText("missing xml attribute name"));
             if(outErrorPos != zfnull)
             {
                 *outErrorPos = attribute;
@@ -104,7 +104,7 @@ static zfbool _ZFP_ZFXmlParseToSerializableData(ZF_OUT ZFSerializableData &seria
     while(!element.xmlIsNull())
     {
         ZFSerializableData childData;
-        if(!_ZFP_ZFXmlParseToSerializableData(childData, element, outErrorHintToAppend, outErrorPos))
+        if(!_ZFP_ZFXmlParseToSerializableData(childData, element, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -116,18 +116,18 @@ static zfbool _ZFP_ZFXmlParseToSerializableData(ZF_OUT ZFSerializableData &seria
 }
 zfbool ZFXmlParseToSerializableData(ZF_OUT ZFSerializableData &serializableData,
                                     ZF_IN const ZFXmlItem &xmlElement,
-                                    ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                    ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                     ZF_OUT_OPT ZFXmlItem *outErrorPos /* = zfnull */)
 {
-    return _ZFP_ZFXmlParseToSerializableData(serializableData, xmlElement, outErrorHintToAppend, outErrorPos)
+    return _ZFP_ZFXmlParseToSerializableData(serializableData, xmlElement, outErrorHint, outErrorPos)
         && serializableData.referenceInfoLoad();
 }
 ZFSerializableData ZFXmlParseToSerializableData(ZF_IN const ZFXmlItem &xmlElement,
-                                                ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                 ZF_OUT_OPT ZFXmlItem *outErrorPos /* = zfnull */)
 {
     ZFSerializableData ret;
-    if(ZFXmlParseToSerializableData(ret, xmlElement, outErrorHintToAppend, outErrorPos))
+    if(ZFXmlParseToSerializableData(ret, xmlElement, outErrorHint, outErrorPos))
     {
         return ret;
     }
@@ -138,19 +138,19 @@ ZFSerializableData ZFXmlParseToSerializableData(ZF_IN const ZFXmlItem &xmlElemen
 }
 zfbool ZFXmlPrintFromSerializableData(ZF_OUT ZFXmlItem &xmlElement,
                                       ZF_IN const ZFSerializableData &serializableData,
-                                      ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                      ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                       ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    xmlElement = ZFXmlPrintFromSerializableData(serializableData, outErrorHintToAppend, outErrorPos);
+    xmlElement = ZFXmlPrintFromSerializableData(serializableData, outErrorHint, outErrorPos);
     return (xmlElement.xmlType() != ZFXmlType::e_XmlNull);
 }
 ZFXmlItem ZFXmlPrintFromSerializableData(ZF_IN const ZFSerializableData &serializableData,
-                                         ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                         ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                          ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
     if(serializableData.itemClass() == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData, zfText("missing serializable class"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData, zfText("missing serializable class"));
         return ZFXmlItem();
     }
 
@@ -176,7 +176,7 @@ ZFXmlItem ZFXmlPrintFromSerializableData(ZF_IN const ZFSerializableData &seriali
 
     for(zfindex i = 0; i < serializableData.elementCount(); ++i)
     {
-        ZFXmlItem child = ZFXmlPrintFromSerializableData(serializableData.elementAtIndex(i), outErrorHintToAppend, outErrorPos);
+        ZFXmlItem child = ZFXmlPrintFromSerializableData(serializableData.elementAtIndex(i), outErrorHint, outErrorPos);
         if(child.xmlType() == ZFXmlType::e_XmlNull)
         {
             return ZFXmlItem();

@@ -168,8 +168,8 @@ inline zfbool operator != (ZF_IN const ZFBezier &v0,
     return !(v0 == v1);
 }
 /** @endcond */
-ZFCOMPARER_DEFAULT_DECLARE(ZFBezier, e0, ZFBezier, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFBezier, ZFBezier, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 // ============================================================

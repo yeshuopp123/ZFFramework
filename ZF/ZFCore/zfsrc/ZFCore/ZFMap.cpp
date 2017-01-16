@@ -48,12 +48,12 @@ ZFOBJECT_REGISTER(ZFMap)
 
 zfbool ZFMap::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData &serializableData,
                                                    ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                                   ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
     ZFKeyValueContainer *ref = ZFCastZFObject(ZFKeyValueContainer *, referencedOwnerOrNull);
     if(ref == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+        ZFSerializableUtil::errorOccurred(outErrorHint,
             zfText("%s not type of %s"),
             referencedOwnerOrNull->toObject()->objectInfoOfInstance().cString(), ZFKeyValueContainer::ClassData()->className());
         return zffalse;
@@ -78,12 +78,12 @@ zfbool ZFMap::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData 
         }
 
         ZFSerializableData keyData;
-        if(!ZFObjectToSerializableData(keyData, pair.key, outErrorHintToAppend))
+        if(!ZFObjectToSerializableData(keyData, pair.key, outErrorHint))
         {
             return zffalse;
         }
         ZFSerializableData valueData;
-        if(!ZFObjectToSerializableData(valueData, pair.value, outErrorHintToAppend))
+        if(!ZFObjectToSerializableData(valueData, pair.value, outErrorHint))
         {
             return zffalse;
         }
@@ -96,7 +96,7 @@ zfbool ZFMap::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData 
 
     if(!tmp->isEmpty())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+        ZFSerializableUtil::errorOccurred(outErrorHint,
             zfText("missing elements from referenced container: %s"), tmp->objectInfoOfContent().cString());
         return zffalse;
     }

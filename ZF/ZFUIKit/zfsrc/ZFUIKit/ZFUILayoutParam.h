@@ -65,8 +65,8 @@ public:
 ZFPROPERTY_TYPE_DECLARE(ZFUISizeParam, ZFUISizeParam)
 
 ZFCORE_POD_COMPARER_DECLARE(ZFUISizeParam)
-ZFCOMPARER_DEFAULT_DECLARE(ZFUISizeParam, e0, ZFUISizeParam, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFUISizeParam, ZFUISizeParam, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISizeParam, ZFUISizeParam)

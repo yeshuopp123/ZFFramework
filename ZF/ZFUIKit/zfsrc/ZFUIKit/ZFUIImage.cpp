@@ -123,26 +123,26 @@ public:
 ZFOBJECT_REGISTER(ZFUIImage)
 
 zfbool ZFUIImage::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                  ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                  ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                   ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     // imageScale
     zffloat imageScale = 0;
-    ZFSerializableUtilSerializeCategoryFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeCategoryFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_ZFUIImage_imageScale, zffloat, imageScale);
     this->imageScaleSet(imageScale);
 
     // imageBin
     const zfchar *imageBin = zfnull;
-    ZFSerializableUtilSerializeCategoryFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeCategoryFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_ZFUIImage_imageBin, zfstring, imageBin);
     if(imageBin != zfnull)
     {
         if(!ZFUIImageEncodeFromBase64(this, ZFInputCallbackForBuffer(imageBin)))
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
                 zfText("fail to load image from base64 data: \"%s\""), imageBin);
             return zffalse;
         }
@@ -151,12 +151,12 @@ zfbool ZFUIImage::serializableOnSerializeFromData(ZF_IN const ZFSerializableData
 
     // imageType
     const zfchar *typeName = zfnull;
-    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos,
         require, ZFSerializableKeyword_ZFUIImage_imageType, zfstring, typeName);
     _ZFP_ZFUIImageSerializeTypeData *typeData = ZF_GLOBAL_INITIALIZER_INSTANCE(ZFUIImageSerializeTypeHolder)->types.get<_ZFP_ZFUIImageSerializeTypeData *>(typeName);
     if(typeData == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("no such image serializable type registered: \"%s\""), typeName);
         return zffalse;
     }
@@ -169,7 +169,7 @@ zfbool ZFUIImage::serializableOnSerializeFromData(ZF_IN const ZFSerializableData
         {
             return zffalse;
         }
-        if(!typeData->fromCallback(this, *categoryData, outErrorHintToAppend, outErrorPos))
+        if(!typeData->fromCallback(this, *categoryData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -185,7 +185,7 @@ zfbool ZFUIImage::serializableOnSerializeFromData(ZF_IN const ZFSerializableData
     {
         d->imageSizeFixed = ZFUISizeZero;
         d->imageSize = ZFUISizeZero;
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData, zfText("nativeImage not set"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData, zfText("nativeImage not set"));
         return zffalse;
     }
 
@@ -196,15 +196,15 @@ zfbool ZFUIImage::serializableOnSerializeFromData(ZF_IN const ZFSerializableData
 }
 zfbool ZFUIImage::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                 ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                                ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
     // check
     if(d->nativeImage == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, zfText("serialize an image whose nativeImage not set"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("serialize an image whose nativeImage not set"));
         return zffalse;
     }
 
@@ -220,13 +220,13 @@ zfbool ZFUIImage::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &se
         else
         {
             // imageType
-            ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref,
+            ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref,
                 ZFSerializableKeyword_ZFUIImage_imageType, zfstring, this->imageSerializableType(), ref->imageSerializableType(), zfText(""));
 
             { // data
                 if(this->imageSerializableData() == zfnull)
                 {
-                    ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+                    ZFSerializableUtil::errorOccurred(outErrorHint,
                         zfText("missing image data for type: \"%s\""), this->imageSerializableType());
                     return zffalse;
                 }
@@ -246,7 +246,7 @@ zfbool ZFUIImage::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &se
         zfstring imageBin;
         if(!ZFUIImageEncodeToBase64(ZFOutputCallbackForString(imageBin), this))
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, zfText("save image to base64 failed"));
+            ZFSerializableUtil::errorOccurred(outErrorHint, zfText("save image to base64 failed"));
             return zffalse;
         }
         zfstring imageBinRef;
@@ -254,12 +254,12 @@ zfbool ZFUIImage::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &se
         {
             ZFUIImageEncodeToBase64(ZFOutputCallbackForString(imageBinRef), ref);
         }
-        ZFSerializableUtilSerializeCategoryToData(serializableData, outErrorHintToAppend, ref,
+        ZFSerializableUtilSerializeCategoryToData(serializableData, outErrorHint, ref,
             ZFSerializableKeyword_ZFUIImage_imageBin, zfstring, imageBin, imageBinRef, zfstring());
     }
 
     // imageScale
-    ZFSerializableUtilSerializeCategoryToData(serializableData, outErrorHintToAppend, ref,
+    ZFSerializableUtilSerializeCategoryToData(serializableData, outErrorHint, ref,
         ZFSerializableKeyword_ZFUIImage_imageScale, zffloat, this->imageScale(), ref->imageScale(), 0);
 
     return zftrue;

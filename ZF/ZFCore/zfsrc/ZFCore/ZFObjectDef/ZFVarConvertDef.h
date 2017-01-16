@@ -26,13 +26,13 @@ template<typename T_Var, typename T_TypeFix, int T_SpecLoop = 0>
 zfclassNotPOD ZF_ENV_EXPORT _ZFP_ZFVarConvertHolder
 {
 public:
-    static zfbool convertFrom(ZF_OUT T_Var &ret, ZF_IN ZFObject *from)
+    static zfbool convertFrom(ZF_OUT T_Var &v, ZF_IN ZFObject *obj)
     {
-        return _ZFP_ZFVarConvertHolder<T_Var, T_TypeFix, T_SpecLoop + 1>::convertFrom(ret, from);
+        return _ZFP_ZFVarConvertHolder<T_Var, T_TypeFix, T_SpecLoop + 1>::convertFrom(v, obj);
     }
-    static zfbool convertTo(ZF_OUT zfautoObject &ret, ZF_IN T_Var const &from)
+    static zfbool convertTo(ZF_OUT zfautoObject &obj, ZF_IN T_Var const &v)
     {
-        return _ZFP_ZFVarConvertHolder<T_Var, T_TypeFix, T_SpecLoop + 1>::convertTo(ret, from);
+        return _ZFP_ZFVarConvertHolder<T_Var, T_TypeFix, T_SpecLoop + 1>::convertTo(obj, v);
     }
     static zfbool convertAvailable(void)
     {
@@ -43,11 +43,11 @@ template<typename T_Var, typename T_TypeFix>
 zfclassNotPOD ZF_ENV_EXPORT _ZFP_ZFVarConvertHolder<T_Var, T_TypeFix, zftCounterMax>
 {
 public:
-    static zfbool convertFrom(ZF_OUT T_Var &ret, ZF_IN ZFObject *from)
+    static zfbool convertFrom(ZF_OUT T_Var &v, ZF_IN ZFObject *obj)
     {
         return zffalse;
     }
-    static zfbool convertTo(ZF_OUT zfautoObject &ret, ZF_IN T_Var const &from)
+    static zfbool convertTo(ZF_OUT zfautoObject &obj, ZF_IN T_Var const &v)
     {
         return zffalse;
     }
@@ -64,12 +64,12 @@ public:
     zfclassNotPOD ZF_ENV_EXPORT _ZFP_ZFVarConvertHolder<Type, _ZFP_ZFVarConvertType_default, zftCounterGet(Type)> \
     { \
     public: \
-        static zfbool convertFrom(ZF_OUT Type &ret, ZF_IN ZFObject *from) \
+        static zfbool convertFrom(ZF_OUT Type &v, ZF_IN ZFObject *obj) \
         { \
             convertFromAction \
             return zftrue; \
         } \
-        static zfbool convertTo(ZF_OUT zfautoObject &ret, ZF_IN Type const &from) \
+        static zfbool convertTo(ZF_OUT zfautoObject &obj, ZF_IN Type const &v) \
         { \
             convertToAction \
             return zftrue; \
@@ -86,12 +86,12 @@ public:
     zfclassNotPOD ZF_ENV_EXPORT _ZFP_ZFVarConvertHolder<Type, _ZFP_ZFVarConvertType_default, zftCounterGet(Type)> \
     { \
     public: \
-        static zfbool convertFrom(ZF_OUT Type &ret, ZF_IN ZFObject *from) \
+        static zfbool convertFrom(ZF_OUT Type &v, ZF_IN ZFObject *obj) \
         { \
             convertFromAction \
             return zftrue; \
         } \
-        static zfbool convertTo(ZF_OUT zfautoObject &ret, ZF_IN Type const &from) \
+        static zfbool convertTo(ZF_OUT zfautoObject &obj, ZF_IN Type const &v) \
         { \
             convertToAction \
             return zftrue; \
@@ -102,20 +102,20 @@ public:
         } \
     };
 
-extern ZF_ENV_EXPORT void _ZFP_ZFVarConvertHolderFwdFix(ZF_OUT zfautoObject &ret, ZF_IN ZFObject *from);
+extern ZF_ENV_EXPORT void _ZFP_ZFVarConvertHolderFwdFix(ZF_OUT zfautoObject &obj, ZF_IN ZFObject *v);
 template<typename T_Var>
 zfclassNotPOD ZF_ENV_EXPORT _ZFP_ZFVarConvertHolder<T_Var, _ZFP_ZFVarConvertType_ZFObject, zftCounterMax>
 {
 public:
-    static zfbool convertFrom(ZF_OUT T_Var &ret, ZF_IN ZFObject *from)
+    static zfbool convertFrom(ZF_OUT T_Var &v, ZF_IN ZFObject *obj)
     {
-        ret = ZFCastZFObject(T_Var, from);
-        return ((from == zfnull) == (ret == zfnull));
+        v = ZFCastZFObject(T_Var, obj);
+        return ((obj == zfnull) == (v == zfnull));
     }
-    static zfbool convertTo(ZF_OUT zfautoObject &ret, ZF_IN T_Var const &from)
+    static zfbool convertTo(ZF_OUT zfautoObject &obj, ZF_IN T_Var const &v)
     {
-        _ZFP_ZFVarConvertHolderFwdFix(ret, ZFCastZFObject(ZFObject *, from));
-        return ((from == zfnull) == (ret.toObject() == zfnull));
+        _ZFP_ZFVarConvertHolderFwdFix(obj, ZFCastZFObject(ZFObject *, v));
+        return ((v == zfnull) == (obj.toObject() == zfnull));
     }
     static zfbool convertAvailable(void)
     {
@@ -146,23 +146,23 @@ public:
  * example:
  * @code
  *   ZFVAR_CONVERT_DECLARE(MyType, {
- *           ret = myConvertFrom(from);
+ *           v = myConvertFrom(obj);
  *       }, {
- *           ret = myConvertTo(from);
+ *           obj = myConvertTo(v);
  *       })
  *
  *   // proto type for the conversion method:
- *   //   static zfbool convertFrom(ZF_OUT T_Var &ret, ZF_IN ZFObject *from);
- *   //   static zfbool convertTo(ZF_OUT zfautoObject &ret, ZF_IN T_Var const &from);
+ *   //   static zfbool convertFrom(ZF_OUT T_Var &v, ZF_IN ZFObject *obj);
+ *   //   static zfbool convertTo(ZF_OUT zfautoObject &obj, ZF_IN T_Var const &v);
  *
  *   // or, for template types:
  *   ZFVAR_CONVERT_DECLARE_TEMPLATE(
  *       typename T0 ZFM_COMMA() typename T1,
  *       MyType<T0 ZFM_COMMA() T1>,
  *       {
- *           ret = myConvertFrom(from);
+ *           v = myConvertFrom(obj);
  *       }, {
- *           ret = myConvertTo(from);
+ *           obj = myConvertTo(v);
  *       })
  * @endcode
  * \n
@@ -187,17 +187,17 @@ public:
  * currently, it's used by #ZFMethod::methodGenericInvoker,
  * to achive automatic script binding by reflection
  */
-#define ZFVarConvertFromZFObject(T_Var, ret, from) \
+#define ZFVarConvertFromZFObject(T_Var, v, obj) \
     _ZFP_ZFVarConvertHolder< \
             typename zftTraitsType<T_Var>::TraitsRemoveReference, \
             typename _ZFP_ZFVarConvertTypeFix<typename zftTraitsType<T_Var>::TraitsType>::Type \
-        >::convertFrom(ret, from)
+        >::convertFrom(v, obj)
 /** @brief see #ZFVarConvertFromZFObject */
-#define ZFVarConvertToZFObject(T_Var, ret, from) \
+#define ZFVarConvertToZFObject(T_Var, obj, v) \
     _ZFP_ZFVarConvertHolder< \
             typename zftTraitsType<T_Var>::TraitsRemoveReference, \
             typename _ZFP_ZFVarConvertTypeFix<typename zftTraitsType<T_Var>::TraitsType>::Type \
-        >::convertTo(ret, from)
+        >::convertTo(obj, v)
 /** @brief see #ZFVarConvertFromZFObject */
 #define ZFVarConvertAvailable(T_Var) \
     _ZFP_ZFVarConvertHolder< \

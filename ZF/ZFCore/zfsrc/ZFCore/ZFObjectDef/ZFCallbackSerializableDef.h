@@ -71,7 +71,7 @@ ZFPROPERTY_TYPE_DECLARE(ZFCallback, ZFCallback)
 /** @brief see #ZFCallbackSerializeCustomTypeRegister */
 typedef zfbool (*ZFCallbackSerializeCustomSerializeCallback)(ZF_IN_OUT ZFCallback &result,
                                                              ZF_IN const ZFSerializableData &serializableData,
-                                                             ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                             ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                              ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */);
 /**
  * @brief see #ZFPropertyTypeId_ZFCallback
@@ -92,7 +92,7 @@ typedef zfbool (*ZFCallbackSerializeCustomSerializeCallback)(ZF_IN_OUT ZFCallbac
  * proto type:\n
  *   zfbool action(ZF_IN_OUT ZFCallback &result,
  *                 ZF_IN const ZFSerializableData &serializableData,
- *                 ZF_OUT_OPT zfstring *outErrorHintToAppend,
+ *                 ZF_OUT_OPT zfstring *outErrorHint,
  *                 ZF_OUT_OPT ZFSerializableData *outErrorPos);
  */
 extern ZF_ENV_EXPORT void ZFCallbackSerializeCustomTypeRegister(ZF_IN const zfchar *customType,
@@ -105,7 +105,7 @@ extern ZF_ENV_EXPORT ZFCallbackSerializeCustomSerializeCallback ZFCallbackSerial
 #define _ZFP_ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(type) \
     static zfbool _ZFP_ZFCallbackSerializeCustomSerializeCallback_##type(ZF_IN_OUT ZFCallback &result, \
                                                                          ZF_IN const ZFSerializableData &serializableData, \
-                                                                         ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */, \
+                                                                         ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */, \
                                                                          ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */); \
     ZF_GLOBAL_INITIALIZER_INIT_WITH_LEVEL(ZFCallbackSerializeCallbackRegister_##type, ZFLevelZFFrameworkNormal) \
     { \
@@ -118,7 +118,7 @@ extern ZF_ENV_EXPORT ZFCallbackSerializeCustomSerializeCallback ZFCallbackSerial
     ZF_GLOBAL_INITIALIZER_END(ZFCallbackSerializeCallbackRegister_##type) \
     static zfbool _ZFP_ZFCallbackSerializeCustomSerializeCallback_##type(ZF_IN_OUT ZFCallback &result, \
                                                                          ZF_IN const ZFSerializableData &serializableData, \
-                                                                         ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */, \
+                                                                         ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */, \
                                                                          ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 /**
  * @brief see #ZFCallbackSerializeCustomTypeRegister

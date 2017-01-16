@@ -86,16 +86,16 @@ zfclass ZF_ENV_EXPORT ZFVarConvertBase : zfextends ZFObject
  */
 #define ZFVAR_CONVERT_DECLARE_BY_WRAPPER(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
-            v_##TypeName *wrap = ZFCastZFObject(v_##TypeName *, from); \
+            v_##TypeName *wrap = ZFCastZFObject(v_##TypeName *, obj); \
             if(wrap == zfnull) \
             { \
-                return (from == zfnull); \
+                return (obj == zfnull); \
             } \
-            ret = wrap->value; \
+            v = wrap->value; \
         }, { \
             v_##TypeName *wrap = zfAlloc(v_##TypeName); \
-            wrap->value = from; \
-            ret = zfautoObjectCreate(wrap); \
+            wrap->value = v; \
+            obj = zfautoObjectCreate(wrap); \
             zfRelease(wrap); \
         })
 
@@ -121,58 +121,58 @@ ZFVAR_CONVERT_WRAPPER_DECLARE(zfdouble, zfnumber)
 
 #define _ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
-            v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, from); \
+            v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, obj); \
             if(wrap == zfnull) \
             { \
-                return (from == zfnull); \
+                return (obj == zfnull); \
             } \
-            ret = (Type)wrap->value; \
+            v = (Type)wrap->value; \
         }, { \
             v_zfnumber *wrap = zfAlloc(v_zfnumber); \
-            wrap->value = (zfdouble)from; \
-            ret = zfautoObjectCreate(wrap); \
+            wrap->value = (zfdouble)v; \
+            obj = zfautoObjectCreate(wrap); \
             zfRelease(wrap); \
         })
 #define _ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_INTEGER(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
-            v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, from); \
+            v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, obj); \
             if(wrap == zfnull) \
             { \
-                return (from == zfnull); \
+                return (obj == zfnull); \
             } \
-            ret = (Type)zfmRound(wrap->value); \
+            v = (Type)zfmRound(wrap->value); \
         }, { \
             v_zfnumber *wrap = zfAlloc(v_zfnumber); \
-            wrap->value = (zfdouble)from; \
-            ret = zfautoObjectCreate(wrap); \
+            wrap->value = (zfdouble)v; \
+            obj = zfautoObjectCreate(wrap); \
             zfRelease(wrap); \
         })
 #define _ZFP_ZFVAR_CONVERT_DECLARE_BY_WRAPPER_NUMBER_UNSIGNED(Type, TypeName) \
     ZFVAR_CONVERT_DECLARE(Type, { \
-            v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, from); \
+            v_zfnumber *wrap = ZFCastZFObject(v_zfnumber *, obj); \
             if(wrap == zfnull) \
             { \
-                return (from == zfnull); \
+                return (obj == zfnull); \
             } \
             if(zffloatIsEqual<zfdouble>(wrap->value, -1)) \
             { \
-                ret = (Type)-1; \
+                v = (Type)-1; \
             } \
             else \
             { \
-                ret = (Type)wrap->value; \
+                v = (Type)wrap->value; \
             } \
         }, { \
             v_zfnumber *wrap = zfAlloc(v_zfnumber); \
-            if(from == (Type)-1) \
+            if(v == (Type)-1) \
             { \
                 wrap->value = -1; \
             } \
             else \
             { \
-                wrap->value = (zfdouble)from; \
+                wrap->value = (zfdouble)v; \
             } \
-            ret = zfautoObjectCreate(wrap); \
+            obj = zfautoObjectCreate(wrap); \
             zfRelease(wrap); \
         })
 

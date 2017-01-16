@@ -36,13 +36,13 @@ extern ZF_ENV_EXPORT zfstring ZFSerializableDataIOFileDescriptorDetect(ZF_IN con
  */
 extern ZF_ENV_EXPORT zfbool ZFSerializableDataFromFileDescriptor(ZF_OUT ZFSerializableData &serializableData,
                                                                  ZF_IN const zfchar *fileDescriptor,
-                                                                 ZF_OUT_OPT zfstring *errorMessage = zfnull);
+                                                                 ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 /** @brief see #ZFSerializableDataFromFileDescriptor */
 inline ZFSerializableData ZFSerializableDataFromFileDescriptor(ZF_IN const zfchar *fileDescriptor,
-                                                               ZF_OUT_OPT zfstring *errorMessage = zfnull)
+                                                               ZF_OUT_OPT zfstring *outErrorHint = zfnull)
 {
     ZFSerializableData ret;
-    if(ZFSerializableDataFromFileDescriptor(ret, fileDescriptor, errorMessage))
+    if(ZFSerializableDataFromFileDescriptor(ret, fileDescriptor, outErrorHint))
     {
         return ret;
     }
@@ -61,7 +61,7 @@ inline ZFSerializableData ZFSerializableDataFromFileDescriptor(ZF_IN const zfcha
  */
 extern ZF_ENV_EXPORT zfbool ZFSerializableDataToFileDescriptor(ZF_IN const zfchar *fileDescriptor,
                                                                ZF_IN const ZFSerializableData &serializableData,
-                                                               ZF_OUT_OPT zfstring *errorMessage = zfnull);
+                                                               ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFSerializableDataIO_fileDescriptor_h_

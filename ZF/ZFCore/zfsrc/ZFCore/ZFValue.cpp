@@ -228,14 +228,14 @@ public:
 ZFOBJECT_REGISTER(ZFValue)
 
 zfbool ZFValue::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                 ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     // valueType
     ZFValueTypeEnum valueType = ZFValueType::EnumDefault();
-    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_ZFValue_valueType, ZFValueTypeEnum, valueType);
 
     // value
@@ -245,7 +245,7 @@ zfbool ZFValue::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &
             case ZFValueType::ZFM_CAT(e_, TypeName): \
             { \
                 Type v = _ZFP_ZFValue_initValue(TypeName); \
-                ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos, \
+                ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos, \
                     check, ZFSerializableKeyword_ZFValue_value, Type, v); \
                 this->TypeName##ValueSet(v); \
                 break; \
@@ -277,7 +277,7 @@ zfbool ZFValue::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &
             const zfchar *valueString = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFValue_value);
             if(valueString != zfnull)
             {
-                if(!ZFSerializableDataFromString(v, valueString, zfindexMax, outErrorHintToAppend))
+                if(!ZFSerializableDataFromString(v, valueString, zfindexMax, outErrorHint))
                 {
                     if(outErrorPos != zfnull)
                     {
@@ -298,12 +298,12 @@ zfbool ZFValue::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &
 }
 zfbool ZFValue::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                               ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                              ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                              ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
-    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref,
+    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref,
         ZFSerializableKeyword_ZFValue_valueType, ZFValueTypeEnum, this->valueType(), ref->valueType(), ZFValueType::EnumDefault());
 
     // value
@@ -312,7 +312,7 @@ zfbool ZFValue::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &seri
         #define _ZFP_ZFValue_serializableOnSerializeToData(TypeName, Type) \
             case ZFValueType::ZFM_CAT(e_, TypeName): \
             { \
-                ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref, \
+                ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref, \
                     ZFSerializableKeyword_ZFValue_value, Type, this->TypeName##ValueAccess(), ref->TypeName##ValueAccess(), _ZFP_ZFValue_initValue(TypeName)); \
                 break; \
             }
@@ -343,7 +343,7 @@ zfbool ZFValue::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &seri
                 || (ref != zfnull && this->serializableDataValueAccess().objectCompare(ref->serializableDataValueAccess()) != ZFCompareTheSame))
             {
                 zfstring valueString;
-                if(!ZFSerializableDataToString(valueString, this->serializableDataValueAccess(), outErrorHintToAppend))
+                if(!ZFSerializableDataToString(valueString, this->serializableDataValueAccess(), outErrorHint))
                 {
                     return zffalse;
                 }

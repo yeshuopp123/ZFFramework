@@ -28,38 +28,38 @@ ZF_GLOBAL_INITIALIZER_END(ZFSerializableDataIODataHolder)
 zfbool ZFSerializableDataFromIO(ZF_OUT ZFSerializableData &serializableData,
                                 ZF_IN const zfchar *ioType,
                                 ZF_IN const ZFInputCallback &input,
-                                ZF_OUT_OPT zfstring *errorMessage /* = zfnull */)
+                                ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
     if(!input.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(errorMessage, zfText("invalid callback"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("invalid callback"));
         return zffalse;
     }
     ZFSerializableDataFromIOCallback fromCallback = ZFSerializableDataFromIOCallbackGet(ioType);
     if(fromCallback == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(errorMessage, zfText("no such ioType: \"%s\""), ioType);
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("no such ioType: \"%s\""), ioType);
         return zffalse;
     }
-    return fromCallback(serializableData, input, errorMessage);
+    return fromCallback(serializableData, input, outErrorHint);
 }
 zfbool ZFSerializableDataToIO(ZF_IN_OUT const ZFOutputCallback &output,
                               ZF_IN const zfchar *ioType,
                               ZF_IN const ZFSerializableData &serializableData,
-                              ZF_OUT_OPT zfstring *errorMessage /* = zfnull */)
+                              ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
     if(!output.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(errorMessage, zfText("invalid callback"));
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("invalid callback"));
         return zffalse;
     }
     ZFSerializableDataToIOCallback toCallback = ZFSerializableDataToIOCallbackGet(ioType);
     if(toCallback == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(errorMessage, zfText("no such ioType: \"%s\""), ioType);
+        ZFSerializableUtil::errorOccurred(outErrorHint, zfText("no such ioType: \"%s\""), ioType);
         return zffalse;
     }
-    return toCallback(output, serializableData, errorMessage);
+    return toCallback(output, serializableData, outErrorHint);
 }
 
 void ZFSerializableDataIORegister(ZF_IN const zfchar *ioType,

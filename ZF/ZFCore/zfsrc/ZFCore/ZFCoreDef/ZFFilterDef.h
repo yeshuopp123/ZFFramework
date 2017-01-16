@@ -35,8 +35,8 @@ typedef enum {
 /** @brief string tokens */
 #define ZFTOKEN_ZFFilterTypeExclude zfText("Exclude")
 
-ZFCOMPARER_DEFAULT_DECLARE(ZFFilterType, e0, ZFFilterType, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFFilterType, ZFFilterType, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFFilterType, ZFFilterType)
@@ -56,8 +56,8 @@ typedef enum {
 /** @brief string tokens */
 #define ZFTOKEN_ZFFilterCallbackResultNotActive zfText("NotActive")
 
-ZFCOMPARER_DEFAULT_DECLARE(ZFFilterCallbackResult, e0, ZFFilterCallbackResult, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFFilterCallbackResult, ZFFilterCallbackResult, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFFilterCallbackResult, ZFFilterCallbackResult)

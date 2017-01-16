@@ -29,10 +29,10 @@ zfbool ZFContainer::serializableOnCheck(void)
     return zftrue;
 }
 zfbool ZFContainer::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                    ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                    ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                     ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     this->removeAll();
 
@@ -46,13 +46,13 @@ zfbool ZFContainer::serializableOnSerializeFromData(ZF_IN const ZFSerializableDa
         if(zfscmpTheSame(category, ZFSerializableKeyword_ZFContainer_element))
         {
             zfautoObject element;
-            if(!ZFObjectFromSerializableData(element, categoryData, outErrorHintToAppend, outErrorPos))
+            if(!ZFObjectFromSerializableData(element, categoryData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
             if(element == zfautoObjectNull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("null element"));
                 return zffalse;
             }
@@ -65,9 +65,9 @@ zfbool ZFContainer::serializableOnSerializeFromData(ZF_IN const ZFSerializableDa
 }
 zfbool ZFContainer::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                   ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                  ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                                  ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
     if(ref == zfnull)
@@ -75,7 +75,7 @@ zfbool ZFContainer::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &
         for(zfiterator it = this->iterator(); this->iteratorIsValid(it); )
         {
             ZFSerializableData elementData;
-            if(!ZFObjectToSerializableData(elementData, this->iteratorNext(it), outErrorHintToAppend))
+            if(!ZFObjectToSerializableData(elementData, this->iteratorNext(it), outErrorHint))
             {
                 return zffalse;
             }
@@ -85,7 +85,7 @@ zfbool ZFContainer::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &
     }
     else
     {
-        return this->serializableOnSerializeToDataWithRef(serializableData, ref, outErrorHintToAppend);
+        return this->serializableOnSerializeToDataWithRef(serializableData, ref, outErrorHint);
     }
 
     return zftrue;

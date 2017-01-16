@@ -115,8 +115,8 @@ public:
         return ret;
     }
 };
-ZFCOMPARER_DEFAULT_DECLARE(ZFTextTemplateIndexData, e0, ZFTextTemplateIndexData, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFTextTemplateIndexData, ZFTextTemplateIndexData, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 /**
@@ -260,8 +260,8 @@ public:
 private:
     _ZFP_ZFTextTemplateParamPrivate *d;
 };
-ZFCOMPARER_DEFAULT_DECLARE(ZFTextTemplateParam, e0, ZFTextTemplateParam, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFTextTemplateParam, ZFTextTemplateParam, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 /**

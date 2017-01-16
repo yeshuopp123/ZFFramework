@@ -146,13 +146,13 @@ ZFInputCallback _ZFP_ZFInputCallbackForFileDescriptor(ZF_IN const zfcharA *calle
 ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCallbackForFileDescriptor)
 {
     const ZFSerializableData *fileDescriptorData = ZFSerializableUtil::requireElementByCategory(
-        serializableData, ZFSerializableKeyword_ZFInputCallbackForFileDescriptor_fileDescriptor, outErrorHintToAppend, outErrorPos);
+        serializableData, ZFSerializableKeyword_ZFInputCallbackForFileDescriptor_fileDescriptor, outErrorHint, outErrorPos);
     if(fileDescriptorData == zfnull)
     {
         return zffalse;
     }
     const zfchar *fileDescriptor = zfnull;
-    if(!zfstringFromSerializableData(fileDescriptor, *fileDescriptorData, outErrorHintToAppend, outErrorPos))
+    if(!zfstringFromSerializableData(fileDescriptor, *fileDescriptorData, outErrorHint, outErrorPos))
     {
         return zffalse;
     }
@@ -160,7 +160,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
     ZFFileOpenOptionFlags flags = ZFFileOpenOption::e_Read;
     {
         const ZFSerializableData *flagsData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFInputCallbackForFileDescriptor_flags);
-        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHintToAppend, outErrorPos))
+        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -173,7 +173,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
         zfstring BOMStringList;
         if(autoSkipBOMTableData != zfnull)
         {
-            if(!zfstringFromSerializableData(BOMStringList, *autoSkipBOMTableData, outErrorHintToAppend, outErrorPos))
+            if(!zfstringFromSerializableData(BOMStringList, *autoSkipBOMTableData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
@@ -181,7 +181,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFInputCal
 
             if(zfnull != ZFFileBOMListFromString(BOMList, BOMStringList))
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, *autoSkipBOMTableData, zfText("format BOM list error"));
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, *autoSkipBOMTableData, zfText("format BOM list error"));
                 return zffalse;
             }
         }
@@ -277,13 +277,13 @@ ZFOutputCallback _ZFP_ZFOutputCallbackForFileDescriptor(ZF_IN const zfcharA *cal
 ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFOutputCallbackForFileDescriptor)
 {
     const ZFSerializableData *fileDescriptorData = ZFSerializableUtil::requireElementByCategory(
-        serializableData, ZFSerializableKeyword_ZFOutputCallbackForFileDescriptor_fileDescriptor, outErrorHintToAppend, outErrorPos);
+        serializableData, ZFSerializableKeyword_ZFOutputCallbackForFileDescriptor_fileDescriptor, outErrorHint, outErrorPos);
     if(fileDescriptorData == zfnull)
     {
         return zffalse;
     }
     const zfchar *fileDescriptor = zfnull;
-    if(!zfstringFromSerializableData(fileDescriptor, *fileDescriptorData, outErrorHintToAppend, outErrorPos))
+    if(!zfstringFromSerializableData(fileDescriptor, *fileDescriptorData, outErrorHint, outErrorPos))
     {
         return zffalse;
     }
@@ -291,7 +291,7 @@ ZFCALLBACK_SERIALIZE_CUSTOM_TYPE_DEFINE(ZFCallbackSerializeCustomType_ZFOutputCa
     ZFFileOpenOptionFlags flags = ZFFileOpenOption::e_Create;
     {
         const ZFSerializableData *flagsData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFOutputCallbackForFileDescriptor_flags);
-        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHintToAppend, outErrorPos))
+        if(flagsData != zfnull && !ZFFileOpenOptionFlagsFromSerializableData(flags, *flagsData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }

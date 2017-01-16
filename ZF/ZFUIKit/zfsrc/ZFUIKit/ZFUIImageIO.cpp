@@ -56,19 +56,19 @@ zfautoObject ZFUIImageLoadFromNativeImage(ZF_IN void *nativeImage)
 ZFUIIMAGE_SERIALIZE_TYPE_DEFINE(ZFUIImageSerializeType_input)
 {
     ZFCallback input;
-    if(!ZFCallbackFromSerializableData(input, serializableData, outErrorHintToAppend, outErrorPos))
+    if(!ZFCallbackFromSerializableData(input, serializableData, outErrorHint, outErrorPos))
     {
         return zffalse;
     }
     if(!input.callbackIsValid())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("invalid callback"));
         return zffalse;
     }
     if(!ZFUIImageEncodeFromBinary(result, input))
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("load image failed"));
         return zffalse;
     }
@@ -106,7 +106,7 @@ ZFUIIMAGE_SERIALIZE_TYPE_DEFINE(ZFUIImageSerializeType_color)
         const ZFSerializableData *categoryData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFUIImageIO_color);
         if(categoryData != zfnull)
         {
-            if(!ZFUIColorFromSerializableData(color, *categoryData, outErrorHintToAppend, outErrorPos))
+            if(!ZFUIColorFromSerializableData(color, *categoryData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
@@ -118,13 +118,13 @@ ZFUIIMAGE_SERIALIZE_TYPE_DEFINE(ZFUIImageSerializeType_color)
         const ZFSerializableData *categoryData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFUIImageIO_color_size);
         if(categoryData != zfnull)
         {
-            if(!ZFUISizeFromSerializableData(size, *categoryData, outErrorHintToAppend, outErrorPos))
+            if(!ZFUISizeFromSerializableData(size, *categoryData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
             if(size.width <= 0 || size.height <= 0)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, *categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, *categoryData,
                     zfText("invalid size: %s"), ZFUISizeToString(size).cString());
                 return zffalse;
             }
@@ -136,7 +136,7 @@ ZFUIIMAGE_SERIALIZE_TYPE_DEFINE(ZFUIImageSerializeType_color)
         if(!ZFUIColorIsEqual(color, ZFUIColorTransparent))
         {
             ZFSerializableData categoryData;
-            if(!ZFUIColorToSerializableData(categoryData, color, outErrorHintToAppend))
+            if(!ZFUIColorToSerializableData(categoryData, color, outErrorHint))
             {
                 return zffalse;
             }
@@ -146,7 +146,7 @@ ZFUIIMAGE_SERIALIZE_TYPE_DEFINE(ZFUIImageSerializeType_color)
         if(!ZFUISizeIsEqual(size, ZFUISizeMake(1, 1)))
         {
             ZFSerializableData categoryData;
-            if(!ZFUISizeToSerializableData(categoryData, size, outErrorHintToAppend))
+            if(!ZFUISizeToSerializableData(categoryData, size, outErrorHint))
             {
                 return zffalse;
             }

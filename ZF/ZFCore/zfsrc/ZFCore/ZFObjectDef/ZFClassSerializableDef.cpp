@@ -15,23 +15,23 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 ZFPROPERTY_TYPE_DEFINE(ZFClass, const ZFClass *, {
         if(zfscmpTheSame(serializableData.itemClass(), ZFSerializableKeyword_null))
         {
-            result = zfnull;
+            v = zfnull;
             serializableData.resolveMark();
             return zftrue;
         }
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFClass(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFClass(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
-        const zfchar *className = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFClass_className, outErrorHintToAppend, outErrorPos);
+        const zfchar *className = ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_ZFClass_className, outErrorHint, outErrorPos);
         if(className == zfnull)
         {
             return zffalse;
         }
-        result = ZFClass::classForName(className);
-        if(result == zfnull)
+        v = ZFClass::classForName(className);
+        if(v == zfnull)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
                 zfText("no such class \"%s\""), className);
             return zffalse;
         }

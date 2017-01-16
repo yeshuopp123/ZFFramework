@@ -56,26 +56,26 @@ ZFOUTPUT_TYPE(ZFJsonItem *, {output << (const ZFJsonItem *)v;})
  */
 extern ZF_ENV_EXPORT zfbool ZFJsonParseToSerializableData(ZF_OUT ZFSerializableData &serializableData,
                                                           ZF_IN const ZFJsonItem &jsonObject,
-                                                          ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                          ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                           ZF_OUT_OPT ZFJsonItem *outErrorPos = zfnull);
 /**
  * @brief see #ZFJsonParseToSerializableData
  */
 extern ZF_ENV_EXPORT ZFSerializableData ZFJsonParseToSerializableData(ZF_IN const ZFJsonItem &jsonObject,
-                                                                      ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                                      ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                                       ZF_OUT_OPT ZFJsonItem *outErrorPos = zfnull);
 /**
  * @brief print serializable to json formated data
  */
 extern ZF_ENV_EXPORT zfbool ZFJsonPrintFromSerializableData(ZF_OUT ZFJsonItem &jsonObject,
                                                             ZF_IN const ZFSerializableData &serializableData,
-                                                            ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                            ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                             ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 /**
  * @brief see #ZFJsonPrintFromSerializableData
  */
 extern ZF_ENV_EXPORT ZFJsonItem ZFJsonPrintFromSerializableData(ZF_IN const ZFSerializableData &serializableData,
-                                                                ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                                ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                                 ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 
 // ============================================================

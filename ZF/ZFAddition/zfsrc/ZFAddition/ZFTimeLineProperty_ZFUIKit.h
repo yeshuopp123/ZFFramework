@@ -20,21 +20,21 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 // ============================================================
 // types
 
-ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLineProperty_ZFUIPoint, ZFUIPoint, {
+ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFTimeLineProperty_ZFUIPoint, ZFUIPoint, {
     return ZFUIPointMake(
         fromValue.x + (zfint)((toValue.x - fromValue.x) * progress),
         fromValue.y + (zfint)((toValue.y - fromValue.y) * progress)
         );
 })
 
-ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLineProperty_ZFUISize, ZFUISize, {
+ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFTimeLineProperty_ZFUISize, ZFUISize, {
     return ZFUISizeMake(
         fromValue.width + (zfint)((toValue.width - fromValue.width) * progress),
         fromValue.height + (zfint)((toValue.height - fromValue.height) * progress)
         );
 })
 
-ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLineProperty_ZFUIMargin, ZFUIMargin, {
+ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFTimeLineProperty_ZFUIMargin, ZFUIMargin, {
     return ZFUIMarginMake(
         fromValue.left + (zfint)((toValue.left - fromValue.left) * progress),
         fromValue.top + (zfint)((toValue.top - fromValue.top) * progress),
@@ -43,7 +43,7 @@ ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLineProperty_ZFUIMargin, ZFUIMarg
         );
 })
 
-ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLineProperty_ZFUIRect, ZFUIRect, {
+ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFTimeLineProperty_ZFUIRect, ZFUIRect, {
     return ZFUIRectMake(
         fromValue.point.x + (zfint)((toValue.point.x - fromValue.point.x) * progress),
         fromValue.point.y + (zfint)((toValue.point.y - fromValue.point.y) * progress),
@@ -52,7 +52,7 @@ ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLineProperty_ZFUIRect, ZFUIRect, 
         );
 })
 
-ZFTIMELINEPROPERTY_DECLARE_COMMON_DETAIL(ZFTimeLineProperty_ZFUIColor, ZFUIColor, {
+ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFTimeLineProperty_ZFUIColor, ZFUIColor, {
     return ZFUIColorMake(
         ZFUIColorGetA(fromValue) + (zfint)((ZFUIColorGetA(toValue) - ZFUIColorGetA(fromValue)) * progress),
         ZFUIColorGetR(fromValue) + (zfint)((ZFUIColorGetR(toValue) - ZFUIColorGetR(fromValue)) * progress),

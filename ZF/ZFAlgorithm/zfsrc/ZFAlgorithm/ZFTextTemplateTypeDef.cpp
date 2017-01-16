@@ -39,59 +39,59 @@ void ZFTextTemplateIndexData::objectInfoT(ZF_IN_OUT zfstring &ret) const
 
 // ============================================================
 ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateIndexData, ZFTextTemplateIndexData, {
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTextTemplateIndexData(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTextTemplateIndexData(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
 
-        result.indexStart = 0;
-        result.indexOffset = 1;
-        result.indexRadix = 10;
-        result.indexUpperCase = zftrue;
-        result.indexWidth = 0;
-        result.indexFlag = ZFTextTemplateIndexFlag::EnumDefault();
+        v.indexStart = 0;
+        v.indexOffset = 1;
+        v.indexRadix = 10;
+        v.indexUpperCase = zftrue;
+        v.indexWidth = 0;
+        v.indexFlag = ZFTextTemplateIndexFlag::EnumDefault();
 
         const zfchar *element = zfnull;
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexStart);
-        if(element != zfnull && zfindexFromString(result.indexStart, element) != zfnull)
+        if(element != zfnull && zfindexFromString(v.indexStart, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexStart, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexStart, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexOffset);
-        if(element != zfnull && zfintFromString(result.indexOffset, element) != zfnull)
+        if(element != zfnull && zfintFromString(v.indexOffset, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexOffset, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexOffset, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexRadix);
-        if(element != zfnull && zfindexFromString(result.indexRadix, element) != zfnull)
+        if(element != zfnull && zfindexFromString(v.indexRadix, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexRadix, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexRadix, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexUpperCase);
-        if(element != zfnull && zfboolFromString(result.indexUpperCase, element) != zfnull)
+        if(element != zfnull && zfboolFromString(v.indexUpperCase, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexUpperCase, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexUpperCase, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexWidth);
-        if(element != zfnull && zfindexFromString(result.indexWidth, element) != zfnull)
+        if(element != zfnull && zfindexFromString(v.indexWidth, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexWidth, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexWidth, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexFlag);
-        if(element != zfnull && ZFTextTemplateIndexFlagEnumFromString(result.indexFlag, element) != zfnull)
+        if(element != zfnull && ZFTextTemplateIndexFlagEnumFromString(v.indexFlag, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexFlag, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFTextTemplateIndexData_indexFlag, element);
             return zffalse;
         }
 
@@ -642,16 +642,16 @@ void ZFTextTemplateParam::objectInfoT(ZF_IN_OUT zfstring &ret) const
 
 // ============================================================
 ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTextTemplateParam(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFTextTemplateParam(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
 
-        result.replaceDataRemoveAll();
-        result.enableDataRemoveAll();
-        result.enableDataDefaultSet(zffalse);
-        result.indexDataRemoveAll();
-        result.indexDataDefaultSet(ZFTextTemplateIndexData());
+        v.replaceDataRemoveAll();
+        v.enableDataRemoveAll();
+        v.enableDataDefaultSet(zffalse);
+        v.indexDataRemoveAll();
+        v.indexDataDefaultSet(ZFTextTemplateIndexData());
 
         const ZFSerializableData *element = zfnull;
 
@@ -664,15 +664,15 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
                 const zfchar *key = item.propertyName();
                 if(key == zfnull)
                 {
-                    ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, item, zfText("missing item name"));
+                    ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, item, zfText("missing item name"));
                     return zffalse;
                 }
                 zfstring value;
-                if(!zfstringFromSerializableData(value, item, outErrorHintToAppend, outErrorPos))
+                if(!zfstringFromSerializableData(value, item, outErrorHint, outErrorPos))
                 {
                     return zffalse;
                 }
-                result.replaceDataAdd(key, value);
+                v.replaceDataAdd(key, value);
             }
         }
 
@@ -685,15 +685,15 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
                 const zfchar *key = item.propertyName();
                 if(key == zfnull)
                 {
-                    ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, item, zfText("missing item name"));
+                    ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, item, zfText("missing item name"));
                     return zffalse;
                 }
                 zfbool value = zffalse;
-                if(!zfboolFromSerializableData(value, item, outErrorHintToAppend, outErrorPos))
+                if(!zfboolFromSerializableData(value, item, outErrorHint, outErrorPos))
                 {
                     return zffalse;
                 }
-                result.enableDataAdd(key, value);
+                v.enableDataAdd(key, value);
             }
         }
 
@@ -701,11 +701,11 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
         if(element != zfnull)
         {
             zfbool enableDataDefault = zffalse;
-            if(!zfboolFromSerializableData(enableDataDefault, *element, outErrorHintToAppend, outErrorPos))
+            if(!zfboolFromSerializableData(enableDataDefault, *element, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
-            result.enableDataDefaultSet(enableDataDefault);
+            v.enableDataDefaultSet(enableDataDefault);
         }
 
         element = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFTextTemplateParam_index);
@@ -717,15 +717,15 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
                 const zfchar *key = item.propertyName();
                 if(key == zfnull)
                 {
-                    ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, item, zfText("missing item name"));
+                    ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, item, zfText("missing item name"));
                     return zffalse;
                 }
                 ZFTextTemplateIndexData value;
-                if(!ZFTextTemplateIndexDataFromSerializableData(value, item, outErrorHintToAppend, outErrorPos))
+                if(!ZFTextTemplateIndexDataFromSerializableData(value, item, outErrorHint, outErrorPos))
                 {
                     return zffalse;
                 }
-                result.indexDataAdd(key, value);
+                v.indexDataAdd(key, value);
             }
         }
 
@@ -733,11 +733,11 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
         if(element != zfnull)
         {
             ZFTextTemplateIndexData indexDataDefault;
-            if(!ZFTextTemplateIndexDataFromSerializableData(indexDataDefault, *element, outErrorHintToAppend, outErrorPos))
+            if(!ZFTextTemplateIndexDataFromSerializableData(indexDataDefault, *element, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
-            result.indexDataDefaultSet(indexDataDefault);
+            v.indexDataDefaultSet(indexDataDefault);
         }
 
         serializableData.resolveMark();
@@ -751,7 +751,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
             for(zfindex i = 0; i < v.replaceDataCount(); ++i)
             {
                 ZFSerializableData itemData;
-                if(!zfstringToSerializableData(itemData, v.replaceDataAtIndex(i), outErrorHintToAppend))
+                if(!zfstringToSerializableData(itemData, v.replaceDataAtIndex(i), outErrorHint))
                 {
                     return zffalse;
                 }
@@ -770,7 +770,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
             for(zfindex i = 0; i < v.enableDataCount(); ++i)
             {
                 ZFSerializableData itemData;
-                if(!zfboolToSerializableData(itemData, v.enableDataAtIndex(i), outErrorHintToAppend))
+                if(!zfboolToSerializableData(itemData, v.enableDataAtIndex(i), outErrorHint))
                 {
                     return zffalse;
                 }
@@ -786,7 +786,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
         if(v.enableDataDefault())
         {
             ZFSerializableData nodeData;
-            if(!zfboolToSerializableData(nodeData, v.enableDataDefault(), outErrorHintToAppend))
+            if(!zfboolToSerializableData(nodeData, v.enableDataDefault(), outErrorHint))
             {
                 return zffalse;
             }
@@ -800,7 +800,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
             for(zfindex i = 0; i < v.indexDataCount(); ++i)
             {
                 ZFSerializableData itemData;
-                if(!ZFTextTemplateIndexDataToSerializableData(itemData, *(v.indexDataAtIndex(i)), outErrorHintToAppend))
+                if(!ZFTextTemplateIndexDataToSerializableData(itemData, *(v.indexDataAtIndex(i)), outErrorHint))
                 {
                     return zffalse;
                 }
@@ -815,7 +815,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFTextTemplateParam, ZFTextTemplateParam, {
 
         {
             ZFSerializableData nodeData;
-            if(!ZFTextTemplateIndexDataToSerializableData(nodeData, v.indexDataDefault(), outErrorHintToAppend))
+            if(!ZFTextTemplateIndexDataToSerializableData(nodeData, v.indexDataDefault(), outErrorHint))
             {
                 return zffalse;
             }

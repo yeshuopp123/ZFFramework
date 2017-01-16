@@ -272,7 +272,7 @@ zfbool ZFSerializableData::referenceInfoExistRecursively(void) const
     return zffalse;
 }
 
-zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                                      ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
     _ZFP_ZFSerializableDataAttributeMapType::iterator it = d->attributes.find(ZFSerializableKeyword_refType);
@@ -291,13 +291,13 @@ zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoLoad(ZF_OUT_OPT 
     {
         if(d->referenceRefType == zfnull)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, *this,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, *this,
                 zfText("missing \"%s\""), ZFSerializableKeyword_refType);
             return zffalse;
         }
         if(d->referenceRefData == zfnull)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, *this,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, *this,
                 zfText("missing \"%s\""), ZFSerializableKeyword_refData);
             return zffalse;
         }
@@ -305,14 +305,14 @@ zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoLoad(ZF_OUT_OPT 
 
     for(zfstlsize i = 0; i < d->elements.size(); ++i)
     {
-        if(!d->elements[i]._ZFP_ZFSerializableData_referenceInfoLoad(outErrorHintToAppend, outErrorPos))
+        if(!d->elements[i]._ZFP_ZFSerializableData_referenceInfoLoad(outErrorHint, outErrorPos))
         {
             return zffalse;
         }
     }
     return zftrue;
 }
-zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoApply(ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoApply(ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                                       ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
     zfbool recursiveRef = zffalse;
@@ -334,13 +334,13 @@ zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoApply(ZF_OUT_OPT
         {
             if(d->referenceRefType == zfnull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, *this,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, *this,
                     zfText("missing \"%s\""), ZFSerializableKeyword_refType);
                 return zffalse;
             }
             if(d->referenceRefData == zfnull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, *this,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, *this,
                     zfText("missing \"%s\""), ZFSerializableKeyword_refData);
                 return zffalse;
             }
@@ -353,7 +353,7 @@ zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoApply(ZF_OUT_OPT
         ZFSerializableData tmpData;
         _ZFP_ZFSerializableDataReferenceCallback *callback = _ZFP_ZFSerializableData_refTypeMap
             .get<_ZFP_ZFSerializableDataReferenceCallback *>(d->referenceRefType);
-        if(callback == zfnull || !(*callback)(tmpData, d->referenceRefData, outErrorHintToAppend, outErrorPos))
+        if(callback == zfnull || !(*callback)(tmpData, d->referenceRefData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
@@ -390,18 +390,18 @@ zfbool ZFSerializableData::_ZFP_ZFSerializableData_referenceInfoApply(ZF_OUT_OPT
 
     for(zfstlsize i = 0; i < d->elements.size(); ++i)
     {
-        if(!d->elements[i]._ZFP_ZFSerializableData_referenceInfoApply(outErrorHintToAppend, outErrorPos))
+        if(!d->elements[i]._ZFP_ZFSerializableData_referenceInfoApply(outErrorHint, outErrorPos))
         {
             return zffalse;
         }
     }
     return zftrue;
 }
-zfbool ZFSerializableData::referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+zfbool ZFSerializableData::referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                              ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    return this->_ZFP_ZFSerializableData_referenceInfoLoad(outErrorHintToAppend, outErrorPos)
-        && this->_ZFP_ZFSerializableData_referenceInfoApply(outErrorHintToAppend, outErrorPos);
+    return this->_ZFP_ZFSerializableData_referenceInfoLoad(outErrorHint, outErrorPos)
+        && this->_ZFP_ZFSerializableData_referenceInfoApply(outErrorHint, outErrorPos);
 }
 
 void ZFSerializableData::referenceInfoRestore(ZF_IN const ZFSerializableData &refNode)

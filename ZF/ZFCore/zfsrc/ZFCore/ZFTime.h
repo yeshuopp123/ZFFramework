@@ -181,8 +181,8 @@ extern ZF_ENV_EXPORT void operator *=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfi
 /** @brief overrided operator for ZFTimeValue calculate */
 extern ZF_ENV_EXPORT void operator /=(ZF_IN_OUT ZFTimeValue &v0, ZF_IN const zfindex &v1);
 
-ZFCOMPARER_DEFAULT_DECLARE(ZFTimeValue, e0, ZFTimeValue, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFTimeValue, ZFTimeValue, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 ZFOUTPUT_TYPE_DECLARE(ZFTimeValue)
@@ -228,8 +228,8 @@ inline ZFTimeInfo ZFTimeInfoMake(ZF_IN zfint const &year,
 }
 
 ZFCORE_POD_COMPARER_DECLARE(ZFTimeInfo)
-ZFCOMPARER_DEFAULT_DECLARE(ZFTimeInfo, e0, ZFTimeInfo, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFTimeInfo, ZFTimeInfo, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 ZFOUTPUT_TYPE_DECLARE(ZFTimeInfo)
@@ -286,12 +286,12 @@ zfclass ZF_ENV_EXPORT ZFTime : zfextends ZFObject, zfimplements ZFSerializable, 
 protected:
     zfoverride
     virtual zfbool serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                    ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     zfoverride
     virtual zfbool serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                  ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                 ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 protected:
     zfoverride

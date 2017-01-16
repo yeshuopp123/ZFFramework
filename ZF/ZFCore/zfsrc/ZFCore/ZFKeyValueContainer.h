@@ -103,7 +103,7 @@ protected:
     virtual zfbool serializableOnCheck(void);
     zfoverride
     virtual zfbool serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                    ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     /**
      * @brief see #ZFSerializable::serializableOnSerializeToData
@@ -119,14 +119,14 @@ protected:
     zfoverride
     virtual zfbool serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                  ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                 ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 protected:
     /**
      * @brief see #ZFKeyValueContainer::serializableOnSerializeToData
      */
     virtual zfbool serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData &serializableData,
                                                         ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                        ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull) = 0;
+                                                        ZF_OUT_OPT zfstring *outErrorHint = zfnull) = 0;
 
 public:
     zfoverride

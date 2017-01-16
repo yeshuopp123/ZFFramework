@@ -48,7 +48,7 @@ protected:
     zfoverride
     virtual zfbool serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData &serializableData,
                                                         ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                        ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                        ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 public:
     /** @brief see #ZFObject::objectOnInit */

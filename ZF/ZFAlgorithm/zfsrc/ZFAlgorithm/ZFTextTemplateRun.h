@@ -75,7 +75,7 @@ extern ZF_ENV_EXPORT ZFTextTemplateRunParam &_ZFP_ZFTextTemplateRunParamDefault(
 extern ZF_ENV_EXPORT zfbool ZFTextTemplateRun(ZF_IN const zfchar *path,
                                               ZF_IN const ZFTextTemplateParam &textTemplateParam,
                                               ZF_IN_OPT const ZFTextTemplateRunParam &runParam = ZFTextTemplateRunParamDefault,
-                                              ZF_OUT_OPT zfstring *errorMessage = zfnull);
+                                              ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFTextTemplateRun_h_

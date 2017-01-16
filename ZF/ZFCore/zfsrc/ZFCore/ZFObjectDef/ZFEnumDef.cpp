@@ -23,22 +23,22 @@ ZF_STATIC_INITIALIZER_END(ZFEnumDataHolder)
 ZFOBJECT_REGISTER(ZFEnum)
 
 zfbool ZFEnum::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
-    const zfchar *value = ZFSerializableUtil::checkPropertyValue(serializableData);
-    if(value != zfnull)
+    const zfchar *valueString = ZFSerializableUtil::checkPropertyValue(serializableData);
+    if(valueString != zfnull)
     {
         ZFEnumValue enumValue = ZFEnumValueInvalid;
-        if(!zfscmpTheSame(value, ZFEnumValueNameInvalid))
+        if(!zfscmpTheSame(valueString, ZFEnumValueNameInvalid))
         {
-            enumValue = this->enumValueForName(value);
+            enumValue = this->enumValueForName(valueString);
             if(enumValue == ZFEnumValueInvalid)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
-                    zfText("invalid value %s for enum %s"), value, this->classData()->className());
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
+                    zfText("invalid value %s for enum %s"), valueString, this->classData()->className());
                 return zffalse;
             }
         }
@@ -52,9 +52,9 @@ zfbool ZFEnum::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &s
 }
 zfbool ZFEnum::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                              ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                             ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                             ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
     if((ref == zfnull && this->enumValue() != ZFEnumValueInvalid)

@@ -64,19 +64,19 @@ ZFPROPERTY_TYPE_DECLARE(zfstring, zfstring)
 /**
  * @brief see #zfstringFromSerializableData, designed for performance
  *
- * returned (const zfchar *) result is the pointer to serializableData's value,
- * you should ensure it's alive while using the result
+ * returned (const zfchar *) propertyValue is the pointer to serializableData's value,
+ * you should ensure it's alive while using the propertyValue
  */
-extern ZF_ENV_EXPORT zfbool zfstringFromSerializableData(ZF_OUT const zfchar * &result,
+extern ZF_ENV_EXPORT zfbool zfstringFromSerializableData(ZF_OUT const zfchar * &propertyValue,
                                                          ZF_IN const ZFSerializableData &serializableData,
-                                                         ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                         ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                          ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 /**
  * @brief see #zfstringToSerializableData, designed for performance
  */
 extern ZF_ENV_EXPORT zfbool zfstringToSerializableData(ZF_OUT ZFSerializableData &serializableData,
-                                                       ZF_IN const zfchar * const &v,
-                                                       ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */);
+                                                       ZF_IN const zfchar * const &propertyValue,
+                                                       ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */);
 
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE

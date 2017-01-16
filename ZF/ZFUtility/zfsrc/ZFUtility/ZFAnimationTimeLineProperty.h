@@ -41,12 +41,12 @@ zfclass ZF_ENV_EXPORT ZFAnimationTimeLineProperty : zfextends ZFAnimationTimeLin
 protected:
     zfoverride
     virtual zfbool serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                    ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     zfoverride
     virtual zfbool serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                  ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                 ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
     // ============================================================
     // object

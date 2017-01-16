@@ -13,18 +13,18 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 const ZF2048Point ZF2048PointZero = {0, 0};
 
 ZFPROPERTY_TYPE_DEFINE(ZF2048Value, ZF2048Value, {
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZF2048Value(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZF2048Value(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
-        const zfchar *propertyValue = ZFSerializableUtil::checkPropertyValue(serializableData);
-        if(propertyValue == zfnull)
+        const zfchar *valueString = ZFSerializableUtil::checkPropertyValue(serializableData);
+        if(valueString == zfnull)
         {
-            result = 0;
+            v = 0;
             return zftrue;
         }
         serializableData.resolveMark();
-        if(zfintFromString(result, propertyValue) != zfnull)
+        if(zfintFromString(v, valueString) != zfnull)
         {
             return zffalse;
         }

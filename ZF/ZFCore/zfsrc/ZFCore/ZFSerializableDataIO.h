@@ -28,14 +28,14 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 extern ZF_ENV_EXPORT zfbool ZFSerializableDataFromIO(ZF_OUT ZFSerializableData &serializableData,
                                                      ZF_IN const zfchar *ioType,
                                                      ZF_IN const ZFInputCallback &input,
-                                                     ZF_OUT_OPT zfstring *errorMessage = zfnull);
+                                                     ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 /** @brief see #ZFSerializableDataFromIO */
 inline ZFSerializableData ZFSerializableDataFromIO(ZF_IN const zfchar *ioType,
                                                    ZF_IN const ZFInputCallback &input,
-                                                   ZF_OUT_OPT zfstring *errorMessage = zfnull)
+                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull)
 {
     ZFSerializableData ret;
-    if(ZFSerializableDataFromIO(ret, ioType, input, errorMessage))
+    if(ZFSerializableDataFromIO(ret, ioType, input, outErrorHint))
     {
         return ret;
     }
@@ -48,17 +48,17 @@ inline ZFSerializableData ZFSerializableDataFromIO(ZF_IN const zfchar *ioType,
 extern ZF_ENV_EXPORT zfbool ZFSerializableDataToIO(ZF_IN_OUT const ZFOutputCallback &output,
                                                    ZF_IN const zfchar *ioType,
                                                    ZF_IN const ZFSerializableData &serializableData,
-                                                   ZF_OUT_OPT zfstring *errorMessage = zfnull);
+                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 // ============================================================
 /** @brief see #ZFSERIALIZABLEDATAIO_DEFINE */
 typedef zfbool (*ZFSerializableDataFromIOCallback)(ZF_OUT ZFSerializableData &serializableData,
                                                    ZF_IN const ZFInputCallback &input,
-                                                   ZF_OUT_OPT zfstring *errorMessage /* = zfnull */);
+                                                   ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */);
 /** @brief see #ZFSERIALIZABLEDATAIO_DEFINE */
 typedef zfbool (*ZFSerializableDataToIOCallback)(ZF_IN_OUT const ZFOutputCallback &output,
                                                  ZF_IN const ZFSerializableData &serializableData,
-                                                 ZF_OUT_OPT zfstring *errorMessage /* = zfnull */);
+                                                 ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */);
 
 /**
  * @brief register callbacks to load serializable data from input or to output,
@@ -85,13 +85,13 @@ extern ZF_ENV_EXPORT ZFSerializableDataToIOCallback ZFSerializableDataToIOCallba
 #define ZFSERIALIZABLEDATAIO_DEFINE(ioType_, fromCallbackAction, toCallbackAction) \
     static zfbool ZFUniqueName(_ZFP_ZFSerializableDataFromIOCallback_##ioType_)(ZF_OUT ZFSerializableData &serializableData, \
                                                                                 ZF_IN const ZFInputCallback &input, \
-                                                                                ZF_OUT_OPT zfstring *errorMessage = zfnull) \
+                                                                                ZF_OUT_OPT zfstring *outErrorHint = zfnull) \
     { \
         fromCallbackAction \
     } \
     static zfbool ZFUniqueName(_ZFP_ZFSerializableDataToIOCallback_##ioType_)(ZF_IN_OUT const ZFOutputCallback &output, \
                                                                               ZF_IN const ZFSerializableData &serializableData, \
-                                                                              ZF_OUT_OPT zfstring *errorMessage = zfnull) \
+                                                                              ZF_OUT_OPT zfstring *outErrorHint = zfnull) \
     { \
         toCallbackAction \
     } \

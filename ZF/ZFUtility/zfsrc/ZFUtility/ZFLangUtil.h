@@ -58,6 +58,13 @@ extern ZF_ENV_EXPORT void zfLangApplyCancel(ZF_IN ZFObject *obj,
  * @code
  *   / ** you may add docs here * /
  *   ZFLANGAPPLY_IMPL(YourObjectType, YourTypeName, {obj->applyYourLang(objIdentity, langKey, langValue, userData);})
+ *
+ *   // impl function's proto type:
+ *   //   void action(ZF_IN YourObjectType *obj,
+ *   //       ZF_IN const zfchar *objIdentity,
+ *   //       ZF_IN const zfchar *langKey,
+ *   //       ZF_IN const zfchar *langValue,
+ *   //       ZF_IN_OPT ZFObject *userData);
  * @endcode
  * expand this method for you:
  * @code

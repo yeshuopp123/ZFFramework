@@ -10,15 +10,15 @@
 
 ZF_NAMESPACE_GLOBAL_BEGIN
 
-ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(ZFSerializableDataRefType_lang_zfstring, serializableData, data, outErrorHintToAppend, outErrorPos)
+ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(ZFSerializableDataRefType_lang_zfstring)
 {
-    serializableData.propertyValueSet(zfLang(data));
+    serializableData.propertyValueSet(zfLang(refData));
     return zftrue;
 }
 
-ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(ZFSerializableDataRefType_lang_ZFString, serializableData, data, outErrorHintToAppend, outErrorPos)
+ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(ZFSerializableDataRefType_lang_ZFString)
 {
-    serializableData.propertyValueSet(zfLang(data));
+    serializableData.propertyValueSet(zfLang(refData));
     return zftrue;
 }
 

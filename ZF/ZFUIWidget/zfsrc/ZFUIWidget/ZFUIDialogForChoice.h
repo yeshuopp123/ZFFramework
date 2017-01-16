@@ -464,10 +464,10 @@ public:
 protected:
     zfoverride
     virtual zfbool serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                    ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull)
     {
-        if(!zfsuper::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos))
+        if(!zfsuper::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }

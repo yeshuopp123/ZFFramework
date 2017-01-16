@@ -485,23 +485,23 @@ public:
 
     zfbool serializeInternalViewFromCategoryData(ZF_IN ZFUIViewChildLayerEnum childLayer,
                                                  ZF_IN const ZFSerializableData &categoryData,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                 ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                  ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
     {
         zfautoObject internalView;
-        if(!ZFObjectFromSerializableData(internalView, categoryData, outErrorHintToAppend, outErrorPos))
+        if(!ZFObjectFromSerializableData(internalView, categoryData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
         if(internalView == zfautoObjectNull)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                 zfText("null view"));
             return zffalse;
         }
         if(!internalView.toObject()->classData()->classIsSubclassOf(ZFUIView::ClassData()))
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                 zfText("%s not type of %s"),
                 internalView.toObject()->objectInfoOfInstance().cString(), ZFUIView::ClassData()->className());
             return zffalse;
@@ -509,7 +509,7 @@ public:
         ZFUIView *internalViewTmp = internalView.to<ZFUIView *>();
         if(internalViewTmp->viewId().isEmpty())
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                 zfText("auto serialized internal view %s has no viewId"),
                 internalViewTmp->objectInfoOfInstance().cString());
             return zffalse;
@@ -574,7 +574,7 @@ public:
     zfbool serializeInternalViewToCategoryData(ZF_IN ZFUIViewChildLayerEnum childLayer,
                                                ZF_IN_OUT ZFSerializableData &serializableData,
                                                ZF_IN ZFUIView *ref,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
     {
         const ZFCoreArrayPOD<ZFUIView *> *views = zfnull;
         const ZFCoreArrayPOD<ZFUIView *> *viewsRef = zfnull;
@@ -623,7 +623,7 @@ public:
                     continue;
                 }
                 ZFSerializableData childData;
-                if(!ZFObjectToSerializableData(childData, tmp, outErrorHintToAppend))
+                if(!ZFObjectToSerializableData(childData, tmp, outErrorHint))
                 {
                     return zffalse;
                 }
@@ -655,7 +655,7 @@ public:
                     continue;
                 }
                 ZFSerializableData childData;
-                if(!ZFObjectToSerializableData(childData, tmp, outErrorHintToAppend))
+                if(!ZFObjectToSerializableData(childData, tmp, outErrorHint))
                 {
                     return zffalse;
                 }
@@ -712,10 +712,10 @@ ZFUIViewLayoutParam *ZFUIView::serializableRefLayoutParam(void)
 }
 
 zfbool ZFUIView::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                 ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                  ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     if(this->serializableOnCheckNeedSerializeChildren())
     {
@@ -733,19 +733,19 @@ zfbool ZFUIView::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
         if(zfscmpTheSame(category, ZFSerializableKeyword_ZFUIView_child))
         {
             zfautoObject element;
-            if(!ZFObjectFromSerializableData(element, categoryData, outErrorHintToAppend, outErrorPos))
+            if(!ZFObjectFromSerializableData(element, categoryData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
             if(element == zfautoObjectNull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("null view"));
                 return zffalse;
             }
             if(!element.toObject()->classData()->classIsSubclassOf(ZFUIView::ClassData()))
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("%s not type of %s"),
                     element.toObject()->objectInfoOfInstance().cString(), ZFUIView::ClassData()->className());
                 return zffalse;
@@ -758,19 +758,19 @@ zfbool ZFUIView::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
         else if(zfscmpTheSame(category, ZFSerializableKeyword_ZFUIView_layoutParam))
         {
             zfautoObject layoutParam;
-            if(!ZFObjectFromSerializableData(layoutParam, categoryData, outErrorHintToAppend, outErrorPos))
+            if(!ZFObjectFromSerializableData(layoutParam, categoryData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
             if(layoutParam == zfautoObjectNull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("null layoutParam"));
                 return zffalse;
             }
             if(!layoutParam.toObject()->classData()->classIsSubclassOf(ZFUIViewLayoutParam::ClassData()))
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("%s not type of %s"),
                     layoutParam.toObject()->objectInfoOfInstance().cString(), ZFUIViewLayoutParam::ClassData()->className());
                 return zffalse;
@@ -782,7 +782,7 @@ zfbool ZFUIView::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
         {
             if(!d->serializeInternalViewFromCategoryData(ZFUIViewChildLayer::e_Impl,
                 categoryData,
-                outErrorHintToAppend,
+                outErrorHint,
                 outErrorPos))
             {
                 return zffalse;
@@ -792,7 +792,7 @@ zfbool ZFUIView::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
         {
             if(!d->serializeInternalViewFromCategoryData(ZFUIViewChildLayer::e_Background,
                 categoryData,
-                outErrorHintToAppend,
+                outErrorHint,
                 outErrorPos))
             {
                 return zffalse;
@@ -802,7 +802,7 @@ zfbool ZFUIView::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
         {
             if(!d->serializeInternalViewFromCategoryData(ZFUIViewChildLayer::e_Foreground,
                 categoryData,
-                outErrorHintToAppend,
+                outErrorHint,
                 outErrorPos))
             {
                 return zffalse;
@@ -813,9 +813,9 @@ zfbool ZFUIView::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
 }
 zfbool ZFUIView::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
     // layoutParam
@@ -843,7 +843,7 @@ zfbool ZFUIView::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &ser
         if(needAdd)
         {
             ZFSerializableData categoryData;
-            if(!ZFObjectToSerializableData(categoryData, d->layoutParam, outErrorHintToAppend, refLayoutParam))
+            if(!ZFObjectToSerializableData(categoryData, d->layoutParam, outErrorHint, refLayoutParam))
             {
                 return zffalse;
             }
@@ -855,15 +855,15 @@ zfbool ZFUIView::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &ser
     { // internal views
         if(!d->internalViewAutoSerializeTags.empty())
         {
-            if(!d->serializeInternalViewToCategoryData(ZFUIViewChildLayer::e_Impl, serializableData, ref, outErrorHintToAppend))
+            if(!d->serializeInternalViewToCategoryData(ZFUIViewChildLayer::e_Impl, serializableData, ref, outErrorHint))
             {
                 return zffalse;
             }
-            if(!d->serializeInternalViewToCategoryData(ZFUIViewChildLayer::e_Background, serializableData, ref, outErrorHintToAppend))
+            if(!d->serializeInternalViewToCategoryData(ZFUIViewChildLayer::e_Background, serializableData, ref, outErrorHint))
             {
                 return zffalse;
             }
-            if(!d->serializeInternalViewToCategoryData(ZFUIViewChildLayer::e_Foreground, serializableData, ref, outErrorHintToAppend))
+            if(!d->serializeInternalViewToCategoryData(ZFUIViewChildLayer::e_Foreground, serializableData, ref, outErrorHint))
             {
                 return zffalse;
             }
@@ -878,7 +878,7 @@ zfbool ZFUIView::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &ser
             for(zfindex i = 0, count = this->childCount(); i < count; ++i)
             {
                 ZFSerializableData childData;
-                if(!ZFObjectToSerializableData(childData, this->childAtIndex(i), outErrorHintToAppend))
+                if(!ZFObjectToSerializableData(childData, this->childAtIndex(i), outErrorHint))
                 {
                     return zffalse;
                 }
@@ -890,7 +890,7 @@ zfbool ZFUIView::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &ser
         {
             if(!d->childArrayIsTheSame(this, ref, ZFUIViewChildLayer::e_Normal))
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+                ZFSerializableUtil::errorOccurred(outErrorHint,
                     zfText("child mismatch, this: %s, ref: %s"),
                     this->objectInfoOfInstance().cString(), ref->objectInfoOfInstance().cString());
                 return zffalse;

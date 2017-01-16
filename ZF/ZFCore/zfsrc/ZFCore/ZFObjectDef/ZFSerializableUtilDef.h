@@ -30,7 +30,7 @@ extern ZF_ENV_EXPORT ZFCoreArray<ZFOutputCallback> &_ZFP_ZFSerializableUtilError
 /**
  * @brief util method to set error
  */
-extern ZF_ENV_EXPORT void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+extern ZF_ENV_EXPORT void errorOccurred(ZF_OUT_OPT zfstring *outErrorHint,
                                         ZF_OUT_OPT ZFSerializableData *outErrorPos,
                                         ZF_IN const ZFSerializableData &errorPos,
                                         ZF_IN const zfchar *fmt,
@@ -39,14 +39,14 @@ extern ZF_ENV_EXPORT void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppen
 /**
  * @brief util method to set error
  */
-extern ZF_ENV_EXPORT void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+extern ZF_ENV_EXPORT void errorOccurred(ZF_OUT_OPT zfstring *outErrorHint,
                                         ZF_IN const zfchar *fmt,
                                         ...);
 
 /**
  * @brief util method to set error
  */
-extern ZF_ENV_EXPORT void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+extern ZF_ENV_EXPORT void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHint,
                                              ZF_OUT_OPT ZFSerializableData *outErrorPos,
                                              ZF_IN const ZFSerializableData &errorPos,
                                              ZF_IN const zfchar *serializingName,
@@ -54,7 +54,7 @@ extern ZF_ENV_EXPORT void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintTo
 /**
  * @brief util method to set error
  */
-extern ZF_ENV_EXPORT void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+extern ZF_ENV_EXPORT void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHint,
                                              ZF_IN const zfchar *serializingName,
                                              ZF_IN const zfchar *errorValue);
 
@@ -71,7 +71,7 @@ extern ZF_ENV_EXPORT const zfchar *checkSerializableClass(ZF_IN const zfchar *de
  */
 extern ZF_ENV_EXPORT const zfchar *requireSerializableClass(ZF_IN const zfchar *desiredClass,
                                                             ZF_IN const ZFSerializableData &serializableData,
-                                                            ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                            ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                             ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 
 /**
@@ -88,7 +88,7 @@ extern ZF_ENV_EXPORT const zfchar *checkAttribute(ZF_IN const ZFSerializableData
  */
 extern ZF_ENV_EXPORT const zfchar *requireAttribute(ZF_IN const ZFSerializableData &serializableData,
                                                     ZF_IN const zfchar *desiredAttribute,
-                                                    ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                    ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                     ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 
 /**
@@ -105,7 +105,7 @@ extern ZF_ENV_EXPORT const ZFSerializableData *checkElementByName(ZF_IN const ZF
  */
 extern ZF_ENV_EXPORT const ZFSerializableData *requireElementByName(ZF_IN const ZFSerializableData &serializableData,
                                                                     ZF_IN const zfchar *desiredElementName,
-                                                                    ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                                    ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                                     ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 
 /**
@@ -122,7 +122,7 @@ extern ZF_ENV_EXPORT const ZFSerializableData *checkElementByCategory(ZF_IN cons
  */
 extern ZF_ENV_EXPORT const ZFSerializableData *requireElementByCategory(ZF_IN const ZFSerializableData &serializableData,
                                                                         ZF_IN const zfchar *desiredElementCategory,
-                                                                        ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                                        ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                                         ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 
 /**
@@ -138,10 +138,10 @@ inline const zfchar *checkPropertyName(ZF_IN const ZFSerializableData &serializa
  *   auto mark as resolved
  */
 inline const zfchar *requirePropertyName(ZF_IN const ZFSerializableData &serializableData,
-                                         ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                         ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                          ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull)
 {
-    return ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_name, outErrorHintToAppend, outErrorPos);
+    return ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_name, outErrorHint, outErrorPos);
 }
 
 /**
@@ -157,10 +157,10 @@ inline const zfchar *checkPropertyValue(ZF_IN const ZFSerializableData &serializ
  *   auto mark as resolved
  */
 inline const zfchar *requirePropertyValue(ZF_IN const ZFSerializableData &serializableData,
-                                          ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                          ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                           ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull)
 {
-    return ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_value, outErrorHintToAppend, outErrorPos);
+    return ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_value, outErrorHint, outErrorPos);
 }
 
 /**
@@ -176,10 +176,10 @@ inline const zfchar *checkCategory(ZF_IN const ZFSerializableData &serializableD
  *   auto mark as resolved
  */
 inline const zfchar *requireCategory(ZF_IN const ZFSerializableData &serializableData,
-                                     ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                     ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                      ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull)
 {
-    return ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_category, outErrorHintToAppend, outErrorPos);
+    return ZFSerializableUtil::requireAttribute(serializableData, ZFSerializableKeyword_category, outErrorHint, outErrorPos);
 }
 
 /**
@@ -193,32 +193,32 @@ extern ZF_ENV_EXPORT zfbool printResolveStatus(ZF_IN const ZFSerializableData &s
 
 // ============================================================
 // util macro for impl
-#define _ZFP_ZFSerializableUtilSerializeFromData_check(outErrorHintToAppend, outErrorPos)
-#define _ZFP_ZFSerializableUtilSerializeFromData_require(outErrorHintToAppend, outErrorPos) , outErrorHintToAppend, outErrorPos
-#define _ZFP_ZFSerializableUtilSerializeFromData_(check_or_require, outErrorHintToAppend, outErrorPos) \
-    _ZFP_ZFSerializableUtilSerializeFromData_##check_or_require(outErrorHintToAppend, outErrorPos)
-#define _ZFP_ZFSerializableUtilSerializeFromData(check_or_require, outErrorHintToAppend, outErrorPos) \
-    _ZFP_ZFSerializableUtilSerializeFromData_(check_or_require, outErrorHintToAppend, outErrorPos)
+#define _ZFP_ZFSerializableUtilSerializeFromData_check(outErrorHint, outErrorPos)
+#define _ZFP_ZFSerializableUtilSerializeFromData_require(outErrorHint, outErrorPos) , outErrorHint, outErrorPos
+#define _ZFP_ZFSerializableUtilSerializeFromData_(check_or_require, outErrorHint, outErrorPos) \
+    _ZFP_ZFSerializableUtilSerializeFromData_##check_or_require(outErrorHint, outErrorPos)
+#define _ZFP_ZFSerializableUtilSerializeFromData(check_or_require, outErrorHint, outErrorPos) \
+    _ZFP_ZFSerializableUtilSerializeFromData_(check_or_require, outErrorHint, outErrorPos)
 
 /** @brief util macro to impl #ZFSerializable */
-#define ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos, \
+#define ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos, \
     check_or_require, key, TypeName, value) \
     do \
     { \
         const zfchar *valueString = ZFSerializableUtil::check_or_require##Attribute(serializableData, key \
-            _ZFP_ZFSerializableUtilSerializeFromData(check_or_require, outErrorHintToAppend, outErrorPos)); \
+            _ZFP_ZFSerializableUtilSerializeFromData(check_or_require, outErrorHint, outErrorPos)); \
         if(valueString != zfnull) \
         { \
             if(TypeName##FromString(value, valueString) != zfnull) \
             { \
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData, \
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData, \
                     zfText("failed to convert from \"%s\""), valueString); \
                 return zffalse; \
             } \
         } \
     } while(zffalse)
 /** @brief util macro to impl #ZFSerializable */
-#define ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref, \
+#define ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref, \
     key, TypeName, thisValue, refValue, defaultValue) \
     do \
     { \
@@ -233,15 +233,15 @@ extern ZF_ENV_EXPORT zfbool printResolveStatus(ZF_IN const ZFSerializableData &s
 
 // ============================================================
 /** @brief util macro to impl #ZFSerializable */
-#define ZFSerializableUtilSerializeCategoryFromData(serializableData, outErrorHintToAppend, outErrorPos, \
+#define ZFSerializableUtilSerializeCategoryFromData(serializableData, outErrorHint, outErrorPos, \
     check_or_require, key, TypeName, value) \
     do \
     { \
         const ZFSerializableData *valueData = ZFSerializableUtil::check_or_require##ElementByCategory(serializableData, key \
-            _ZFP_ZFSerializableUtilSerializeFromData(check_or_require, outErrorHintToAppend, outErrorPos)); \
+            _ZFP_ZFSerializableUtilSerializeFromData(check_or_require, outErrorHint, outErrorPos)); \
         if(valueData != zfnull) \
         { \
-            if(!TypeName##FromSerializableData(value, *valueData, outErrorHintToAppend, outErrorPos)) \
+            if(!TypeName##FromSerializableData(value, *valueData, outErrorHint, outErrorPos)) \
             { \
                 return zffalse; \
             } \
@@ -254,7 +254,7 @@ extern ZF_ENV_EXPORT zfbool printResolveStatus(ZF_IN const ZFSerializableData &s
         } \
     } while(zffalse)
 /** @brief util macro to impl #ZFSerializable */
-#define ZFSerializableUtilSerializeCategoryToData(serializableData, outErrorHintToAppend, ref, \
+#define ZFSerializableUtilSerializeCategoryToData(serializableData, outErrorHint, ref, \
     key, TypeName, thisValue, refValue, defaultValue) \
     do \
     { \
@@ -264,7 +264,7 @@ extern ZF_ENV_EXPORT zfbool printResolveStatus(ZF_IN const ZFSerializableData &s
             || (ref != zfnull && ZFComparerDefault(thisValue, refValue) != ZFCompareTheSame)) \
         { \
             ZFSerializableData categoryData; \
-            if(!TypeName##ToSerializableData(categoryData, thisValue, outErrorHintToAppend)) \
+            if(!TypeName##ToSerializableData(categoryData, thisValue, outErrorHint)) \
             { \
                 return zffalse; \
             } \

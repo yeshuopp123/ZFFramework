@@ -25,7 +25,7 @@ ZFCoreArray<ZFOutputCallback> &_ZFP_ZFSerializableUtilErrorOutputCallbacks(void)
     return ZF_GLOBAL_INITIALIZER_INSTANCE(ZFSerializableUtilErrorOutputCallbacksHolder)->callbacks;
 }
 
-void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+void errorOccurred(ZF_OUT_OPT zfstring *outErrorHint,
                    ZF_OUT_OPT ZFSerializableData *outErrorPos,
                    ZF_IN const ZFSerializableData &errorPos,
                    ZF_IN const zfchar *fmt,
@@ -43,9 +43,9 @@ void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
     va_end(vaList);
     zfstringAppend(errorString, zfText(", at:\n    %s"), errorPos.objectInfo().cString());
 
-    if(outErrorHintToAppend != zfnull)
+    if(outErrorHint != zfnull)
     {
-        *outErrorHintToAppend += errorString;
+        *outErrorHint += errorString;
     }
     ZFCoreArray<ZFOutputCallback> &callbacks = ZFSerializableUtilErrorOutputCallbacks;
     for(zfindex i = 0; i < callbacks.count(); ++i)
@@ -54,7 +54,7 @@ void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
     }
 }
 
-void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+void errorOccurred(ZF_OUT_OPT zfstring *outErrorHint,
                    ZF_IN const zfchar *fmt,
                    ...)
 {
@@ -64,9 +64,9 @@ void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
     zfstringAppendV(errorString, fmt, vaList);
     va_end(vaList);
 
-    if(outErrorHintToAppend != zfnull)
+    if(outErrorHint != zfnull)
     {
-        *outErrorHintToAppend += errorString;
+        *outErrorHint += errorString;
     }
     ZFCoreArray<ZFOutputCallback> &callbacks = ZFSerializableUtilErrorOutputCallbacks;
     for(zfindex i = 0; i < callbacks.count(); ++i)
@@ -75,7 +75,7 @@ void errorOccurred(ZF_OUT_OPT zfstring *outErrorHintToAppend,
     }
 }
 
-void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHint,
                         ZF_OUT_OPT ZFSerializableData *outErrorPos,
                         ZF_IN const ZFSerializableData &errorPos,
                         ZF_IN const zfchar *serializingName,
@@ -91,9 +91,9 @@ void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintToAppend,
         serializingName, errorValue);
     zfstringAppend(errorString, zfText(", at:\n    %s"), errorPos.objectInfo().cString());
 
-    if(outErrorHintToAppend != zfnull)
+    if(outErrorHint != zfnull)
     {
-        *outErrorHintToAppend += errorString;
+        *outErrorHint += errorString;
     }
     ZFCoreArray<ZFOutputCallback> &callbacks = ZFSerializableUtilErrorOutputCallbacks;
     for(zfindex i = 0; i < callbacks.count(); ++i)
@@ -101,7 +101,7 @@ void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintToAppend,
         callbacks[i].execute(errorString.cString());
     }
 }
-void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintToAppend,
+void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHint,
                         ZF_IN const zfchar *serializingName,
                         ZF_IN const zfchar *errorValue)
 {
@@ -109,9 +109,9 @@ void errorOccurredWhile(ZF_OUT_OPT zfstring *outErrorHintToAppend,
     zfstringAppend(errorString, zfText("failed to serialize \"%s\" with value \"%s\""),
         serializingName, errorValue);
 
-    if(outErrorHintToAppend != zfnull)
+    if(outErrorHint != zfnull)
     {
-        *outErrorHintToAppend += errorString;
+        *outErrorHint += errorString;
     }
     ZFCoreArray<ZFOutputCallback> &callbacks = ZFSerializableUtilErrorOutputCallbacks;
     for(zfindex i = 0; i < callbacks.count(); ++i)
@@ -142,7 +142,7 @@ const zfchar *checkSerializableClass(ZF_IN const zfchar *desiredClass,
 }
 const zfchar *requireSerializableClass(ZF_IN const zfchar *desiredClass,
                                        ZF_IN const ZFSerializableData &serializableData,
-                                       ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                       ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                        ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
     const zfchar *ret = checkSerializableClass(desiredClass, serializableData);
@@ -150,12 +150,12 @@ const zfchar *requireSerializableClass(ZF_IN const zfchar *desiredClass,
     {
         if(desiredClass == zfnull || *desiredClass == '\0')
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
                 zfText("missing serializable class"));
         }
         else
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
                 zfText("serializable class must be \"%s\""), desiredClass);
         }
     }
@@ -175,13 +175,13 @@ const zfchar *checkAttribute(ZF_IN const ZFSerializableData &serializableData,
 }
 const zfchar *requireAttribute(ZF_IN const ZFSerializableData &serializableData,
                                ZF_IN const zfchar *desiredAttribute,
-                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
     const zfchar *ret = checkAttribute(serializableData, desiredAttribute);
     if(ret == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("missing attribute \"%s\""), desiredAttribute);
     }
     return ret;
@@ -200,13 +200,13 @@ const ZFSerializableData *checkElementByName(ZF_IN const ZFSerializableData &ser
 }
 const ZFSerializableData *requireElementByName(ZF_IN const ZFSerializableData &serializableData,
                                                ZF_IN const zfchar *desiredElementName,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
     const ZFSerializableData *ret = checkElementByName(serializableData, desiredElementName);
     if(ret == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("missing element with name \"%s\""),
             desiredElementName);
     }
@@ -226,13 +226,13 @@ const ZFSerializableData *checkElementByCategory(ZF_IN const ZFSerializableData 
 }
 const ZFSerializableData *requireElementByCategory(ZF_IN const ZFSerializableData &serializableData,
                                                    ZF_IN const zfchar *desiredElementCategory,
-                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                   ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                    ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
     const ZFSerializableData *ret = checkElementByCategory(serializableData, desiredElementCategory);
     if(ret == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+        ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
             zfText("missing element with category \"%s\""),
             desiredElementCategory);
     }

@@ -24,10 +24,10 @@ ZFOBJECT_REGISTER(ZFAnimationTimeLineProperty)
 // ============================================================
 // serialize
 zfbool ZFAnimationTimeLineProperty::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                                    ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                                    ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                                     ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     this->stepRemoveAll();
 
@@ -41,13 +41,13 @@ zfbool ZFAnimationTimeLineProperty::serializableOnSerializeFromData(ZF_IN const 
         if(zfscmpTheSame(category, ZFSerializableKeyword_ZFAnimationTimeLineProperty_step))
         {
             zfautoObject step;
-            if(!ZFObjectFromSerializableData(step, categoryData, outErrorHintToAppend, outErrorPos))
+            if(!ZFObjectFromSerializableData(step, categoryData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
             if(step == zfautoObjectNull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("invalid step: %s"), ZFObjectInfoOfInstance(step.toObject()).cString());
                 return zffalse;
             }
@@ -60,9 +60,9 @@ zfbool ZFAnimationTimeLineProperty::serializableOnSerializeFromData(ZF_IN const 
 }
 zfbool ZFAnimationTimeLineProperty::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                                   ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                                  ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                                                  ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
     if(ref == zfnull)
@@ -70,7 +70,7 @@ zfbool ZFAnimationTimeLineProperty::serializableOnSerializeToData(ZF_IN_OUT ZFSe
         for(zfindex i = 0; i < d->steps.count(); ++i)
         {
             ZFSerializableData stepData;
-            if(!ZFObjectToSerializableData(stepData, d->steps[i], outErrorHintToAppend))
+            if(!ZFObjectToSerializableData(stepData, d->steps[i], outErrorHint))
             {
                 return zffalse;
             }
@@ -98,7 +98,7 @@ zfbool ZFAnimationTimeLineProperty::serializableOnSerializeToData(ZF_IN_OUT ZFSe
         }
         if(mismatch)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+            ZFSerializableUtil::errorOccurred(outErrorHint,
                 zfText("steps mismatch: %s, and: %s"),
                     d->steps.objectInfoOfContent(ZFCoreElementInfoGetter<ZFTimeLineProperty *>::elementInfoGetter).cString(),
                     ref->d->steps.objectInfoOfContent(ZFCoreElementInfoGetter<ZFTimeLineProperty *>::elementInfoGetter).cString());

@@ -157,9 +157,9 @@ public:
     zffinal zfbool referenceInfoExistRecursively(void) const;
 
 private:
-    zffinal zfbool _ZFP_ZFSerializableData_referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+    zffinal zfbool _ZFP_ZFSerializableData_referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                              ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
-    zffinal zfbool _ZFP_ZFSerializableData_referenceInfoApply(ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+    zffinal zfbool _ZFP_ZFSerializableData_referenceInfoApply(ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                               ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
 public:
     /**
@@ -167,7 +167,7 @@ public:
      *
      * this method should be called on root node for only once
      */
-    zffinal zfbool referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+    zffinal zfbool referenceInfoLoad(ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                      ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     /**
      * @brief restore to original serializable data accorrding to refNode
@@ -530,8 +530,8 @@ private:
     friend zfclassFwd _ZFP_ZFSerializableDataPrivate;
 };
 
-ZFCOMPARER_DEFAULT_DECLARE(ZFSerializableData, e0, ZFSerializableData, e1, {
-        return e0.objectCompare(e1);
+ZFCOMPARER_DEFAULT_DECLARE(ZFSerializableData, ZFSerializableData, {
+        return v0.objectCompare(v1);
     })
 
 /**
@@ -550,17 +550,17 @@ inline ZFCoreArrayPOD<const zfchar *> ZFSerializableDataRefTypeGetAll(void)
 
 typedef zfbool (*_ZFP_ZFSerializableDataReferenceCallback)(ZF_OUT ZFSerializableData &serializableData,
                                                            ZF_IN const zfchar *data,
-                                                           ZF_OUT_OPT zfstring *outErrorHintToAppend,
+                                                           ZF_OUT_OPT zfstring *outErrorHint,
                                                            ZF_OUT_OPT ZFSerializableData *outErrorPos);
 extern ZF_ENV_EXPORT void _ZFP_ZFSerializableDataReferenceTypeRegister(ZF_IN const zfchar *referenceType,
                                                                        ZF_IN _ZFP_ZFSerializableDataReferenceCallback callback);
 extern ZF_ENV_EXPORT void _ZFP_ZFSerializableDataReferenceTypeUnregister(ZF_IN const zfchar *referenceType);
 
-#define _ZFP_ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(referenceTypeName, outSerializableDataName, inDataName, outErrorHintToAppend, outErrorPos) \
+#define _ZFP_ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(referenceTypeName) \
     static zfbool _ZFP_ZFSerializableDataReferenceCallback_##referenceTypeName( \
-        ZF_OUT ZFSerializableData &outSerializableDataName, \
-        ZF_IN const zfchar *inDataName, \
-        ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull, \
+        ZF_OUT ZFSerializableData &serializableData, \
+        ZF_IN const zfchar *refData, \
+        ZF_OUT_OPT zfstring *outErrorHint = zfnull, \
         ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull); \
     ZF_GLOBAL_INITIALIZER_INIT_WITH_LEVEL(_ZFP_ZFSerializableDataReferenceTypeRegister_##referenceTypeName, \
                                           ZFLevelZFFrameworkNormal) \
@@ -575,9 +575,9 @@ extern ZF_ENV_EXPORT void _ZFP_ZFSerializableDataReferenceTypeUnregister(ZF_IN c
     } \
     ZF_GLOBAL_INITIALIZER_END(_ZFP_ZFSerializableDataReferenceTypeRegister_##referenceTypeName) \
     static zfbool _ZFP_ZFSerializableDataReferenceCallback_##referenceTypeName( \
-        ZF_OUT ZFSerializableData &outSerializableDataName, \
-        ZF_IN const zfchar *inDataName, \
-        ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */, \
+        ZF_OUT ZFSerializableData &serializableData, \
+        ZF_IN const zfchar *refData, \
+        ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */, \
         ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 /**
  * @brief advanced data reference logic for serializable
@@ -631,10 +631,17 @@ extern ZF_ENV_EXPORT void _ZFP_ZFSerializableDataReferenceTypeUnregister(ZF_IN c
  * to declare your own type:
  * @code
  *   // in cpp file only
- *   ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(yourType, serializableData, data, outErrorHintToAppend, outErrorPos)
+ *   ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(yourType, serializableData, data, outErrorHint, outErrorPos)
  *   {
+ *       // proto type:
+ *       //   zfbool resolveRef(
+ *       //       ZF_OUT ZFSerializableData &serializableData,
+ *       //       ZF_IN const zfchar *refData,
+ *       //       ZF_OUT_OPT zfstring *outErrorHint = zfnull,
+ *       //       ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
+ *
  *       // you decode operation here
- *       // decode (const zfchar *)data to (ZFSerializableData)serializableData
+ *       // decode (const zfchar *)refData to (ZFSerializableData)serializableData
  *
  *       // you must call #ZFSerializableData::referenceInfoLoad to finish the decode step
  *       return serializableData.referenceInfoLoad();
@@ -654,8 +661,8 @@ extern ZF_ENV_EXPORT void _ZFP_ZFSerializableDataReferenceTypeUnregister(ZF_IN c
  *
  * usually, the #ZFSerializable and #ZFSerializableUtilSerializeAttributeFromData series util macro would do the work for you
  */
-#define ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(referenceTypeName, serializableData, data, outErrorHintToAppend, outErrorPos) \
-    _ZFP_ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(referenceTypeName, serializableData, data, outErrorHintToAppend, outErrorPos)
+#define ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(referenceTypeName) \
+    _ZFP_ZFSERIALIZABLEDATA_REFERENCE_TYPE_DEFINE(referenceTypeName)
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFSerializableDataDef_h_

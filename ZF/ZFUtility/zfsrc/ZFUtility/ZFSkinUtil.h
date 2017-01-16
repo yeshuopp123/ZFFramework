@@ -58,6 +58,13 @@ extern ZF_ENV_EXPORT void zfSkinApplyCancel(ZF_IN ZFStyleable *obj,
  * @code
  *   / ** you may add docs here * /
  *   ZFSKINAPPLY_IMPL(YourObjectType, YourTypeName, {obj->applyYourSkin(objIdentity, skinKey, skinValueOrNull, userData);})
+ *
+ *   // impl function's proto type:
+ *   //   void action(ZF_IN ZFStyleable *obj,
+ *   //       ZF_IN const zfchar *objIdentity,
+ *   //       ZF_IN const zfchar *skinKey,
+ *   //       ZF_IN ZFStyleable *skinValueOrNull,
+ *   //       ZF_IN_OPT ZFObject *userData);
  * @endcode
  * expand this method for you:
  * @code

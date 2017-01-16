@@ -17,12 +17,12 @@ ZFOBJECT_REGISTER(ZFHashSet)
 
 zfbool ZFHashSet::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData &serializableData,
                                                        ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                       ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                                       ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
     ZFContainer *ref = ZFCastZFObject(ZFContainer *, referencedOwnerOrNull);
     if(ref == zfnull)
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+        ZFSerializableUtil::errorOccurred(outErrorHint,
             zfText("%s not type of %s"),
             referencedOwnerOrNull->toObject()->objectInfoOfInstance().cString(), ZFContainer::ClassData()->className());
         return zffalse;
@@ -40,7 +40,7 @@ zfbool ZFHashSet::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableD
         }
 
         ZFSerializableData elementData;
-        if(!ZFObjectToSerializableData(elementData, element, outErrorHintToAppend))
+        if(!ZFObjectToSerializableData(elementData, element, outErrorHint))
         {
             return zffalse;
         }
@@ -50,7 +50,7 @@ zfbool ZFHashSet::serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableD
 
     if(!tmp->isEmpty())
     {
-        ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+        ZFSerializableUtil::errorOccurred(outErrorHint,
             zfText("missing elements from referenced container: %s"), tmp->objectInfoOfContent().cString());
         return zffalse;
     }

@@ -56,12 +56,12 @@ zfabstract ZF_ENV_EXPORT ZFEnum : zfextends ZFObject, zfimplements ZFSerializabl
 protected:
     zfoverride
     virtual zfbool serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                   ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull,
+                                                   ZF_OUT_OPT zfstring *outErrorHint = zfnull,
                                                    ZF_OUT_OPT ZFSerializableData *outErrorPos = zfnull);
     zfoverride
     virtual zfbool serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                  ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend = zfnull);
+                                                 ZF_OUT_OPT zfstring *outErrorHint = zfnull);
 
 protected:
     zfoverride
@@ -460,15 +460,15 @@ extern ZF_ENV_EXPORT _ZFP_ZFEnumData *_ZFP_ZFEnumDataAccess(const zfchar *name);
     _ZFP_ZFENUM_CONVERTER_DECLARE(ChildEnum) \
     ZFPROPERTY_TYPE_DECLARE(ChildEnum##Enum, ChildEnum##Enum) \
     ZFVAR_CONVERT_DECLARE(ChildEnum##Enum, { \
-            ChildEnum *wrap = ZFCastZFObject(ChildEnum *, from); \
+            ChildEnum *wrap = ZFCastZFObject(ChildEnum *, obj); \
             if(wrap == zfnull) \
             { \
-                return (from == zfnull); \
+                return (obj == zfnull); \
             } \
-            ret = (ChildEnum##Enum)wrap->enumValue(); \
+            v = (ChildEnum##Enum)wrap->enumValue(); \
         }, { \
-            ChildEnum *wrap = zfAlloc(ChildEnum, (ZFEnumValue)from); \
-            ret = zfautoObjectCreate(wrap); \
+            ChildEnum *wrap = zfAlloc(ChildEnum, (ZFEnumValue)v); \
+            obj = zfautoObjectCreate(wrap); \
             zfRelease(wrap); \
         })
 /** @brief see #ZFENUM_BEGIN */
@@ -570,8 +570,8 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
     ZFOUTPUT_TYPE(const EnumName##Enum *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}}) \
     ZFOUTPUT_TYPE(EnumName##Enum *, {output << (const EnumName##Enum *)v;}) \
     ZFINPUT_TYPE_DECLARE(EnumName##Enum, EnumName##Enum) \
-    ZFCOMPARER_DEFAULT_DECLARE(EnumName##Enum, e0, EnumName##Enum, e1, { \
-            return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable); \
+    ZFCOMPARER_DEFAULT_DECLARE(EnumName##Enum, EnumName##Enum, { \
+            return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable); \
         })
 #define _ZFP_ZFENUM_CONVERTER_DEFINE(EnumName) \
     void EnumName##ToString(ZF_IN_OUT zfstring &ret, ZF_IN EnumName *const &value) \

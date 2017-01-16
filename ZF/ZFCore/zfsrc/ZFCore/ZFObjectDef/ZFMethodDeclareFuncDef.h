@@ -20,7 +20,8 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
 /**
- * @brief util method to find ZFMethod, return null if method not registered
+ * @brief util method to find ZFMethod, return null if method not registered,
+ *   see #ZFMETHOD_FUNC_DECLARE_0
  */
 extern ZF_ENV_EXPORT const ZFMethod *ZFMethodFuncGet(ZF_IN const zfchar *methodNamespace,
                                                      ZF_IN const zfchar *methodName,
@@ -29,10 +30,10 @@ extern ZF_ENV_EXPORT const ZFMethod *ZFMethodFuncGet(ZF_IN const zfchar *methodN
 // ============================================================
 #define _ZFP_ZFMethodFuncAccessDetail(MethodNamespace, MethodName, ZFMethodIdOrNoId) \
     (MethodNamespace::_ZFP_ZFMethodFunc_##MethodName##_##ZFMethodIdOrNoId())
-/** @brief see #ZFMethod */
-#define ZFMethodFuncAccess(MethodNamespace, MethodName) \
-    ZFMethodFuncAccessDetail(MethodNamespace, MethodName, ZFMethodNoId)
-/** @brief see #ZFMethod */
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMethodFuncAccess(MethodName) \
+    ZFMethodFuncAccessDetail(ZF_NAMESPACE_GLOBAL, MethodName, ZFMethodNoId)
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
 #define ZFMethodFuncAccessDetail(MethodNamespace, MethodName, ZFMethodIdOrNoId) \
     _ZFP_ZFMethodFuncAccessDetail(MethodNamespace, MethodName, ZFMethodIdOrNoId)
 
@@ -191,8 +192,29 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
 
 // ============================================================
 // 0 param method declare
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DECLARE_0(MethodNamespace, ZFMethodInlineOrNot, \
+/**
+ * @brief declare function type of #ZFMethod
+ *
+ * similar to #ZFMETHOD_DECLARE_0, but declared in global scope instead of class scope,
+ * declared method can be reflected by #ZFMethodFuncGet,
+ * and can be invoked by #ZFMethod::executeStatic
+ * or by #ZFMethod::execute with null as first param\n
+ * function type method support at most one level namespace,
+ * or, use #ZF_NAMESPACE_GLOBAL if your method has no namespace
+ */
+#define ZFMETHOD_FUNC_DECLARE_0(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DECLARE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EMPTY, ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+        , ZFM_EMPTY, ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+        , ZFM_EMPTY, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
+        , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_WITH_NAMESPACE_0(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     ) \
     _ZFP_ZFMETHOD_FUNC_DECLARE( \
@@ -203,8 +225,20 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
         , ZFM_EMPTY, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
         , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
         )
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DEFINE_0(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_0(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DEFINE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EMPTY, ParamType0, param0 \
+        , ZFM_EMPTY, ParamType1, param1 \
+        , ZFM_EMPTY, ParamType2, param2 \
+        , ZFM_EMPTY, ParamType3, param3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_WITH_NAMESPACE_0(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     ) \
     _ZFP_ZFMETHOD_FUNC_DEFINE( \
@@ -218,8 +252,21 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
 
 // ============================================================
 // 1 param method declare
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DECLARE_1(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_1(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DECLARE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+        , ZFM_EMPTY, ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+        , ZFM_EMPTY, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
+        , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_WITH_NAMESPACE_1(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
     ) \
@@ -231,8 +278,21 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
         , ZFM_EMPTY, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
         , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
         )
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DEFINE_1(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_1(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DEFINE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0 \
+        , ZFM_EMPTY, ParamType1, param1 \
+        , ZFM_EMPTY, ParamType2, param2 \
+        , ZFM_EMPTY, ParamType3, param3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_WITH_NAMESPACE_1(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0 \
     ) \
@@ -247,8 +307,22 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
 
 // ============================================================
 // 2 param method declare
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DECLARE_2(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_2(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+    , ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DECLARE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+        , ZFM_EXPAND, ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+        , ZFM_EMPTY, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
+        , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_WITH_NAMESPACE_2(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
     , ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
@@ -261,8 +335,22 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
         , ZFM_EMPTY, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
         , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
         )
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DEFINE_2(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_2(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0 \
+    , ParamType1, param1 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DEFINE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0 \
+        , ZFM_EXPAND, ParamType1, param1 \
+        , ZFM_EMPTY, ParamType2, param2 \
+        , ZFM_EMPTY, ParamType3, param3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_WITH_NAMESPACE_2(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0 \
     , ParamType1, param1 \
@@ -278,8 +366,23 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
 
 // ============================================================
 // 3 param method declare
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DECLARE_3(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_3(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+    , ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+    , ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DECLARE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+        , ZFM_EXPAND, ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+        , ZFM_EXPAND, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
+        , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_WITH_NAMESPACE_3(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
     , ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
@@ -293,8 +396,23 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
         , ZFM_EXPAND, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
         , ZFM_EMPTY, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
         )
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DEFINE_3(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_3(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0 \
+    , ParamType1, param1 \
+    , ParamType2, param2 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DEFINE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0 \
+        , ZFM_EXPAND, ParamType1, param1 \
+        , ZFM_EXPAND, ParamType2, param2 \
+        , ZFM_EMPTY, ParamType3, param3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_WITH_NAMESPACE_3(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0 \
     , ParamType1, param1 \
@@ -311,8 +429,24 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
 
 // ============================================================
 // 4 param method declare
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DECLARE_4(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_4(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+    , ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+    , ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
+    , ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DECLARE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
+        , ZFM_EXPAND, ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
+        , ZFM_EXPAND, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
+        , ZFM_EXPAND, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DECLARE_WITH_NAMESPACE_4(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0, ZFMethodNoDefaultParamOrDefaultParam0 \
     , ParamType1, param1, ZFMethodNoDefaultParamOrDefaultParam1 \
@@ -327,8 +461,24 @@ extern ZF_ENV_EXPORT zfstring _ZFP_ZFMethodFuncSig(ZF_IN const zfchar *methodNam
         , ZFM_EXPAND, ParamType2, param2, ZFMethodNoDefaultParamOrDefaultParam2 \
         , ZFM_EXPAND, ParamType3, param3, ZFMethodNoDefaultParamOrDefaultParam3 \
         )
-/** @brief see #ZFMethod */
-#define ZFMETHOD_FUNC_DEFINE_4(MethodNamespace, ZFMethodInlineOrNot, \
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_4(ZFMethodInlineOrNot, \
+    ReturnType, MethodName, ZFMethodIdOrNoId \
+    , ParamType0, param0 \
+    , ParamType1, param1 \
+    , ParamType2, param2 \
+    , ParamType3, param3 \
+    ) \
+    _ZFP_ZFMETHOD_FUNC_DEFINE( \
+        ZF_NAMESPACE_GLOBAL, ZFMethodInlineOrNot, \
+        ReturnType, MethodName, ZFMethodIdOrNoId \
+        , ZFM_EXPAND, ParamType0, param0 \
+        , ZFM_EXPAND, ParamType1, param1 \
+        , ZFM_EXPAND, ParamType2, param2 \
+        , ZFM_EXPAND, ParamType3, param3 \
+        )
+/** @brief see #ZFMETHOD_FUNC_DECLARE_0 */
+#define ZFMETHOD_FUNC_DEFINE_WITH_NAMESPACE_4(MethodNamespace, ZFMethodInlineOrNot, \
     ReturnType, MethodName, ZFMethodIdOrNoId \
     , ParamType0, param0 \
     , ParamType1, param1 \

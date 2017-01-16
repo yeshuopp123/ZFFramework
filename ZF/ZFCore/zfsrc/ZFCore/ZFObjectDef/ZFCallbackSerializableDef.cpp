@@ -23,7 +23,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFCallback, ZFCallback, {
                 const ZFSerializableData *customData = ZFSerializableUtil::checkElementByCategory(serializableData, ZFSerializableKeyword_ZFCallback_callbackData);
                 if(customData == zfnull)
                 {
-                    ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+                    ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
                         zfText("missing %s"), ZFSerializableKeyword_ZFCallback_callbackData);
                     return zffalse;
                 }
@@ -31,16 +31,16 @@ ZFPROPERTY_TYPE_DEFINE(ZFCallback, ZFCallback, {
                 ZFCallbackSerializeCustomSerializeCallback serializeCallback = ZFCallbackSerializeCustomTypeGet(customType);
                 if(serializeCallback == zfnull)
                 {
-                    ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+                    ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
                         zfText("no such callback custom serialize type: %s"), customType);
                     return zffalse;
                 }
-                if(!serializeCallback(result, *customData, outErrorHintToAppend, outErrorPos))
+                if(!serializeCallback(v, *customData, outErrorHint, outErrorPos))
                 {
                     return zffalse;
                 }
-                result.callbackSerializeCustomTypeSet(customType);
-                result.callbackSerializeCustomDataSet(customData);
+                v.callbackSerializeCustomTypeSet(customType);
+                v.callbackSerializeCustomDataSet(customData);
 
                 serializableData.resolveMark();
                 return zftrue;
@@ -49,37 +49,37 @@ ZFPROPERTY_TYPE_DEFINE(ZFCallback, ZFCallback, {
 
         if(zfscmpTheSame(serializableData.itemClass(), ZFSerializableKeyword_null))
         {
-            result = ZFCallbackNull();
+            v = ZFCallbackNull();
             serializableData.resolveMark();
             return zftrue;
         }
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFCallback(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFCallback(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
 
-        const ZFSerializableData *methodData = ZFSerializableUtil::requireElementByCategory(serializableData, ZFSerializableKeyword_ZFCallback_method, outErrorHintToAppend, outErrorPos);
+        const ZFSerializableData *methodData = ZFSerializableUtil::requireElementByCategory(serializableData, ZFSerializableKeyword_ZFCallback_method, outErrorHint, outErrorPos);
         if(methodData == zfnull)
         {
             return zffalse;
         }
         const ZFMethod *method = zfnull;
-        if(!ZFMethodFromSerializableData(method, *methodData, outErrorHintToAppend, outErrorPos))
+        if(!ZFMethodFromSerializableData(method, *methodData, outErrorHint, outErrorPos))
         {
             return zffalse;
         }
 
         if(method->ownerClass() == zfnull)
         {
-            result = ZFCallbackForMethod(method);
+            v = ZFCallbackForMethod(method);
         }
         else if(method->methodIsStatic())
         {
-            result = ZFCallbackForMethod(method);
+            v = ZFCallbackForMethod(method);
         }
         else
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, serializableData,
+            ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, serializableData,
                 zfText("member method callback is not supported"));
             return zffalse;
         }
@@ -91,7 +91,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFCallback, ZFCallback, {
         {
             if(v.callbackSerializeCustomData() == zfnull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, zfText("missing callback serialize custom data"));
+                ZFSerializableUtil::errorOccurred(outErrorHint, zfText("missing callback serialize custom data"));
                 return zffalse;
             }
             serializableData.itemClassSet(ZFPropertyTypeId_ZFCallback());
@@ -114,7 +114,7 @@ ZFPROPERTY_TYPE_DEFINE(ZFCallback, ZFCallback, {
             {
                 serializableData.itemClassSet(ZFPropertyTypeId_ZFCallback());
                 ZFSerializableData methodData;
-                if(!ZFMethodToSerializableData(methodData, v.callbackMethod(), outErrorHintToAppend))
+                if(!ZFMethodToSerializableData(methodData, v.callbackMethod(), outErrorHint))
                 {
                     return zffalse;
                 }
@@ -124,14 +124,14 @@ ZFPROPERTY_TYPE_DEFINE(ZFCallback, ZFCallback, {
                 break;
             case ZFCallbackTypeMemberMethod:
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+                ZFSerializableUtil::errorOccurred(outErrorHint,
                     zfText("member method callback is not supported"));
                 return zffalse;
             }
                 break;
             case ZFCallbackTypeRawFunction:
                 serializableData.itemClassSet(ZFPropertyTypeId_ZFCallback());
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+                ZFSerializableUtil::errorOccurred(outErrorHint,
                     zfText("raw function is not supported"));
                 return zffalse;
             default:

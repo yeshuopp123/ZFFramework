@@ -11,9 +11,9 @@
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 ZFSERIALIZABLEDATAIO_DEFINE(ZFSerializableDataIOTypeId_zfsd, {
-        return ZFSerializableDataFromInput(serializableData, input, errorMessage);
+        return ZFSerializableDataFromInput(serializableData, input, outErrorHint);
     }, {
-        return ZFSerializableDataToOutput(output, serializableData, errorMessage);
+        return ZFSerializableDataToOutput(output, serializableData, outErrorHint);
     })
 
 ZF_NAMESPACE_GLOBAL_END

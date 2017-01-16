@@ -203,7 +203,7 @@ const zfchar *ZFBezierFromString(ZF_OUT ZFBezier &ret,
 // ============================================================
 ZFVAR_CONVERT_WRAPPER_DEFINE(ZFBezier)
 ZFPROPERTY_TYPE_DEFINE(ZFBezier, ZFBezier, {
-        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFBezier(), serializableData, outErrorHintToAppend, outErrorPos) == zfnull)
+        if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFBezier(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {
             return zffalse;
         }
@@ -216,32 +216,32 @@ ZFPROPERTY_TYPE_DEFINE(ZFBezier, ZFBezier, {
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p0x);
         if(element != zfnull && zffloatFromString(p0x, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0x, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0x, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p0y);
         if(element != zfnull && zffloatFromString(p0y, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0y, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p0y, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p1x);
         if(element != zfnull && zffloatFromString(p1x, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1x, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1x, element);
             return zffalse;
         }
 
         element = ZFSerializableUtil::checkAttribute(serializableData, ZFSerializableKeyword_ZFBezier_p1y);
         if(element != zfnull && zffloatFromString(p1y, element) != zfnull)
         {
-            ZFSerializableUtil::errorOccurredWhile(outErrorHintToAppend, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1y, element);
+            ZFSerializableUtil::errorOccurredWhile(outErrorHint, outErrorPos, serializableData, ZFSerializableKeyword_ZFBezier_p1y, element);
             return zffalse;
         }
 
-        result.controlPointSet(p0x, p0y, p1x, p1y);
+        v.controlPointSet(p0x, p0y, p1x, p1y);
 
         serializableData.resolveMark();
         return zftrue;

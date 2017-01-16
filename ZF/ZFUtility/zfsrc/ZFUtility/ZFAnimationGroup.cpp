@@ -284,10 +284,10 @@ ZFOBSERVER_EVENT_REGISTER(ZFAnimationGroup, AniGroupOnChildStop)
 // ============================================================
 // serialize
 zfbool ZFAnimationGroup::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                         ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                         ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                          ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     this->childAniRemoveAll();
 
@@ -301,26 +301,26 @@ zfbool ZFAnimationGroup::serializableOnSerializeFromData(ZF_IN const ZFSerializa
         if(zfscmpTheSame(category, ZFSerializableKeyword_ZFAnimationGroup_child))
         {
             zfautoObject element;
-            if(!ZFObjectFromSerializableData(element, categoryData, outErrorHintToAppend, outErrorPos))
+            if(!ZFObjectFromSerializableData(element, categoryData, outErrorHint, outErrorPos))
             {
                 return zffalse;
             }
             if(element == zfautoObjectNull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("null child"));
                 return zffalse;
             }
             if(!element.toObject()->classData()->classIsSubclassOf(ZFAnimationGroupChildData::ClassData()))
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("object %s not type of %s"), element.toObject()->objectInfoOfInstance().cString(), ZFAnimationGroupChildData::ClassData());
                 return zffalse;
             }
             ZFAnimationGroupChildData *childData = ZFCastZFObjectUnchecked(ZFAnimationGroupChildData *, element.toObject());
             if(childData->childAni() == zfnull)
             {
-                ZFSerializableUtil::errorOccurred(outErrorHintToAppend, outErrorPos, categoryData,
+                ZFSerializableUtil::errorOccurred(outErrorHint, outErrorPos, categoryData,
                     zfText("null child animation"));
                 return zffalse;
             }
@@ -333,9 +333,9 @@ zfbool ZFAnimationGroup::serializableOnSerializeFromData(ZF_IN const ZFSerializa
 }
 zfbool ZFAnimationGroup::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                        ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                       ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                                       ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
     if(ref == zfnull)
@@ -343,7 +343,7 @@ zfbool ZFAnimationGroup::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableD
         for(zfindex i = 0; i < d->childAnis->count(); ++i)
         {
             ZFSerializableData elementData;
-            if(!ZFObjectToSerializableData(elementData, d->childAnis->get(i), outErrorHintToAppend))
+            if(!ZFObjectToSerializableData(elementData, d->childAnis->get(i), outErrorHint))
             {
                 return zffalse;
             }
@@ -371,7 +371,7 @@ zfbool ZFAnimationGroup::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableD
         }
         if(mismatch)
         {
-            ZFSerializableUtil::errorOccurred(outErrorHintToAppend,
+            ZFSerializableUtil::errorOccurred(outErrorHint,
                 zfText("animation group contents mismatch, this: %s, ref: %s"),
                 d->childAnis->objectInfoOfContent().cString(), ref->d->childAnis->objectInfoOfContent().cString());
             return zffalse;

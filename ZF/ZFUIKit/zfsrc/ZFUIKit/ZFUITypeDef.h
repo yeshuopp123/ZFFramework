@@ -146,8 +146,8 @@ ZFOUTPUT_TYPE(ZFUIPoint *, {output << (const ZFUIPoint *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUIPoint, ZFUIPoint)
 
 ZFCORE_POD_COMPARER_DECLARE(ZFUIPoint)
-ZFCOMPARER_DEFAULT_DECLARE(ZFUIPoint, e0, ZFUIPoint, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFUIPoint, ZFUIPoint, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 /**
@@ -236,8 +236,8 @@ ZFOUTPUT_TYPE(ZFUIMargin *, {output << (const ZFUIMargin *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUIMargin, ZFUIMargin)
 
 ZFCORE_POD_COMPARER_DECLARE(ZFUIMargin)
-ZFCOMPARER_DEFAULT_DECLARE(ZFUIMargin, e0, ZFUIMargin, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFUIMargin, ZFUIMargin, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 /**
@@ -456,8 +456,8 @@ ZFOUTPUT_TYPE(ZFUISize *, {output << (const ZFUISize *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUISize, ZFUISize)
 
 ZFCORE_POD_COMPARER_DECLARE(ZFUISize)
-ZFCOMPARER_DEFAULT_DECLARE(ZFUISize, e0, ZFUISize, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFUISize, ZFUISize, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 /**
@@ -652,8 +652,8 @@ ZFOUTPUT_TYPE(ZFUIRect *, {output << (const ZFUIRect *)v;})
 ZFINPUT_TYPE_DECLARE(ZFUIRect, ZFUIRect)
 
 ZFCORE_POD_COMPARER_DECLARE(ZFUIRect)
-ZFCOMPARER_DEFAULT_DECLARE(ZFUIRect, e0, ZFUIRect, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFUIRect, ZFUIRect, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 /**
@@ -1153,8 +1153,8 @@ inline zfbool ZFUIColorIsEqual(ZF_IN ZFUIColor const &v0, ZF_IN ZFUIColor const 
     return (v0 == v1);
 }
 
-ZFCOMPARER_DEFAULT_DECLARE(ZFUIColor, e0, ZFUIColor, e1, {
-        return ((e0 == e1) ? ZFCompareTheSame : ZFCompareUncomparable);
+ZFCOMPARER_DEFAULT_DECLARE(ZFUIColor, ZFUIColor, {
+        return ((v0 == v1) ? ZFCompareTheSame : ZFCompareUncomparable);
     })
 
 /**

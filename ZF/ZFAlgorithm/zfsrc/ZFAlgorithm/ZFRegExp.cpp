@@ -70,17 +70,17 @@ public:
 ZFOBJECT_REGISTER(ZFRegExp)
 
 zfbool ZFRegExp::serializableOnSerializeFromData(ZF_IN const ZFSerializableData &serializableData,
-                                                 ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */,
+                                                 ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */,
                                                  ZF_OUT_OPT ZFSerializableData *outErrorPos /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHintToAppend, outErrorPos)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeFromData(serializableData, outErrorHint, outErrorPos)) {return zffalse;}
 
     const zfchar *pattern = zfnull;
-    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_ZFRegExp_pattern, zfstring, pattern);
 
     ZFRegExpOptionFlags flag = ZFRegExpOptionFlags::EnumDefault();
-    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHintToAppend, outErrorPos,
+    ZFSerializableUtilSerializeAttributeFromData(serializableData, outErrorHint, outErrorPos,
         check, ZFSerializableKeyword_ZFRegExp_flag, ZFRegExpOptionFlags, flag);
 
     this->regExpCompile(pattern ? pattern : zfText(""), flag);
@@ -89,15 +89,15 @@ zfbool ZFRegExp::serializableOnSerializeFromData(ZF_IN const ZFSerializableData 
 }
 zfbool ZFRegExp::serializableOnSerializeToData(ZF_IN_OUT ZFSerializableData &serializableData,
                                                ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                               ZF_OUT_OPT zfstring *outErrorHintToAppend /* = zfnull */)
+                                               ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */)
 {
-    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHintToAppend)) {return zffalse;}
+    if(!zfsuperI(ZFSerializable)::serializableOnSerializeToData(serializableData, referencedOwnerOrNull, outErrorHint)) {return zffalse;}
     zfself *ref = ZFCastZFObject(zfself *, referencedOwnerOrNull);
 
-    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref,
+    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref,
         ZFSerializableKeyword_ZFRegExp_pattern, zfstring, this->regExpPattern(), ref->regExpPattern(), zfText(""));
 
-    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHintToAppend, ref,
+    ZFSerializableUtilSerializeAttributeToData(serializableData, outErrorHint, ref,
         ZFSerializableKeyword_ZFRegExp_flag, ZFRegExpOptionFlags, this->regExpFlag(), ref->regExpFlag(), ZFRegExpOptionFlags::EnumDefault());
 
     return zftrue;
