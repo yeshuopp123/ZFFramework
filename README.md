@@ -58,11 +58,13 @@ it's designed to be a complete and complex framework, current code status:
 
 * and here are screenshot of demo 2048 game built by ZFFramework:
 
-    ![ZF2048_iOS](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_iOS.png)
-    ![ZF2048_Android](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Android.png)
-    ![ZF2048_Qt_Windows](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Windows.png)
-    ![ZF2048_Qt_MacOS](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_MacOS.png)
-    ![ZF2048_Qt_Ubuntu](https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Ubuntu.png)
+    <table border="0"><tr>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_iOS.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Android.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Windows.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_MacOS.png"></td>
+        <td><img src="https://raw.githubusercontent.com/ZFFramework/zfframework.github.com/master/res/ZFFramework/ZF2048_Qt_Ubuntu.png"></td>
+    </tr></table>
 
 
 # Requirement
