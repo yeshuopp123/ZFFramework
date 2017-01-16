@@ -38,8 +38,10 @@ EXTRACT_PRIVATE        = NO
 EXTRACT_LOCAL_CLASSES  = NO
 EXTRACT_LOCAL_METHODS  = NO
 AUTOLINK_SUPPORT       = YES
+USE_MDFILE_AS_MAINPAGE = ../../../README.md
 
 INPUT                  =
+INPUT                  += ../../../README.md
 INPUT                  += ../docs
 INPUT                  += ../../../ZF/ZF_impl/zfsrc
 INPUT                  += ../../../ZF/ZF_loader_impl/zfsrc

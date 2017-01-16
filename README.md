@@ -40,22 +40,20 @@ it's designed to be a complete and complex framework, current code status:
 
 * this piece of code shows how to show a hello world on UI and log output
 
-    ``` c++
-    #include "ZFUIKit.h" // for UI module
-    ZFMAIN_ENTRY(params) // app starts from here
-    {
-        // show a hello world as a text view
-        zfblockedAlloc(ZFUIWindow, window);
-        window->windowShow();
-        zfblockedAlloc(ZFUITextView, textView);
-        window->childAdd(textView);
-        textView->textContentStringSet(zfText("hello world"));
+        #include "ZFUIKit.h" // for UI module
+        ZFMAIN_ENTRY(params) // app starts from here
+        {
+            // show a hello world as a text view
+            zfblockedAlloc(ZFUIWindow, window);
+            window->windowShow();
+            zfblockedAlloc(ZFUITextView, textView);
+            window->childAdd(textView);
+            textView->textContentStringSet(zfText("hello world"));
 
-        // show a hello world to log output
-        zfLogT() << zfText("hello wolrd");
-        return 0;
-    }
-    ```
+            // show a hello world to log output
+            zfLogT() << zfText("hello wolrd");
+            return 0;
+        }
 
 * and here are screenshot of demo 2048 game built by ZFFramework:
 

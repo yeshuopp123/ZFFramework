@@ -1,4 +1,4 @@
-# Doxyfile 1.8.12
+# Doxyfile 1.8.13
 
 # This file describes the settings to be used by the documentation system
 # doxygen (www.doxygen.org) for a project.
@@ -781,6 +781,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  =
+INPUT                  += ../../../README.md
 INPUT                  += ../docs
 INPUT                  += ../../../ZF/ZF_impl/zfsrc
 INPUT                  += ../../../ZF/ZF_loader_impl/zfsrc
@@ -951,7 +952,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE =
+USE_MDFILE_AS_MAINPAGE = ../../../README.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
@@ -2581,6 +2582,11 @@ DIAFILE_DIRS           =
 # will not generate output for the diagram.
 
 PLANTUML_JAR_PATH      =
+
+# When using plantuml, the PLANTUML_CFG_FILE tag can be used to specify a
+# configuration file for plantuml.
+
+PLANTUML_CFG_FILE      =
 
 # When using plantuml, the specified paths are searched for files specified by
 # the !include statement in a plantuml block.
