@@ -22,7 +22,6 @@
  * specify INPUT and INCLUDE_PATH to the "zfsrc" dir of each module,
  * and:
  * ============================================================ */
-CREATE_SUBDIRS         = YES
 FULL_PATH_NAMES        = NO
 SORT_MEMBER_DOCS       = NO
 MAX_INITIALIZER_LINES  = 0
