@@ -1,7 +1,4 @@
-Welcome to ZFFramework {#mainpage}
-===
-
-# Introduction
+# Introduction {#mainpage}
 
 welcome to [ZFFramework](http://ZFFramework.com), a cross-platform, lightweight, mid-level application framework in C++
 
