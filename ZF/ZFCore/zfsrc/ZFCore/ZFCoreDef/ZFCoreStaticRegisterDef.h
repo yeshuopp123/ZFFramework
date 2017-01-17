@@ -36,6 +36,15 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  * @note for different register step, the order is not ensured
  * @note for internal use only, for app level,
  *   use #ZF_GLOBAL_INITIALIZER_INIT or #ZF_STATIC_INITIALIZER_INIT instead
+ *
+ *
+ * REMARKS:
+ * this macro can be used in header files,
+ * but not recommended,
+ * since it would create global static object to perform the static register,
+ * which would easily cause "too many sections" "file too big" error under Windows,
+ * may or may not have other further side effect on other condition,
+ * try not to abuse it in header
  */
 #define ZF_STATIC_REGISTER_INIT(Name) \
     /** @cond ZFPrivateDoc */ \
@@ -116,6 +125,15 @@ zfclassNotPOD _ZFP_SRICDummy : zfextendsNotPOD _ZFP_SRICDummyBase, zfextendsNotP
  * @note for different register step, the order is not ensured
  * @note for internal use only, for app level,
  *   it's not recommended to register within class scope
+ *
+ *
+ * REMARKS:
+ * this macro can be used in header files,
+ * but not recommended,
+ * since it would create global static object to perform the static register,
+ * which would easily cause "too many sections" "file too big" error under Windows,
+ * may or may not have other further side effect on other condition,
+ * try not to abuse it in header
  */
 #define ZF_STATIC_REGISTER_IN_CLASS_INIT(Name) \
     public: \
