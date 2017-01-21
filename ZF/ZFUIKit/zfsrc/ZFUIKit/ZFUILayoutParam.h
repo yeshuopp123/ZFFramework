@@ -66,8 +66,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISizeParam, ZFUISizeParam)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUISizeParam, ZFUISizeParam)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUISizeParam, ZFUISizeParam)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUISizeParam, ZFUISizeParam)
 
 ZFOUTPUT_TYPE(ZFUISizeParam, {output << ZFUISizeParamToString(v);})
 ZFOUTPUT_TYPE(const ZFUISizeParam *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})

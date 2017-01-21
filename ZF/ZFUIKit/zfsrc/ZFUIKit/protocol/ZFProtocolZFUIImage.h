@@ -27,35 +27,35 @@ public:
      * @brief load image from input as binary data,
      *   created image would be released by #nativeImageRelease
      */
-    virtual void *nativeImageFromInput(ZF_IN const ZFInputCallback &inputCallback) = 0;
+    virtual void *nativeImageFromInput(ZF_IN const ZFInputCallback &inputCallback) zfpurevirtual;
     /**
      * @brief save image to output as binary data
      */
     virtual zfbool nativeImageToOutput(ZF_IN void *nativeImage,
-                                       ZF_OUT const ZFOutputCallback &outputCallback) = 0;
+                                       ZF_OUT const ZFOutputCallback &outputCallback) zfpurevirtual;
 
     /**
      * @brief copy the nativeImage and return the copied one,
      *   copied image would be released by #nativeImageRelease
      */
-    virtual void *nativeImageCopy(ZF_IN void *nativeImage) = 0;
+    virtual void *nativeImageCopy(ZF_IN void *nativeImage) zfpurevirtual;
 
     /**
      * @brief retain the image,
      *   you may return a different one
      */
-    virtual void *nativeImageRetain(ZF_IN void *nativeImage) = 0;
+    virtual void *nativeImageRetain(ZF_IN void *nativeImage) zfpurevirtual;
     /**
      * @brief release the image
      *
      * you should implements retain count logic internally
      */
-    virtual void nativeImageRelease(ZF_IN void *nativeImage) = 0;
+    virtual void nativeImageRelease(ZF_IN void *nativeImage) zfpurevirtual;
 
     /**
      * @brief get size of the image (in pixel)
      */
-    virtual ZFUISize nativeImageSize(ZF_IN void *nativeImage) = 0;
+    virtual ZFUISize nativeImageSize(ZF_IN void *nativeImage) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFUIImage)
 
 /**

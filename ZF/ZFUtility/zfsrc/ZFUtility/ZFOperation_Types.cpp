@@ -60,8 +60,8 @@ zfidentity ZFOperationCache::objectHash(void)
     return zfidentityHash(0
             , ZFObjectHash(this->operationParam())
             , ZFObjectHash(this->operationResult())
-            , (zfidentity)this->cacheTime()
-            , (zfidentity)this->cacheExpireTime()
+            , this->cacheTime()
+            , this->cacheExpireTime()
         );
 }
 ZFCompareResult ZFOperationCache::objectCompare(ZF_IN ZFObject *anotherObj)
@@ -103,7 +103,7 @@ zfidentity ZFOperationTaskData::objectHash(void)
     return zfidentityHash(0
             , ZFObjectHash(this->ownerOperation())
             , ZFObjectHash(this->operation())
-            , (zfidentity)this->operationId()
+            , this->operationId()
             , ZFObjectHash(this->taskCategory())
             , ZFObjectHash(this->operationParam())
             , ZFObjectHash(this->operationResult())
@@ -150,9 +150,9 @@ zfidentity ZFOperationStartParam::objectHash(void)
 {
     return zfidentityHash(0
             , ZFObjectHash(this->operationTaskData())
-            , (zfidentity)this->cacheExpireTime()
-            , (zfidentity)this->cacheMatchAction()
-            , (zfidentity)this->taskDuplicateAction()
+            , this->cacheExpireTime()
+            , this->cacheMatchAction()
+            , this->taskDuplicateAction()
         );
 }
 ZFCompareResult ZFOperationStartParam::objectCompare(ZF_IN ZFObject *anotherObj)

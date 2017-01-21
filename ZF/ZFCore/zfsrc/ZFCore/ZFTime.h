@@ -43,8 +43,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFTimeValue, ZFTimeValue)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFTimeValue, ZFTimeValue)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFTimeValue, ZFTimeValue)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFTimeValue, ZFTimeValue)
 
 ZFOUTPUT_TYPE(ZFTimeValue, {output << ZFTimeValueToString(v);})
 ZFOUTPUT_TYPE(const ZFTimeValue *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})

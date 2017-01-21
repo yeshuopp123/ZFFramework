@@ -153,11 +153,11 @@ public:
 public:
     virtual void progressOnUpdate(ZF_IN const ZFProperty *ownerProperty,
                                   ZF_IN ZFObject *ownerObj,
-                                  ZF_IN zffloat progress) = 0;
+                                  ZF_IN zffloat progress) zfpurevirtual;
     virtual void stateOnSave(ZF_IN const ZFProperty *ownerProperty,
-                             ZF_IN ZFObject *ownerObj) = 0;
+                             ZF_IN ZFObject *ownerObj) zfpurevirtual;
     virtual void stateOnRestore(ZF_IN const ZFProperty *ownerProperty,
-                                ZF_IN ZFObject *ownerObj) = 0;
+                                ZF_IN ZFObject *ownerObj) zfpurevirtual;
 };
 zfclass _ZFP_ZFUIKit_test_prepareSettingForNormalProperty_TimeLine : zfextends ZFTimeLineProperty
 {

@@ -26,32 +26,32 @@ public:
     /**
      * @brief create a native reg exp
      */
-    virtual void *nativeRegExpCreate(ZF_IN ZFRegExp *regExp) = 0;
+    virtual void *nativeRegExpCreate(ZF_IN ZFRegExp *regExp) zfpurevirtual;
     /**
      * @brief destroy a native reg exp
      */
     virtual void nativeRegExpDestroy(ZF_IN ZFRegExp *regExp,
-                                     ZF_IN void *nativeRegExp) = 0;
+                                     ZF_IN void *nativeRegExp) zfpurevirtual;
 
     /** @brief see ZFRegExp::regExpCompile */
     virtual void regExpCompile(ZF_IN ZFRegExp *regExp,
                                ZF_IN const zfchar *pattern,
-                               ZF_IN_OPT ZFRegExpOptionFlags flag = ZFRegExpOptionFlags::EnumDefault()) = 0;
+                               ZF_IN_OPT ZFRegExpOptionFlags flag = ZFRegExpOptionFlags::EnumDefault()) zfpurevirtual;
 
     /** @brief see ZFRegExp::regExpNamedGroupIndexForName */
     virtual zfindex regExpNamedGroupIndexForName(ZF_IN ZFRegExp *regExp,
-                                                ZF_IN const zfchar *name) = 0;
+                                                ZF_IN const zfchar *name) zfpurevirtual;
 
     /** @brief see ZFRegExp::regExpMatch */
     virtual void regExpMatch(ZF_IN ZFRegExp *regExp,
                              ZF_OUT ZFRegExpResult &result,
                              ZF_IN const zfchar *src,
-                             ZF_IN_OPT zfindex srcLength = zfindexMax) = 0;
+                             ZF_IN_OPT zfindex srcLength = zfindexMax) zfpurevirtual;
     /** @brief see ZFRegExp::regExpMatchExact */
     virtual void regExpMatchExact(ZF_IN ZFRegExp *regExp,
                                   ZF_OUT ZFRegExpResult &result,
                                   ZF_IN const zfchar *src,
-                                  ZF_IN_OPT zfindex srcLength = zfindexMax) = 0;
+                                  ZF_IN_OPT zfindex srcLength = zfindexMax) zfpurevirtual;
 
     /** @brief see ZFRegExp::regExpReplace */
     virtual void regExpReplace(ZF_IN ZFRegExp *regExp,
@@ -60,7 +60,7 @@ public:
                                ZF_IN const zfchar *src,
                                ZF_IN const zfchar *replacePattern,
                                ZF_IN_OPT zfindex maxReplaceCount = zfindexMax,
-                               ZF_IN_OPT zfindex srcLength = zfindexMax) = 0;
+                               ZF_IN_OPT zfindex srcLength = zfindexMax) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFRegExp)
 
 ZF_NAMESPACE_GLOBAL_END

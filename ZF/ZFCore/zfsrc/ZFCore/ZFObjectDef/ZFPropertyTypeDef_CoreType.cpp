@@ -107,26 +107,6 @@ ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfuint, zfuint)
 ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfindex, zfindex)
 
 // ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfint8, zfint8)
-// ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfuint8, zfuint8)
-
-// ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfint16, zfint16)
-// ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfuint16, zfuint16)
-
-// ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfint32, zfint32)
-// ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfuint32, zfuint32)
-
-// ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfint64, zfint64)
-// ============================================================
-ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zfuint64, zfuint64)
-
-// ============================================================
 ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(zffloat, zffloat)
 
 // ============================================================

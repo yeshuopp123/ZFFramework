@@ -229,14 +229,14 @@ public:
         aniFlashUp->aniDurationSet(_ZFP_ZF2048GamePrivateAniDuration);
         aniFlashUp->aniScaleXToSet(1.2f);
         aniFlashUp->aniScaleYToSet(1.2f);
-        aniFlashUp->aniDurationSet(aniFlashUp->aniDuration() / 2);
+        aniFlashUp->aniDurationSet((zftimet)(aniFlashUp->aniDuration() / 2));
 
         zfblockedAlloc(ZFAnimationNativeView, aniFlashDown);
         ani->childAniAdd(aniFlashDown);
         aniFlashDown->aniDurationSet(_ZFP_ZF2048GamePrivateAniDuration);
         aniFlashDown->aniScaleXFromSet(1.2f);
         aniFlashDown->aniScaleYFromSet(1.2f);
-        aniFlashDown->aniDurationSet(aniFlashDown->aniDuration() / 2);
+        aniFlashDown->aniDurationSet((zftimet)(aniFlashDown->aniDuration() / 2));
 
         return zfautoObjectCreate(ani);
     }

@@ -241,7 +241,7 @@ public:
     }
 ZF_GLOBAL_INITIALIZER_END(ZFUIViewBlinkWhenFocusAutoApplyPauseForTimeDataHolder)
 
-void ZFUIViewBlinkWhenFocusAutoApplyPauseForTime(ZF_IN zftimet time /* = 0 */)
+void ZFUIViewBlinkWhenFocusAutoApplyPauseForTime(ZF_IN zftimet time /* = zftimetZero */)
 {
     if(ZFUIViewBlinkWhenFocusAutoApplyPaused())
     {
@@ -249,7 +249,7 @@ void ZFUIViewBlinkWhenFocusAutoApplyPauseForTime(ZF_IN zftimet time /* = 0 */)
     }
     ZF_GLOBAL_INITIALIZER_CLASS(ZFUIViewBlinkWhenFocusAutoApplyPauseForTimeDataHolder) *d = ZF_GLOBAL_INITIALIZER_INSTANCE(ZFUIViewBlinkWhenFocusAutoApplyPauseForTimeDataHolder);
 
-    time = zfmMax<zftimet>(time, 100);
+    time = zfmMax(time, (zftimet)100);
     zftimet endTime = ZFTime::timestamp() + time;
     if(d->started && endTime <= d->endTime + 100)
     {

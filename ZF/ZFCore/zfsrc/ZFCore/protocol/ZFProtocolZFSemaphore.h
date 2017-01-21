@@ -26,39 +26,39 @@ public:
     /**
      * @brief create native semaphore
      */
-    virtual void *nativeSemaphoreCreate(ZF_IN ZFSemaphore *semaphore) = 0;
+    virtual void *nativeSemaphoreCreate(ZF_IN ZFSemaphore *semaphore) zfpurevirtual;
     /**
      * @brief create native semaphore
      */
     virtual void nativeSemaphoreDestroy(ZF_IN ZFSemaphore *semaphore,
-                                        ZF_IN void *nativeSemaphore) = 0;
+                                        ZF_IN void *nativeSemaphore) zfpurevirtual;
 
     /**
      * @brief see #ZFSemaphore::semaphoreLock
      */
-    virtual void semaphoreLock(ZF_IN ZFSemaphore *semaphore) = 0;
+    virtual void semaphoreLock(ZF_IN ZFSemaphore *semaphore) zfpurevirtual;
     /**
      * @brief see #ZFSemaphore::semaphoreUnlock
      */
-    virtual void semaphoreUnlock(ZF_IN ZFSemaphore *semaphore) = 0;
+    virtual void semaphoreUnlock(ZF_IN ZFSemaphore *semaphore) zfpurevirtual;
 
     /**
      * @brief see #ZFSemaphore::semaphoreSignal
      */
-    virtual void semaphoreSignal(ZF_IN ZFSemaphore *semaphore) = 0;
+    virtual void semaphoreSignal(ZF_IN ZFSemaphore *semaphore) zfpurevirtual;
     /**
      * @brief see #ZFSemaphore::semaphoreBroadcast
      */
-    virtual void semaphoreBroadcast(ZF_IN ZFSemaphore *semaphore) = 0;
+    virtual void semaphoreBroadcast(ZF_IN ZFSemaphore *semaphore) zfpurevirtual;
     /**
      * @brief see #ZFSemaphore::semaphoreWait
      */
-    virtual void semaphoreWait(ZF_IN ZFSemaphore *semaphore) = 0;
+    virtual void semaphoreWait(ZF_IN ZFSemaphore *semaphore) zfpurevirtual;
     /**
      * @brief see #ZFSemaphore::semaphoreWait
      */
     virtual zfbool semaphoreWait(ZF_IN ZFSemaphore *semaphore,
-                                ZF_IN const zftimet &miliSecsTimeout) = 0;
+                                 ZF_IN const zftimet &miliSecsTimeout) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFSemaphore)
 
 ZF_NAMESPACE_GLOBAL_END

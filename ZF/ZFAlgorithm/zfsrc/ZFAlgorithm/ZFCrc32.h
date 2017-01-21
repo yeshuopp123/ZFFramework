@@ -18,33 +18,38 @@
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 /**
+ * @brief value to store crc32
+ */
+ZFT_INT_STRONG_WITH_BIT(zft_zfuint32, ZFCrc32Value)
+
+/**
  * @brief init value for continous calculation, see #zfCrc32Calc
  */
-#define ZFCrc32InitValue 0x0L
+#define ZFCrc32ValueZero ((ZFCrc32Value)0x0)
 /**
  * @brief invalid value for CRC32
  */
-#define ZFCrc32Invalid 0xFFFFFFFFL
+#define ZFCrc32ValueInvalid ((ZFCrc32Value)0xFFFFFFFF)
 
 /**
- * @brief calculate CRC32, return #ZFCrc32Invalid if failed
+ * @brief calculate CRC32, return #ZFCrc32ValueInvalid if failed
  *
  * prevResult is used for continous calculation for performance,
  * you may separate big buffer to small ones,
  * and calculate separately
  */
-extern ZF_ENV_EXPORT zfuint32 zfCrc32Calc(ZF_IN const void *src,
-                                          ZF_IN zfindex len,
-                                          ZF_IN_OPT zfuint32 prevResult = ZFCrc32InitValue);
+extern ZF_ENV_EXPORT ZFCrc32Value zfCrc32Calc(ZF_IN const void *src,
+                                              ZF_IN zfindex len,
+                                              ZF_IN_OPT ZFCrc32Value prevResult = ZFCrc32ValueZero);
 /**
- * @brief calculate CRC32, return #ZFCrc32Invalid if failed
+ * @brief calculate CRC32, return #ZFCrc32ValueInvalid if failed
  *
  * prevResult is used for continous calculation for performance,
  * you may separate big buffer to small ones,
  * and calculate separately
  */
-extern ZF_ENV_EXPORT zfuint32 zfCrc32Calc(ZF_IN const ZFInputCallback &callback,
-                                          ZF_IN_OPT zfuint32 prevResult = ZFCrc32InitValue);
+extern ZF_ENV_EXPORT ZFCrc32Value zfCrc32Calc(ZF_IN const ZFInputCallback &callback,
+                                              ZF_IN_OPT ZFCrc32Value prevResult = ZFCrc32ValueZero);
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFCrc32_h_

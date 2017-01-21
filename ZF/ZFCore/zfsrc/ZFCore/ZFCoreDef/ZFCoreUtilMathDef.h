@@ -40,7 +40,7 @@ inline T_Number const &zfmMin(ZF_IN T_Number const &n0, ZF_IN T_Number const &n1
 template<typename T_Number>
 inline T_Number zfmAbs(ZF_IN T_Number const &n0)
 {
-    return ((n0 < 0) ? (-n0) : n0);
+    return (T_Number)(((n0 < (T_Number)0) ? (-n0) : n0));
 }
 /**
  * @brief return n if in range [nMin, nMax], return edge value otherwise

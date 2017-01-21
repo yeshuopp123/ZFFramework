@@ -88,11 +88,12 @@ zfclassFwd ZFClass;
 #define ZFMethodNotConst notConst
 
 // ============================================================
+#define _ZFP_ZFMethodIdFix ZFMI_
 /** @brief see #ZFMethod */
 #define ZFMethodNoId
 /** @brief see #ZFMethod */
-// use a "##" to fix this problem:
-//   if id is a macro such as "#define zfstringA std::string"
+#define ZFMethodNoIdName zfText("")
+/** @brief see #ZFMethod */
 #define ZFMethodId(methodId) methodId
 /** @brief see #ZFMethod */
 #define ZFMethodNoDefaultParam
@@ -379,7 +380,7 @@ public:
      * which is a pain when binding with script languages\n
      * since ZFFramework supply reflection (though limited),
      * we are trying to solve the dynamic script binding, how it works:
-     * -  #ZFVarConvertFromZFObject/#ZFVarConvertToZFObject\n
+     * -  #ZFPropertyTypeIdData::propertyConvertFromZFObject\n
      *   to supply type conversion to ZFObject types without knowing actual type
      * -  #ZFMethodGenericInvoker\n
      *   to invoke the reflectable method without static type binding
@@ -390,12 +391,12 @@ public:
      * -# have all methods you need to bind been declared by #ZFMETHOD_DECLARE_0 series
      * -# supply wrapper class to hold the type
      * -# ensure all params can be converted to ZFObject types,
-     *   by declaring them by #ZFVAR_CONVERT_DECLARE
+     *   by declaring them by #ZFPROPERTY_TYPE_DECLARE
      * -# all done, all binding works should be done by impl
      *
      * \n
      * typical steps for impl:
-     * -# supply type convert methods to bind #ZFVarConvertFromZFObject/#ZFVarConvertToZFObject types to script languages
+     * -# supply type convert methods to bind #ZFPropertyTypeIdData::propertyConvertFromZFObject types to script languages
      * -# using reflection of #ZFClass and #ZFMethod,
      *   to bind all class and methods to script languages
      *

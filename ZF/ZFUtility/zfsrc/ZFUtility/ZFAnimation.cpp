@@ -90,7 +90,7 @@ void ZFAnimation::objectOnDeallocPrepare(void)
 
 zfidentity ZFAnimation::objectHash(void)
 {
-    return (zfidentity)this->aniDuration();
+    return (zfidentity)(zft_zfidentity)this->aniDuration();
 }
 ZFCompareResult ZFAnimation::objectCompare(ZF_IN ZFObject *anotherObj)
 {

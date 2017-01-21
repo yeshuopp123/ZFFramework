@@ -14,8 +14,6 @@ ZFENUM_DEFINE(ZFUISizeType)
 
 // ============================================================
 // ZFUISizeParam
-ZFVAR_CONVERT_WRAPPER_DEFINE(ZFUISizeParam)
-
 ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFUISizeParam, ZFUISizeParam, {
         zfCoreAssert(src != zfnull);
         ZFCoreArrayPOD<zfindexRange> pos;

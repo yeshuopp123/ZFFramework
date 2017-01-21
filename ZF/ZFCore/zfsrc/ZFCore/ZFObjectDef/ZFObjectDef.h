@@ -49,15 +49,15 @@ public:
     /**
      * @brief lock (must be reentrant)
      */
-    virtual void mutexImplLock(void) = 0;
+    virtual void mutexImplLock(void) zfpurevirtual;
     /**
      * @brief unlock
      */
-    virtual void mutexImplUnlock(void) = 0;
+    virtual void mutexImplUnlock(void) zfpurevirtual;
     /**
      * @brief try lock
      */
-    virtual zfbool mutexImplTryLock(void) = 0;
+    virtual zfbool mutexImplTryLock(void) zfpurevirtual;
 };
 
 /**

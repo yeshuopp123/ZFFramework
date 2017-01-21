@@ -124,7 +124,7 @@ ZF_NAMESPACE_END(ZFGlobalEvent)
  *
  * the task would be scheduled and run in future even if time is 0
  */
-extern ZF_ENV_EXPORT void ZFUIViewBlinkWhenFocusAutoApplyPauseForTime(ZF_IN zftimet time = 0);
+extern ZF_ENV_EXPORT void ZFUIViewBlinkWhenFocusAutoApplyPauseForTime(ZF_IN zftimet time = zftimetZero);
 /**
  * @brief cancel #ZFUIViewBlinkWhenFocusAutoApplyPauseForTime
  *

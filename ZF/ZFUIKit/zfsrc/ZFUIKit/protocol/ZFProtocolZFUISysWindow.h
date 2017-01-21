@@ -31,7 +31,7 @@ public:
      * you should create a new window if not initialized,
      * or return the created one if exist
      */
-    virtual ZFUISysWindow *mainWindow(void) = 0;
+    virtual ZFUISysWindow *mainWindow(void) zfpurevirtual;
     /**
      * @brief called to cleanup native main window
      *
@@ -39,54 +39,54 @@ public:
      * with level #ZFLevelZFFrameworkLow\n
      * after cleanup, you must ensured it's reentrant to access the main window again
      */
-    virtual void mainWindowOnCleanup(void) = 0;
+    virtual void mainWindowOnCleanup(void) zfpurevirtual;
     /**
      * @brief called when main window destroyed by #notifyOnDestroy
      */
-    virtual void mainWindowOnDestroy(void) = 0;
+    virtual void mainWindowOnDestroy(void) zfpurevirtual;
 
     /**
      * @brief called to add root view to native window container
      *
      * note, you must properly invoke #ZFUIView::nativeViewNotifyBeforeAdd
      */
-    virtual void nativeWindowOnRootViewAdd(ZF_IN ZFUISysWindow *window) = 0;
+    virtual void nativeWindowOnRootViewAdd(ZF_IN ZFUISysWindow *window) zfpurevirtual;
     /**
      * @brief called to remove root view to native window container
      *
      * note, you must properly invoke #ZFUIView::nativeViewNotifyAfterRemove
      */
-    virtual void nativeWindowOnRootViewRemove(ZF_IN ZFUISysWindow *window) = 0;
+    virtual void nativeWindowOnRootViewRemove(ZF_IN ZFUISysWindow *window) zfpurevirtual;
 
     /**
      * @brief see #ZFUISysWindow::modalWindowShow
      */
-    virtual ZFUISysWindow *modalWindowShow(ZF_IN ZFUISysWindow *ownerWindow) = 0;
+    virtual ZFUISysWindow *modalWindowShow(ZF_IN ZFUISysWindow *ownerWindow) zfpurevirtual;
     /**
      * @brief see #ZFUISysWindow::modalWindowFinish
      */
     virtual void modalWindowFinish(ZF_IN ZFUISysWindow *ownerWindow,
-                                   ZF_IN ZFUISysWindow *windowToFinish) = 0;
+                                   ZF_IN ZFUISysWindow *windowToFinish) zfpurevirtual;
 
     /**
      * @brief called to update suggested window layout param
      */
-    virtual void updateSuggestedWindowLayoutParam(ZF_IN ZFUISysWindow *window) = 0;
+    virtual void updateSuggestedWindowLayoutParam(ZF_IN ZFUISysWindow *window) zfpurevirtual;
     /**
      * @brief called when window layout param changed
      */
-    virtual void windowLayoutParamOnChange(ZF_IN ZFUISysWindow *window) = 0;
+    virtual void windowLayoutParamOnChange(ZF_IN ZFUISysWindow *window) zfpurevirtual;
 
     /**
      * @brief see #ZFUISysWindow::windowOrientation
      */
-    virtual ZFUIOrientationEnum windowOrientation(ZF_IN ZFUISysWindow *window) = 0;
+    virtual ZFUIOrientationEnum windowOrientation(ZF_IN ZFUISysWindow *window) zfpurevirtual;
     /**
      * @brief see #ZFUISysWindow::windowOrientationFlagsSet,
      *  impl should have #ZFUIOrientation::e_Top as init value
      */
     virtual void windowOrientationFlagsSet(ZF_IN ZFUISysWindow *window,
-                                           ZF_IN const ZFUIOrientationFlags &flags) = 0;
+                                           ZF_IN const ZFUIOrientationFlags &flags) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify

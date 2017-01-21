@@ -26,20 +26,20 @@ public:
     /**
      * @brief create and return a native timer
      */
-    virtual void *nativeTimerCreate(ZF_IN ZFTimer *timer) = 0;
+    virtual void *nativeTimerCreate(ZF_IN ZFTimer *timer) zfpurevirtual;
     /**
      * @brief destroy native timer
      */
     virtual void nativeTimerDestroy(ZF_IN ZFTimer *timer,
-                                    ZF_IN void *nativeTimer) = 0;
+                                    ZF_IN void *nativeTimer) zfpurevirtual;
     /**
      * @brief start timer
      */
-    virtual void timerStart(ZF_IN ZFTimer *timer) = 0;
+    virtual void timerStart(ZF_IN ZFTimer *timer) zfpurevirtual;
     /**
      * @brief stop the timer
      */
-    virtual void timerStop(ZF_IN ZFTimer *timer) = 0;
+    virtual void timerStop(ZF_IN ZFTimer *timer) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify

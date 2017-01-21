@@ -86,11 +86,11 @@ public:
     /**
      * @brief cell count
      */
-    virtual zfindex cellCount(void) = 0;
+    virtual zfindex cellCount(void) zfpurevirtual;
     /**
      * @brief access list cell at index, assert fail if return null object
      */
-    virtual zfautoObject cellAtIndex(ZF_IN zfindex index) = 0;
+    virtual zfautoObject cellAtIndex(ZF_IN zfindex index) zfpurevirtual;
     /**
      * @brief check cell size at index
      *

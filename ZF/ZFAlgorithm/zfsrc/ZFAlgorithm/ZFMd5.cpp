@@ -11,10 +11,10 @@
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 typedef struct {
-    zfuint32 lo, hi;
-    zfuint32 a, b, c, d;
+    zft_zfuint32 lo, hi;
+    zft_zfuint32 a, b, c, d;
     zfbyte buffer[64];
-    zfuint32 block[16];
+    zft_zfuint32 block[16];
 } _ZFP_ZFMd5_CTX;
 
 static void _ZFP_ZFMd5_Init(_ZFP_ZFMd5_CTX *ctx);
@@ -139,16 +139,16 @@ void zfMd5Calc(ZF_IN_OUT zfstring &ret,
  */
 #if defined(__i386__) || defined(__x86_64__) || defined(__vax__)
     #define SET(n) \
-        (*(zfuint32 *)&ptr[(n) * 4])
+        (*(zft_zfuint32 *)&ptr[(n) * 4])
     #define GET(n) \
         SET(n)
 #else
     #define SET(n) \
         (ctx->block[(n)] = \
-        (zfuint32)ptr[(n) * 4] | \
-        ((zfuint32)ptr[(n) * 4 + 1] << 8) | \
-        ((zfuint32)ptr[(n) * 4 + 2] << 16) | \
-        ((zfuint32)ptr[(n) * 4 + 3] << 24))
+        (zft_zfuint32)ptr[(n) * 4] | \
+        ((zft_zfuint32)ptr[(n) * 4 + 1] << 8) | \
+        ((zft_zfuint32)ptr[(n) * 4 + 2] << 16) | \
+        ((zft_zfuint32)ptr[(n) * 4 + 3] << 24))
     #define GET(n) \
         (ctx->block[(n)])
 #endif
@@ -160,8 +160,8 @@ void zfMd5Calc(ZF_IN_OUT zfstring &ret,
 static const void *body(_ZFP_ZFMd5_CTX *ctx, const void *data, zfindex size)
 {
     const zfbyte *ptr;
-    zfuint32 a, b, c, d;
-    zfuint32 saved_a, saved_b, saved_c, saved_d;
+    zft_zfuint32 a, b, c, d;
+    zft_zfuint32 saved_a, saved_b, saved_c, saved_d;
 
     ptr = (const zfbyte *)data;
 
@@ -277,7 +277,7 @@ void _ZFP_ZFMd5_Init(_ZFP_ZFMd5_CTX *ctx)
 
 void _ZFP_ZFMd5_Update(_ZFP_ZFMd5_CTX *ctx, const void *data, zfindex size)
 {
-    zfuint32 saved_lo;
+    zft_zfuint32 saved_lo;
     zfindex used, available;
 
     saved_lo = ctx->lo;

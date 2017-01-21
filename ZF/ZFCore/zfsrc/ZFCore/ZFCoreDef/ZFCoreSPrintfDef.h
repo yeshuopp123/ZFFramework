@@ -63,8 +63,6 @@ void _ZFP_zfstringAppend(ZF_OUT T_Str &s,
  * -  "x": zfuint, in heximal, lowercase (e.g. 0x1234abcd)
  * -  "X": zfuint, in heximal, uppercase (e.g. 0x1234ABCD)
  * -  "f": zffloat, accuracy is not ensured (e.g. 13.579)
- * -  "lf": zfdouble, accuracy is not ensured (e.g. 13.579001)
- * -  "llf" or "Lf": zflongdouble, accuracy is not ensured (e.g. 13.579000001)
  * -  "p": pointer value (e.g. 0x1234ABCD)
  * -  "c" or "C": zfchar/zfcharA/zfcharW depends on fmt's type
  * -  "s" or "S": zfchar/zfcharA/zfcharW string depends on fmt's type
@@ -82,7 +80,7 @@ void _ZFP_zfstringAppend(ZF_OUT T_Str &s,
  * -  ".*": same as ".n" but scaned from vaList as a zfindex
  *
  * note:
- * -  for special types such as zfint8 or zfint64 or zftimet,
+ * -  for special types such as zfflags or zftimet,
  *   you should use zfsFromInt series to make sure type size
  *   doesn't affect the print result
  * -  zfindex may or may not have the same size with zfint/zfuint,

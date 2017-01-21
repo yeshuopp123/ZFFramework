@@ -412,7 +412,7 @@ protected:
      * @brief store public type to internal storage type
      */
     virtual void filterOnStore(ZF_IN_OUT T_Internal &to,
-                                ZF_IN T_Public const &from) const = 0;
+                                ZF_IN T_Public const &from) const zfpurevirtual;
     /**
      * @brief called before value removed from filter
      */
@@ -421,14 +421,14 @@ protected:
      * @brief access public type from internal storage type
      */
     virtual void filterOnAccess(ZF_IN_OUT T_Public &to,
-                                 ZF_IN T_Internal const &from) const = 0;
+                                 ZF_IN T_Internal const &from) const zfpurevirtual;
     /**
      * @brief true if e1 is regarded as equal to e2
      *
      * subclass may override this to supply custom comparation
      */
     virtual zfbool filterOnCheckEqual(ZF_IN T_Internal const &e1,
-                                        ZF_IN T_Public const &e2) const = 0;
+                                        ZF_IN T_Public const &e2) const zfpurevirtual;
     /**
      * @brief called by #filterCheckActive to check whether the element is filtered out
      */

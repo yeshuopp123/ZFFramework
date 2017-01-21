@@ -6,18 +6,15 @@
  * Distributed under MIT license:
  *   https://github.com/ZFFramework/ZFFramework/blob/master/license/license.txt
  * ====================================================================== */
-#include "ZFVarConvertDef.h"
+#include "ZFPropertyTypeFwdDef.h"
+#include "ZFPropertyTypeDef.h"
 #include "zfautoObjectDef.h"
 
 ZF_NAMESPACE_GLOBAL_BEGIN
 
-void _ZFP_ZFVarConvertHolderFwdFix(ZF_OUT zfautoObject &ret, ZF_IN ZFObject *from)
+void _ZFP_ZFPropertyTypeIdData_zfautoObjectCreate(ZF_OUT zfautoObject &ret, ZF_IN ZFObject *obj)
 {
-    /*
-     * zfautoObjectCreate depends on leak test,
-     * wrap it in this cpp file to solve recursive header dependency
-     */
-    ret = zfautoObjectCreate(from);
+    ret = zfautoObjectCreate(obj);
 }
 
 ZF_NAMESPACE_GLOBAL_END

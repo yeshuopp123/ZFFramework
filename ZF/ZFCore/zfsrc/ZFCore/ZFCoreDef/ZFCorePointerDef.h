@@ -88,7 +88,7 @@ public:
     /**
      * @brief get content info or #ZFTOKEN_ZFCoreInfoGetterNotAvailable if not available
      */
-    virtual void objectInfoOfContentT(ZF_IN_OUT zfstring &ret) const = 0;
+    virtual void objectInfoOfContentT(ZF_IN_OUT zfstring &ret) const zfpurevirtual;
     /** @brief see #objectInfoOfContentT */
     virtual inline zfstring objectInfoOfContent(void) const
     {
@@ -119,7 +119,7 @@ public:
      * @note should be (and recommended to be) paired with #refDelete instead of #zfdelete,
      *   if you override default #zfnew and #zfdelete
      */
-    virtual ZFCorePointerBase *refNew(void) const = 0;
+    virtual ZFCorePointerBase *refNew(void) const zfpurevirtual;
     /**
      * @brief see #refNew
      */
@@ -130,11 +130,11 @@ public:
     /**
      * @brief get the internal pointer
      */
-    virtual const void *pointerValue(void) const = 0;
+    virtual const void *pointerValue(void) const zfpurevirtual;
     /**
      * @brief get the internal pointer
      */
-    virtual void *pointerValueNonConst(void) const = 0;
+    virtual void *pointerValueNonConst(void) const zfpurevirtual;
 
     /**
      * @brief util method to get and cast to desired type
@@ -148,7 +148,7 @@ public:
     /**
      * @brief get current retain count
      */
-    virtual zfindex objectRetainCount(void) const = 0;
+    virtual zfindex objectRetainCount(void) const zfpurevirtual;
 };
 
 // ============================================================

@@ -27,12 +27,12 @@ public:
     /**
      * @brief create native image view
      */
-    virtual void *nativeImageViewCreate(ZF_IN ZFUIImageView *imageView) = 0;
+    virtual void *nativeImageViewCreate(ZF_IN ZFUIImageView *imageView) zfpurevirtual;
     /**
      * @brief destroy native image view
      */
     virtual void nativeImageViewDestroy(ZF_IN ZFUIImageView *imageView,
-                                        ZF_IN void *nativeImageView) = 0;
+                                        ZF_IN void *nativeImageView) zfpurevirtual;
 
     /**
      * @brief set the image
@@ -42,7 +42,7 @@ public:
      * note that implementation must implement the nine patch logic
      */
     virtual void imageContentSet(ZF_IN ZFUIImageView *imageView,
-                          ZF_IN ZFUIImage *image) = 0;
+                          ZF_IN ZFUIImage *image) zfpurevirtual;
     /**
      * @brief called when image's nine patch setting changed,
      *   ensured called once when change image
@@ -53,7 +53,7 @@ public:
      */
     virtual void imageNinePatchChanged(ZF_IN ZFUIImageView *imageView,
                                        ZF_IN zffloat imageScale,
-                                       ZF_IN const ZFUIMargin &imageNinePatch) = 0;
+                                       ZF_IN const ZFUIMargin &imageNinePatch) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFUIImageView)
 
 ZF_NAMESPACE_GLOBAL_END

@@ -45,9 +45,7 @@ private:
             layout->childAdd(view);
             view->viewBackgroundColorSet(ZFUIColorRandom());
             zfindex textLength = zfmRand(1, 10);
-            #if 1
-                textLength = layout->childCount() + 1;
-            #endif
+            textLength = layout->childCount() + 1;
             zfstring text;
             text.capacitySet(textLength);
             zfchar c = '0' + ((layout->childCount() - 1) % 10);

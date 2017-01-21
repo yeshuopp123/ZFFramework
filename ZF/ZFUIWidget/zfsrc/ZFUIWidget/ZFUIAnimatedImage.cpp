@@ -204,7 +204,7 @@ zftimet ZFUIAnimatedImage::aniFrameDurationCurrent(void)
     }
     else
     {
-        return 0;
+        return zftimetZero;
     }
 }
 zftimet ZFUIAnimatedImage::aniFrameDurationFixedCurrent(void)
@@ -215,7 +215,7 @@ zftimet ZFUIAnimatedImage::aniFrameDurationFixedCurrent(void)
     }
     else
     {
-        return 0;
+        return zftimetZero;
     }
 }
 ZFUIAnimatedImageAniFrame *ZFUIAnimatedImage::aniFrameCurrent(void)

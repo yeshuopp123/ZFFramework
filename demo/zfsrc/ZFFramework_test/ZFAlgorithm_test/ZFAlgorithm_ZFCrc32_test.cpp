@@ -21,8 +21,8 @@ protected:
         zfsuper::testCaseOnStart();
 
         const zfchar *testString = zfText("123abc");
-        zfuint32 testValue = 0x8DFE51D2; // testString's CRC32 to verify
-        zfuint32 value = 0;
+        ZFCrc32Value testValue = (ZFCrc32Value)0x8DFE51D2; // testString's CRC32 to verify
+        ZFCrc32Value value = ZFCrc32ValueZero;
 
         value = zfCrc32Calc((const zfbyte *)testString, zfslen(testString) * sizeof(zfchar));
         this->testCaseOutput(zfText("CRC32 of array \"%s\": %x"), testString, (zfuint)value);
@@ -58,12 +58,12 @@ protected:
             fp = zfnull;
         }
         ZFTimeValue tv1 = ZFTime::currentTimeValue();
-        zfuint32 CRC32BigFile = (zfuint32)zfCrc32Calc(ZFInputCallbackForFile(tmpFilePath.cString()));
+        ZFCrc32Value CRC32BigFile = zfCrc32Calc(ZFInputCallbackForFile(tmpFilePath.cString()));
         ZFTimeValue tv2 = ZFTimeValueDec(ZFTime::currentTimeValue(), tv1);
         this->testCaseOutput(zfText("write it 1000*1000 times to file %s, file's size: %zi, CRC32: %X, time: %s.%03s %03s"),
             tmpFilePath.cString(),
             fileSize,
-            CRC32BigFile,
+            (zfuint)CRC32BigFile,
             zfsFromInt(tv2.sec).cString(),
             zfsFromInt(tv2.usec / 1000).cString(),
             zfsFromInt(tv2.usec % 1000).cString());

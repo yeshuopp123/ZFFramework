@@ -30,7 +30,7 @@ public:
      * return a native view token,
      * which is automatically saved to ZFUIView.nativeView
      */
-    virtual void *nativeViewCreate(ZF_IN ZFUIView *view) = 0;
+    virtual void *nativeViewCreate(ZF_IN ZFUIView *view) zfpurevirtual;
     /**
      * @brief called when a ZFUIView destroyed,
      *   the internal nativeView could be accessed by ZFUIView.nativeView
@@ -38,7 +38,7 @@ public:
      * it's ensured that view has been remove from parent before destroy
      */
     virtual void nativeViewDestroy(ZF_IN ZFUIView *view,
-                                   ZF_IN void *nativeView) = 0;
+                                   ZF_IN void *nativeView) zfpurevirtual;
 
     /**
      * @brief attach a native view to this view, see #ZFUINativeViewWrapper
@@ -54,7 +54,7 @@ public:
     virtual void nativeImplViewSet(ZF_IN ZFUIView *view,
                                    ZF_IN void *nativeImplViewOld,
                                    ZF_IN void *nativeImplView,
-                                   ZF_IN zfindex virtualIndex) = 0;
+                                   ZF_IN zfindex virtualIndex) zfpurevirtual;
     /**
      * @brief see #ZFUIView::nativeImplViewMarginUpdate
      */
@@ -67,27 +67,27 @@ public:
     /**
      * @brief get proper scale for the view
      */
-    virtual zffloat nativeViewScaleForImpl(ZF_IN void *nativeView) = 0;
+    virtual zffloat nativeViewScaleForImpl(ZF_IN void *nativeView) zfpurevirtual;
     /**
      * @brief get proper scale for physical pixel
      */
-    virtual zffloat nativeViewScaleForPhysicalPixel(ZF_IN void *nativeView) = 0;
+    virtual zffloat nativeViewScaleForPhysicalPixel(ZF_IN void *nativeView) zfpurevirtual;
 
     // ============================================================
     // properties
 public:
     /** @brief see #ZFUIView */
     virtual void viewVisibleSet(ZF_IN ZFUIView *view,
-                                ZF_IN zfbool viewVisible) = 0;
+                                ZF_IN zfbool viewVisible) zfpurevirtual;
     /** @brief see #ZFUIView */
     virtual void viewAlphaSet(ZF_IN ZFUIView *view,
-                              ZF_IN zffloat viewAlpha) = 0;
+                              ZF_IN zffloat viewAlpha) zfpurevirtual;
     /** @brief see #ZFUIView */
     virtual void viewUIEnableSet(ZF_IN ZFUIView *view,
-                                 ZF_IN zfbool viewUIEnable) = 0;
+                                 ZF_IN zfbool viewUIEnable) zfpurevirtual;
     /** @brief see #ZFUIView */
     virtual void viewUIEnableTreeSet(ZF_IN ZFUIView *view,
-                                     ZF_IN zfbool viewUIEnableTree) = 0;
+                                     ZF_IN zfbool viewUIEnableTree) zfpurevirtual;
     /** @brief see #ZFUIView */
     virtual void viewMouseHoverEventEnableSet(ZF_IN ZFUIView *view,
                                               ZF_IN zfbool viewMouseHoverEventEnable)
@@ -96,7 +96,7 @@ public:
     }
     /** @brief see #ZFUIView */
     virtual void viewBackgroundColorSet(ZF_IN ZFUIView *view,
-                                        ZF_IN const ZFUIColor &viewBackgroundColor) = 0;
+                                        ZF_IN const ZFUIColor &viewBackgroundColor) zfpurevirtual;
 
     // ============================================================
     // children
@@ -113,7 +113,7 @@ public:
                           ZF_IN ZFUIView *child,
                           ZF_IN zfindex virtualIndex,
                           ZF_IN ZFUIViewChildLayerEnum childLayer,
-                          ZF_IN zfindex childLayerIndex) = 0;
+                          ZF_IN zfindex childLayerIndex) zfpurevirtual;
     /**
      * @brief remove view, no need to worry about layout param or ZFUIView's internal views
      *
@@ -123,7 +123,7 @@ public:
                              ZF_IN ZFUIView *child,
                              ZF_IN zfindex virtualIndex,
                              ZF_IN ZFUIViewChildLayerEnum childLayer,
-                             ZF_IN zfindex childLayerIndex) = 0;
+                             ZF_IN zfindex childLayerIndex) zfpurevirtual;
 
     // ============================================================
     // frame and layout
@@ -132,7 +132,7 @@ public:
      * @brief set view's frame, no need to worry about layout param or auto resizing
      */
     virtual void viewFrameSet(ZF_IN ZFUIView *view,
-                              ZF_IN const ZFUIRect &rect) = 0;
+                              ZF_IN const ZFUIRect &rect) zfpurevirtual;
     /**
      * @brief called by ZFUIView to notify the implementation that the view needs layout
      *
@@ -143,7 +143,7 @@ public:
      * and #notifyNeedLayout is called by implementations to notify ZFUIView,
      * take good care of them
      */
-    virtual void layoutRequest(ZF_IN ZFUIView *view) = 0;
+    virtual void layoutRequest(ZF_IN ZFUIView *view) zfpurevirtual;
 
     /**
      * @brief measure a native view, only called by #ZFUINativeViewWrapper
@@ -151,7 +151,7 @@ public:
     virtual void measureNativeView(ZF_OUT ZFUISize &ret,
                                    ZF_IN void *nativeView,
                                    ZF_IN const ZFUISize &sizeHint,
-                                   ZF_IN const ZFUISizeParam &sizeParam) = 0;
+                                   ZF_IN const ZFUISizeParam &sizeParam) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify

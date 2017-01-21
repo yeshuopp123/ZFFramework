@@ -28,12 +28,12 @@ public:
      */
     virtual ZFJsonItem jsonParse(ZF_IN const zfchar *src,
                                  ZF_IN_OPT zfindex size = zfindexMax,
-                                 ZF_IN_OPT const ZFJsonParseFlags &flags = ZFJsonParseFlagsDefault) = 0;
+                                 ZF_IN_OPT const ZFJsonParseFlags &flags = ZFJsonParseFlagsDefault) zfpurevirtual;
     /**
      * @brief parse json
      */
     virtual ZFJsonItem jsonParse(ZF_IN const ZFInputCallback &inputCallback,
-                                 ZF_IN_OPT const ZFJsonParseFlags &flags = ZFJsonParseFlagsDefault) = 0;
+                                 ZF_IN_OPT const ZFJsonParseFlags &flags = ZFJsonParseFlagsDefault) zfpurevirtual;
 
     /**
      * @brief for impl to achieve memory pool logic

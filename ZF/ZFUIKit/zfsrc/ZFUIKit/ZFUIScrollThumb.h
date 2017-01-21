@@ -70,18 +70,18 @@ public:
     /**
      * @brief init the scroll thumb
      */
-    virtual void scrollThumbInit(void) = 0;
+    virtual void scrollThumbInit(void) zfpurevirtual;
     /**
      * @brief destroy the scroll thumb
      */
-    virtual void scrollThumbDealloc(void) = 0;
+    virtual void scrollThumbDealloc(void) zfpurevirtual;
 
     /**
      * @brief update the scroll thumb, this method may be called repeatly
      *
      * you may update thumb depending on #ZFUIScrollView::scrollViewState
      */
-    virtual void scrollThumbUpdate(void) = 0;
+    virtual void scrollThumbUpdate(void) zfpurevirtual;
 
 private:
     ZFUIScrollView *_scrollView;

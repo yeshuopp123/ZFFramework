@@ -17,8 +17,8 @@ ZFOBJECT_REGISTER(ZFAnimationGroupChildData)
 zfidentity ZFAnimationGroupChildData::objectHash(void)
 {
     return zfidentityHash(ZFObjectHash(this->childAni())
-        , (zfidentity)this->childDelayBeforeStart()
-        , (zfidentity)this->childAutoCopyTarget()
+        , this->childDelayBeforeStart()
+        , this->childAutoCopyTarget()
     );
 }
 ZFCompareResult ZFAnimationGroupChildData::objectCompare(ZF_IN ZFObject *anotherObj)
@@ -407,7 +407,7 @@ zfidentity ZFAnimationGroup::objectHash(void)
 {
     return zfidentityHash(zfsuper::objectHash()
         , d->childAnis->objectHash()
-        , (zfidentity)this->aniParallel()
+        , this->aniParallel()
     );
 }
 ZFCompareResult ZFAnimationGroup::objectCompare(ZF_IN ZFObject *anotherObj)

@@ -15,20 +15,12 @@
 #define _ZFI_ZFPropertyDef_h_
 
 #include "ZFPropertyFwdDef.h"
+#include "ZFPropertyTypeFwdDef.h"
 #include "ZFMethodDef.h"
 #include "ZFObjectClassTypeFwd.h"
 #include "ZFObjectCastDef.h"
 #include "ZFAnyDef.h"
 ZF_NAMESPACE_GLOBAL_BEGIN
-
-// ============================================================
-/**
- * @brief shows that the property has no type and can not be used in advanced property copy operation,
- *   ensured an empty string
- */
-#define ZFPropertyTypeId_none zfText("")
-
-#define _ZFP_ZFPropertyTypeIdForRetainProperty zfText("_ZFP_ZFPropertyTypeIdForRetainProperty")
 
 // ============================================================
 /**

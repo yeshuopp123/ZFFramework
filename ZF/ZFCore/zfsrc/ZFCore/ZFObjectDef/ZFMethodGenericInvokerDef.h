@@ -16,7 +16,7 @@
 
 #include "ZFObjectClassTypeFwd.h"
 #include "zfautoObjectFwd.h"
-#include "ZFVarConvertDef.h"
+#include "ZFPropertyTypeFwdDef.h"
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
@@ -38,7 +38,7 @@ typedef zfbool (*ZFMethodGenericInvoker)(ZF_IN const ZFMethod *ownerMethod,
     typedef zftTraitsType<ParamType>::TraitsRemoveReference _ParamTypeTraits##N; \
     _ParamTypeTraits##N _param##N;
 #define _ZFP_ZFMETHOD_GENERIC_INVOKER_PARAM_EXPAND(ParamType, param, N) \
-    if(!ZFVarConvertFromZFObject(_ParamType##N, _param##N, param)) \
+    if(!ZFPropertyTypeIdData<_ParamTypeTraits##N>::propertyConvertFromZFObject(_param##N, param)) \
     { \
         return zffalse; \
     }
@@ -59,7 +59,7 @@ public:
         T_Invoker invoker;
         if(!invoker.paramPrepare(param0, param1, param2, param3)) {return zffalse;}
         T_ReturnType retTmp = invoker.invoke(ownerMethod, ownerObj);
-        return ZFVarConvertToZFObject(T_ReturnType, ret, retTmp);
+        return ZFPropertyTypeIdData<typename zftTraitsType<T_ReturnType>::TraitsRemoveReference>::propertyConvertToZFObject(ret, retTmp);
     }
 };
 template<typename T_Invoker>

@@ -189,8 +189,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFBezier, ZFBezier)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFBezier, ZFBezier)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFBezier, ZFBezier)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFBezier, ZFBezier)
 
 /** @brief keyword for serialize */
 #define ZFSerializableKeyword_ZFBezier_p0x zfText("p0x")

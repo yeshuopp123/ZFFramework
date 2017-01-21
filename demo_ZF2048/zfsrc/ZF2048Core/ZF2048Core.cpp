@@ -88,7 +88,7 @@ public:
     }
     ZF2048Value generateBlockValue(void)
     {
-        return ((zfmRand(8) == 0) ? 4 : 2);
+        return (ZF2048Value)((zfmRand(8) == 0) ? 4 : 2);
     }
     void addActionList(ZF_IN const ZFCoreArrayPOD<ZF2048Action> &actionList)
     {

@@ -139,8 +139,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIPoint, ZFUIPoint)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIPoint, ZFUIPoint)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIPoint, ZFUIPoint)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIPoint, ZFUIPoint)
 
 ZFOUTPUT_TYPE(ZFUIPoint, {output << ZFUIPointToString(v);})
 ZFOUTPUT_TYPE(const ZFUIPoint *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
@@ -229,8 +227,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIMargin, ZFUIMargin)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIMargin, ZFUIMargin)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIMargin, ZFUIMargin)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIMargin, ZFUIMargin)
 
 ZFOUTPUT_TYPE(ZFUIMargin, {output << ZFUIMarginToString(v);})
 ZFOUTPUT_TYPE(const ZFUIMargin *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
@@ -449,8 +445,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUISize, ZFUISize)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUISize, ZFUISize)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUISize, ZFUISize)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUISize, ZFUISize)
 
 ZFOUTPUT_TYPE(ZFUISize, {output << ZFUISizeToString(v);})
 ZFOUTPUT_TYPE(const ZFUISize *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
@@ -645,8 +639,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIRect, ZFUIRect)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIRect, ZFUIRect)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIRect, ZFUIRect)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIRect, ZFUIRect)
 
 ZFOUTPUT_TYPE(ZFUIRect, {output << ZFUIRectToString(v);})
 ZFOUTPUT_TYPE(const ZFUIRect *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
@@ -1064,68 +1056,10 @@ inline ZF_ENV_EXPORT zfbool ZFUIOrientationIsHorizontal(ZF_IN ZFUIOrientationEnu
 /**
  * @brief 32 bit color with (AARRGGBB) format
  */
-zffinal zfclassLikePOD ZF_ENV_EXPORT ZFUIColor
-{
-public:
-    /** @cond ZFPrivateDoc */
-    ZFUIColor(void)
-    : color(0)
-    {
-    }
-    ZFUIColor(ZF_IN zfuint32 color)
-    : color(color)
-    {
-    }
-    ZFUIColor(ZF_IN const ZFUIColor &ref)
-    : color(ref.color)
-    {
-    }
-public:
-    inline zfuint32 colorValue(void) const
-    {
-        return this->color;
-    }
-    inline void colorValueSet(ZF_IN zfuint32 color)
-    {
-        this->color = color;
-    }
+ZFT_INT_STRONG_WITH_BIT(zft_zfuint32, ZFUIColor)
 
-public:
-    inline operator zfuint32 (void) const
-    {
-        return this->color;
-    }
-    inline ZFUIColor &operator = (ZF_IN zfuint32 color)
-    {
-        this->color = color;
-        return *this;
-    }
-    inline ZFUIColor &operator = (ZF_IN const ZFUIColor &ref)
-    {
-        this->color = ref.color;
-        return *this;
-    }
-    inline zfbool operator == (ZF_IN zfuint32 color) const
-    {
-        return (this->color == color);
-    }
-    inline zfbool operator == (ZF_IN const ZFUIColor &ref) const
-    {
-        return (this->color == ref.color);
-    }
-    inline zfbool operator != (ZF_IN zfuint32 color) const
-    {
-        return (this->color != color);
-    }
-    inline zfbool operator != (ZF_IN const ZFUIColor &ref) const
-    {
-        return (this->color != ref.color);
-    }
-    /** @endcond */
-
-private:
-    zfuint32 color;
-};
+/** @brief 0x00000000 */
+extern ZF_ENV_EXPORT const ZFUIColor ZFUIColorZero;
 
 ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIColor, ZFUIColor)
 
@@ -1139,8 +1073,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(ZFUIColor, ZFUIColor)
  * @endcode
  */
 ZFPROPERTY_TYPE_DECLARE(ZFUIColor, ZFUIColor)
-ZFVAR_CONVERT_WRAPPER_DECLARE(ZFUIColor, ZFUIColor)
-ZFVAR_CONVERT_DECLARE_BY_WRAPPER(ZFUIColor, ZFUIColor)
 
 ZFOUTPUT_TYPE(ZFUIColor, {output << ZFUIColorToString(v);})
 ZFOUTPUT_TYPE(const ZFUIColor *, {if(v) {output << *v;} else {output.execute(ZFTOKEN_zfnull);}})
@@ -1184,19 +1116,19 @@ ZFCOMPARER_DEFAULT_DECLARE(ZFUIColor, ZFUIColor, {
 /**
  * @brief set alpha to a #ZFUIColor
  */
-#define ZFUIColorSetA(c, a) ((c) = (zfuint32)(((c) & 0x00FFFFFF) | (((a) & 0xFF) << 24)))
+#define ZFUIColorSetA(c, a) ((c) = (zft_zfuint32)(((c) & 0x00FFFFFF) | (((a) & 0xFF) << 24)))
 /**
  * @brief set red from a #ZFUIColor
  */
-#define ZFUIColorSetR(c, r) ((c) = (zfuint32)(((c) & 0xFF00FFFF) | (((r) & 0xFF) << 16)))
+#define ZFUIColorSetR(c, r) ((c) = (zft_zfuint32)(((c) & 0xFF00FFFF) | (((r) & 0xFF) << 16)))
 /**
  * @brief set green from a #ZFUIColor
  */
-#define ZFUIColorSetG(c, g) ((c) = (zfuint32)(((c) & 0xFFFF00FF) | (((g) & 0xFF) << 8)))
+#define ZFUIColorSetG(c, g) ((c) = (zft_zfuint32)(((c) & 0xFFFF00FF) | (((g) & 0xFF) << 8)))
 /**
  * @brief set blue from a #ZFUIColor
  */
-#define ZFUIColorSetB(c, b) ((c) = (zfuint32)(((c) & 0xFFFFFF00) | ((b) & 0xFF)))
+#define ZFUIColorSetB(c, b) ((c) = (zft_zfuint32)(((c) & 0xFFFFFF00) | ((b) & 0xFF)))
 
 /**
  * @brief return a copy of color with changed alpha
@@ -1214,9 +1146,6 @@ ZFCOMPARER_DEFAULT_DECLARE(ZFUIColor, ZFUIColor, {
  * @brief return a copy of color with changed blue
  */
 #define ZFUIColorChangeB(c, b) (((c) & 0xFFFFFF00) | ((b) & 0xFF))
-
-/** @brief 0x00000000 */
-extern ZF_ENV_EXPORT ZFUIColor ZFUIColorZero;
 
 // ============================================================
 // ZFUITextAppearance

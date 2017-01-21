@@ -28,7 +28,7 @@ public:
      */
     virtual void taskRequest(ZF_IN const ZFListener &task,
                              ZF_IN ZFObject *param0,
-                             ZF_IN ZFObject *param1) = 0;
+                             ZF_IN ZFObject *param1) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFThreadTaskRequest)
 
 ZF_NAMESPACE_GLOBAL_END

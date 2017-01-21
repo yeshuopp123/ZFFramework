@@ -25,7 +25,7 @@ public:
     {
         zffloat progress = zfmApplyRange(
             (zffloat)(ZFTime::timestamp() - this->timeStart) / this->pimplOwner->aniDuration()
-            , 0.0f, 1.0f);
+            , (zffloat)0, (zffloat)1);
         if(this->pimplOwner->aniTimeLineCurve() != zfnull)
         {
             progress = this->pimplOwner->aniTimeLineCurve()->progressUpdate(progress);
@@ -78,7 +78,7 @@ void ZFAnimationTimeLine::objectOnDealloc(void)
 zfidentity ZFAnimationTimeLine::objectHash(void)
 {
     return zfidentityHash(zfsuper::objectHash()
-        , (zfidentity)this->aniTimeLineInterval()
+        , this->aniTimeLineInterval()
         );
 }
 ZFCompareResult ZFAnimationTimeLine::objectCompare(ZF_IN ZFObject *anotherObj)

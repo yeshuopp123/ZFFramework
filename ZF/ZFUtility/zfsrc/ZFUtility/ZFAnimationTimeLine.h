@@ -85,7 +85,7 @@ protected:
     /**
      * @brief called to do the actual update
      */
-    virtual void aniTimeLineOnUpdate(ZF_IN zffloat progress) = 0;
+    virtual void aniTimeLineOnUpdate(ZF_IN zffloat progress) zfpurevirtual;
 
 private:
     _ZFP_ZFAnimationTimeLinePrivate *d;

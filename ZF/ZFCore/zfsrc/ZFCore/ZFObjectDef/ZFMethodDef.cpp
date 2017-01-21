@@ -67,7 +67,7 @@ void ZFMethod::_ZFP_ZFMethod_init(ZF_IN zfbool methodIsUserRegister,
     this->_ZFP_ZFMethod_methodGenericInvoker = methodGenericInvoker;
     this->_ZFP_ZFMethod_methodGenericInvokerOrg = methodGenericInvoker;
     this->_ZFP_ZFMethod_methodName = methodName;
-    this->_ZFP_ZFMethod_methodId = methodId;
+    this->_ZFP_ZFMethod_methodId = methodId + zfslen(ZFM_TOSTRING(_ZFP_ZFMethodIdFix));
     this->_ZFP_ZFMethod_returnTypeName = returnTypeName;
     this->_ZFP_ZFMethod_paramNum = 0;
 

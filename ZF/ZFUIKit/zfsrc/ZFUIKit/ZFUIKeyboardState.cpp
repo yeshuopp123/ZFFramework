@@ -26,7 +26,7 @@ zfbool ZFUIKeyboardState::keyPressed(ZF_IN ZFUIKeyCodeEnum keyCode)
     }
     return zffalse;
 }
-zfbool ZFUIKeyboardState::keyPressedRaw(ZF_IN zfuint32 keyCodeRaw)
+zfbool ZFUIKeyboardState::keyPressedRaw(ZF_IN zfflags keyCodeRaw)
 {
     ZFPROTOCOL_INTERFACE_CLASS(ZFUIKeyboardState) *impl = ZFPROTOCOL_TRY_ACCESS(ZFUIKeyboardState);
     if(impl != zfnull)

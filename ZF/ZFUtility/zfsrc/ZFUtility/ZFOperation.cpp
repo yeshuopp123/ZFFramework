@@ -571,8 +571,8 @@ zfautoObject ZFOperation::createCache(void)
 }
 zfautoObject ZFOperation::createCache(ZF_IN ZFOperationParam *operationParam,
                                       ZF_IN ZFOperationResult *operationResult,
-                                      ZF_IN_OPT const zftimet &cacheExpireTime /* = 0 */,
-                                      ZF_IN_OPT const zftimet &cacheTime /* = 0 */)
+                                      ZF_IN_OPT const zftimet &cacheExpireTime /* = zftimetZero */,
+                                      ZF_IN_OPT const zftimet &cacheTime /* = zftimetZero */)
 {
     zfautoObject operationCacheTmp = this->createCache();
     ZFOperationCache *operationCache = operationCacheTmp.to<ZFOperationCache *>();

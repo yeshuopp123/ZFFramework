@@ -196,7 +196,6 @@ ZFCORETYPE_STRING_CONVERTER_DEFINE(ZFBezier, ZFBezier, {
     })
 
 // ============================================================
-ZFVAR_CONVERT_WRAPPER_DEFINE(ZFBezier)
 ZFPROPERTY_TYPE_DEFINE(ZFBezier, ZFBezier, {
         if(ZFSerializableUtil::requireSerializableClass(ZFPropertyTypeId_ZFBezier(), serializableData, outErrorHint, outErrorPos) == zfnull)
         {

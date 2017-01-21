@@ -182,7 +182,7 @@ public:
         JNIUtilCallStaticVoidMethod(jniEnv, this->jclsZFUIView, jmId,
             ZFCastStatic(jobject, view->nativeView()),
             // must ensure it is ARGB format in Color of Java code
-            (jint)viewBackgroundColor.colorValue());
+            (jint)viewBackgroundColor);
     }
 
 public:

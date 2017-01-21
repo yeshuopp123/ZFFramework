@@ -31,19 +31,19 @@ ZFPROTOCOL_INTERFACE_BEGIN(ZFUIScrollView)
     /**
      * @brief create native scroll view
      */
-    virtual void *nativeScrollViewCreate(ZF_IN ZFUIScrollView *scrollView) = 0;
+    virtual void *nativeScrollViewCreate(ZF_IN ZFUIScrollView *scrollView) zfpurevirtual;
     /**
      * @brief destroy native scroll view
      */
     virtual void nativeScrollViewDestroy(ZF_IN ZFUIScrollView *scrollView,
-                                         ZF_IN void *nativeScrollView) = 0;
+                                         ZF_IN void *nativeScrollView) zfpurevirtual;
 
 public:
     /**
      * @brief see #ZFUIScrollView::scrollEnable
      */
     virtual void scrollViewScrollEnableSet(ZF_IN ZFUIScrollView *scrollView,
-                                           ZF_IN zfbool scrollEnable) = 0;
+                                           ZF_IN zfbool scrollEnable) zfpurevirtual;
     /**
      * @brief see #ZFUIScrollView::scrollBounceHorizontal
      *
@@ -56,7 +56,7 @@ public:
                                            ZF_IN zfbool scrollBounceHorizontal,
                                            ZF_IN zfbool scrollBounceVertical,
                                            ZF_IN zfbool scrollBounceHorizontalAlways,
-                                           ZF_IN zfbool scrollBounceVerticalAlways) = 0;
+                                           ZF_IN zfbool scrollBounceVerticalAlways) zfpurevirtual;
     /**
      * @brief change content's frame
      *
@@ -70,7 +70,7 @@ public:
      * -  #notifyScrollViewDragEnd
      */
     virtual void scrollViewScrollContentFrameSet(ZF_IN ZFUIScrollView *scrollView,
-                                                 ZF_IN const ZFUIRect &frame) = 0;
+                                                 ZF_IN const ZFUIRect &frame) zfpurevirtual;
     /**
      * @brief for impl to update scroll content frame without activating any other event
      */
@@ -116,7 +116,7 @@ public:
      */
     virtual void scrollChildAdd(ZF_IN ZFUIScrollView *parent,
                                 ZF_IN ZFUIView *child,
-                                ZF_IN zfindex atIndex) = 0;
+                                ZF_IN zfindex atIndex) zfpurevirtual;
     /**
      * @brief remove child view
      *
@@ -125,7 +125,7 @@ public:
      */
     virtual void scrollChildRemove(ZF_IN ZFUIScrollView *parent,
                                    ZF_IN ZFUIView *child,
-                                   ZF_IN zfindex atIndex) = 0;
+                                   ZF_IN zfindex atIndex) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify
@@ -177,33 +177,33 @@ public:
 
 public:
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual zftimet nativeTime(void) = 0;
+    virtual zftimet nativeTime(void) zfpurevirtual;
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual zfint mouseEventGetX(ZF_IN void *nativeMouseEvent) = 0;
+    virtual zfint mouseEventGetX(ZF_IN void *nativeMouseEvent) zfpurevirtual;
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual zfint mouseEventGetY(ZF_IN void *nativeMouseEvent) = 0;
+    virtual zfint mouseEventGetY(ZF_IN void *nativeMouseEvent) zfpurevirtual;
     /** @brief see #ZFUIScrollViewImplHelper */
     virtual void *mouseEventClone(ZF_IN void *nativeMouseEvent,
                                   ZF_IN_OPT zfbool changeMouseAction = zffalse,
-                                  ZF_IN_OPT ZFUIMouseActionEnum mouseAction = ZFUIMouseAction::e_MouseCancel) = 0;
+                                  ZF_IN_OPT ZFUIMouseActionEnum mouseAction = ZFUIMouseAction::e_MouseCancel) zfpurevirtual;
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual void mouseEventCleanup(ZF_IN void *nativeMouseEvent) = 0;
+    virtual void mouseEventCleanup(ZF_IN void *nativeMouseEvent) zfpurevirtual;
     /**
      * @brief see #ZFUIScrollViewImplHelper
      *
      * the forwarded mouse event must be ignored from all scroll view's intercept step
      */
     virtual void mouseEventForward(ZF_IN void *nativeChild,
-                                   ZF_IN void *nativeMouseEvent) = 0;
+                                   ZF_IN void *nativeMouseEvent) zfpurevirtual;
 
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual ZFUIScrollViewImplHelper *findTouchedChildScrollView(ZF_IN zfint x, ZF_IN zfint y) = 0;
+    virtual ZFUIScrollViewImplHelper *findTouchedChildScrollView(ZF_IN zfint x, ZF_IN zfint y) zfpurevirtual;
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual void findTouchedChildScrollViewCleanup(ZF_IN void *nativeChild) = 0;
+    virtual void findTouchedChildScrollViewCleanup(ZF_IN void *nativeChild) zfpurevirtual;
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual void *findTouchedChild(ZF_IN zfint x, ZF_IN zfint y) = 0;
+    virtual void *findTouchedChild(ZF_IN zfint x, ZF_IN zfint y) zfpurevirtual;
     /** @brief see #ZFUIScrollViewImplHelper */
-    virtual void findTouchedChildCleanup(ZF_IN void *nativeChild) = 0;
+    virtual void findTouchedChildCleanup(ZF_IN void *nativeChild) zfpurevirtual;
 
     /**
      * @brief see #ZFUIScrollViewImplHelper, after time out, you must invoke #ZFUIScrollViewImplHelper::trackDelayNotifyTimeout
@@ -224,11 +224,11 @@ public:
      */
     virtual void *translateFromParentToChild(ZF_IN void *nativeChild,
                                              ZF_IN_OUT void *nativeMouseEvent,
-                                             ZF_IN zfint const &xInParent, ZF_IN zfint const &yInParent) = 0;
+                                             ZF_IN zfint const &xInParent, ZF_IN zfint const &yInParent) zfpurevirtual;
     /** @brief see #translateFromParentToChild */
     virtual void *translateFromChildToParent(ZF_IN void *nativeChild,
                                              ZF_IN_OUT void *nativeMouseEvent,
-                                             ZF_IN zfint const &xInChild, ZF_IN zfint const &yInChild) = 0;
+                                             ZF_IN zfint const &xInChild, ZF_IN zfint const &yInChild) zfpurevirtual;
 };
 zfclassFwd _ZFP_ZFUIScrollViewImplHelperPrivate;
 /**

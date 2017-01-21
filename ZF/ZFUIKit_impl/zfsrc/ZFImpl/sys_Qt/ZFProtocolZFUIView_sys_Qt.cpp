@@ -401,7 +401,7 @@ private:
             ev->keyId = (zfidentity)event->key();
             ev->keyAction = keyAction;
             ev->keyCode = ZFUIViewImpl_sys_Qt_ZFUIKeyCodeFromQKeyCode(event->key());
-            ev->keyCodeRaw = (zfuint32)event->key();
+            ev->keyCodeRaw = (zfflags)event->key();
             this->_ZFP_impl->notifyUIEvent(this->_ZFP_ownerZFUIView, ev);
             event->setAccepted(ev->eventResolved());
         }

@@ -28,32 +28,32 @@ public:
      *
      * you should not retain or release ownerZFThread
      */
-    virtual void *nativeThreadRegister(ZF_IN ZFThread *ownerZFThread) = 0;
+    virtual void *nativeThreadRegister(ZF_IN ZFThread *ownerZFThread) zfpurevirtual;
     /**
      * @brief see #ZFThread::nativeThreadUnregister, #nativeThreadRegister
      *
      * you should not retain or release ownerZFThread
      */
-    virtual void nativeThreadUnregister(ZF_IN void *token) = 0;
+    virtual void nativeThreadUnregister(ZF_IN void *token) zfpurevirtual;
     /**
      * @brief get thread from token created by nativeThreadRegister
      */
-    virtual ZFThread *threadForToken(ZF_IN void *token) = 0;
+    virtual ZFThread *threadForToken(ZF_IN void *token) zfpurevirtual;
 
     /**
      * @brief see #ZFThread::mainThread
      */
-    virtual ZFThread *mainThread(void) = 0;
+    virtual ZFThread *mainThread(void) zfpurevirtual;
 
     /**
      * @brief see #ZFThread::currentThread
      */
-    virtual ZFThread *currentThread(void) = 0;
+    virtual ZFThread *currentThread(void) zfpurevirtual;
 
     /**
      * @brief see #ZFThread::sleep
      */
-    virtual void sleep(ZF_IN const zftimet &miliSecs) = 0;
+    virtual void sleep(ZF_IN const zftimet &miliSecs) zfpurevirtual;
 
     /**
      * @brief see #ZFThreadExecuteInMainThread
@@ -64,7 +64,7 @@ public:
     virtual void *executeInMainThread(ZF_IN zfidentity taskId,
                                       ZF_IN const ZFListener &runnable,
                                       ZF_IN ZFObject *param0,
-                                      ZF_IN ZFObject *param1) = 0;
+                                      ZF_IN ZFObject *param1) zfpurevirtual;
     /**
      * @brief cancel execute task
      *
@@ -96,7 +96,7 @@ public:
                                      ZF_IN ZFThread *ownerZFThread,
                                      ZF_IN const ZFListener &runnable,
                                      ZF_IN ZFObject *param0,
-                                     ZF_IN ZFObject *param1) = 0;
+                                     ZF_IN ZFObject *param1) zfpurevirtual;
     /**
      * @brief cancel execute task
      *
@@ -128,12 +128,12 @@ public:
                                                 ZF_IN zftimet delay,
                                                 ZF_IN const ZFListener &runnable,
                                                 ZF_IN ZFObject *param0,
-                                                ZF_IN ZFObject *param1) = 0;
+                                                ZF_IN ZFObject *param1) zfpurevirtual;
     /**
      * @brief cancel execute task
      */
     virtual void executeInMainThreadAfterDelayCancel(ZF_IN zfidentity taskId,
-                                                     ZF_IN void *nativeToken) = 0;
+                                                     ZF_IN void *nativeToken) zfpurevirtual;
     /**
      * @brief used to cleanup nativeToken
      */

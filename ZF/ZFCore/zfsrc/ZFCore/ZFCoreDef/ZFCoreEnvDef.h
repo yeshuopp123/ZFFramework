@@ -21,7 +21,7 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 /**
  * @brief dummy macro to show the code is env sensitive
  */
-#define ZF_ENV_SENSITIVE
+#define ZF_ENV_SENSITIVE(hint)
 
 // ============================================================
 /**

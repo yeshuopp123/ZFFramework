@@ -174,8 +174,8 @@ public:
     ZFCACHEABLE_ACCESS_DETAIL(OwnerClass, T_ZFCacheable, cacheAccess, name)
 /** @brief see #ZFCACHEABLE_DECLARE */
 #define ZFCACHEABLE_ACCESS_DETAIL(T_OwnerClass, T_ZFCacheable, cacheAccessMethod, name) \
-    T_OwnerClass::_ZFP_ZFCacheableVisitor_##cacheAccessMethod ZFUniqueName(ZFCacheableCache); \
-    T_ZFCacheable *name = ZFUniqueName(ZFCacheableCache).cachedObject
+    T_OwnerClass::_ZFP_ZFCacheableVisitor_##cacheAccessMethod _ZFP_ZFCacheableAccess_##name; \
+    T_ZFCacheable *name = _ZFP_ZFCacheableAccess_##name.cachedObject
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFCacheable_h_

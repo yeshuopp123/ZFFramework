@@ -45,7 +45,7 @@ ZFOBSERVER_EVENT_REGISTER(ZFTimer, TimerOnStop)
 ZFObject *ZFTimer::objectOnInit(ZF_IN const zftimet &timerInterval,
                                 ZF_IN_OPT ZFObject *timerParam0 /* = zfnull */,
                                 ZF_IN_OPT ZFObject *timerParam1 /* = zfnull */,
-                                ZF_IN_OPT const zftimet &timerDelay /* = 0 */,
+                                ZF_IN_OPT const zftimet &timerDelay /* = zftimetZero */,
                                 ZF_IN_OPT zfbool timerActivateInMainThread /* = zffalse */)
 {
     this->objectOnInit();

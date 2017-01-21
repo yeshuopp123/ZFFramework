@@ -24,22 +24,14 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 // ============================================================
 // zfcharA types
 /** @brief char wrapper */
-#ifndef _ZFT_zfcharA
-    typedef char zfcharA;
-#else
-    typedef _ZFT_zfcharA zfcharA;
-#endif
+ZFT_INT_WEAK(_ZFT_zfcharA, zfcharA);
 /** @brief char string wrapper */
 #define zfTextA(s) s
 
 // ============================================================
 // zfcharW types
 /** @brief wchar_t wrapper */
-#ifndef _ZFT_zfcharW
-    typedef wchar_t zfcharW;
-#else
-    typedef _ZFT_zfcharW zfcharW;
-#endif
+ZFT_INT_WEAK(_ZFT_zfcharW, zfcharW);
 /** @brief wchar_t string wrapper */
 #define zfTextW(s) L##s
 
@@ -64,7 +56,7 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  * -  zfchar, zfText, etc
  * -  zfsCoreZ2A
  */
-typedef zfcharA zfchar;
+ZFT_INT_WEAK(zft_zfcharA, zfchar);
 /** @brief char string wrapper */
 #define zfText(s) zfTextA(s)
 

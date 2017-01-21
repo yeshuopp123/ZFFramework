@@ -125,42 +125,6 @@ ZFCORETYPE_STRING_CONVERTER_DECLARE(zfuint, zfuint)
 ZFCORETYPE_STRING_CONVERTER_DECLARE(zfindex, zfindex)
 
 // ============================================================
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfint8, zfint8)
-// ============================================================
-/**
- * @note for portability of unsigned types,
- *   we'll use "-1" to store max unsigned value
- */
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfuint8, zfuint8)
-
-// ============================================================
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfint16, zfint16)
-// ============================================================
-/**
- * @note for portability of unsigned types,
- *   we'll use "-1" to store max unsigned value
- */
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfuint16, zfuint16)
-
-// ============================================================
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfint32, zfint32)
-// ============================================================
-/**
- * @note for portability of unsigned types,
- *   we'll use "-1" to store max unsigned value
- */
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfuint32, zfuint32)
-
-// ============================================================
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfint64, zfint64)
-// ============================================================
-/**
- * @note for portability of unsigned types,
- *   we'll use "-1" to store max unsigned value
- */
-ZFCORETYPE_STRING_CONVERTER_DECLARE(zfuint64, zfuint64)
-
-// ============================================================
 ZFCORETYPE_STRING_CONVERTER_DECLARE(zffloat, zffloat)
 
 // ============================================================

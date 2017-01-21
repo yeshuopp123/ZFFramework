@@ -13,7 +13,7 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 // ============================================================
 zfclassNotPOD _ZFP_ZFPropertyTypeData
 {
-    public:
+public:
     ZFPropertyTypeSerializeFromCallback serializeFromCallback;
     ZFPropertyTypeSerializeToCallback serializeToCallback;
 };

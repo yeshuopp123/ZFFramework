@@ -55,8 +55,6 @@
 #include "ZFObjectDef/ZFSerializableUtilDef.h"
 #include "ZFObjectDef/ZFStyleableDef.h"
 #include "ZFObjectDef/ZFSynchronizedDef.h"
-#include "ZFObjectDef/ZFVarConvertDef.h"
-#include "ZFObjectDef/ZFVarConvertDef_common.h"
 
 #endif // #ifndef _ZFI_ZFObject_h_
 

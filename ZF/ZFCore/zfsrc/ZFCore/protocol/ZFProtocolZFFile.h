@@ -85,22 +85,22 @@ public:
      * @brief see #ZFFile::filePathFormat
      */
     virtual zfbool filePathFormat(ZF_OUT zfstring &ret,
-                                  ZF_IN const zfchar *src) = 0;
+                                  ZF_IN const zfchar *src) zfpurevirtual;
     /**
      * @brief see #ZFFile::fileIsExist
      */
-    virtual zfbool fileIsExist(ZF_IN const zfchar *path) = 0;
+    virtual zfbool fileIsExist(ZF_IN const zfchar *path) zfpurevirtual;
     /**
      * @brief see #ZFFile::fileIsFolder
      */
-    virtual zfbool fileIsFolder(ZF_IN const zfchar *path) = 0;
+    virtual zfbool fileIsFolder(ZF_IN const zfchar *path) zfpurevirtual;
 
     /**
      * @brief see #ZFFile::filePathCreate
      */
     virtual zfbool filePathCreate(ZF_IN const zfchar *path,
                                   ZF_IN_OPT zfbool autoMakeParent = zffalse,
-                                  ZF_IN_OPT zfstring *errPos = zfnull) = 0;
+                                  ZF_IN_OPT zfstring *errPos = zfnull) zfpurevirtual;
     /**
      * @brief see #ZFFile::fileCopy
      */
@@ -108,7 +108,7 @@ public:
                             ZF_IN const zfchar *dstPath,
                             ZF_IN_OPT zfbool isRecursive = zftrue,
                             ZF_IN_OPT zfbool isForce = zffalse,
-                            ZF_IN_OPT zfstring *errPos = zfnull) = 0;
+                            ZF_IN_OPT zfstring *errPos = zfnull) zfpurevirtual;
     /**
      * @brief see #ZFFile::fileMove
      */
@@ -116,14 +116,14 @@ public:
                             ZF_IN const zfchar *dstPath,
                             ZF_IN_OPT zfbool isRecursive = zftrue,
                             ZF_IN_OPT zfbool isForce = zffalse,
-                            ZF_IN_OPT zfstring *errPos = zfnull) = 0;
+                            ZF_IN_OPT zfstring *errPos = zfnull) zfpurevirtual;
     /**
      * @brief see #ZFFile::fileRemove
      */
     virtual zfbool fileRemove(ZF_IN const zfchar *path,
                               ZF_IN_OPT zfbool isRecursive = zftrue,
                               ZF_IN_OPT zfbool isForce = zffalse,
-                              ZF_IN_OPT zfstring *errPos = zfnull) = 0;
+                              ZF_IN_OPT zfstring *errPos = zfnull) zfpurevirtual;
 
     /**
      * @brief see #ZFFile::fileFindFirst
@@ -141,15 +141,15 @@ public:
      * @see ZFFileFindDataContainer
      */
     virtual zfbool fileFindFirst(ZF_IN const zfchar *path,
-                                 ZF_IN_OUT ZFFileFindDataContainer &fd) = 0;
+                                 ZF_IN_OUT ZFFileFindDataContainer &fd) zfpurevirtual;
     /**
      * @brief see #ZFFile::fileFindNext, fileFindFirst
      */
-    virtual zfbool fileFindNext(ZF_IN_OUT ZFFileFindDataContainer &fd) = 0;
+    virtual zfbool fileFindNext(ZF_IN_OUT ZFFileFindDataContainer &fd) zfpurevirtual;
     /**
      * @brief see #ZFFile::fileFindClose, fileFindFirst
      */
-    virtual void fileFindClose(ZF_IN_OUT ZFFileFindDataContainer &fd) = 0;
+    virtual void fileFindClose(ZF_IN_OUT ZFFileFindDataContainer &fd) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFFile)
 
 ZF_NAMESPACE_GLOBAL_END

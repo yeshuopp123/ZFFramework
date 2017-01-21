@@ -18,7 +18,7 @@
 
 // ============================================================
 /** @brief stl wrapper */
-ZF_ENV_SENSITIVE
+ZF_ENV_SENSITIVE("old MSVC spec, not for production, for compatibility test only")
 #ifndef zfstlhashmap
     #if (defined(_MSC_VER) && ((_MSC_VER < 1500) || !_HAS_TR1)) // old hash_map of MSVC
         #define zfstlhashmap _ZFP_zfstlhashmap

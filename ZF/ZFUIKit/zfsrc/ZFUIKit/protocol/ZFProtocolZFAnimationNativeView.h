@@ -27,12 +27,12 @@ public:
     /**
      * @brief create native animation
      */
-    virtual void *nativeAniCreate(ZF_IN ZFAnimationNativeView *ani) = 0;
+    virtual void *nativeAniCreate(ZF_IN ZFAnimationNativeView *ani) zfpurevirtual;
     /**
      * @brief destroy native animation
      */
     virtual void nativeAniDestroy(ZF_IN ZFAnimationNativeView *ani,
-                                  ZF_IN void *nativeAni) = 0;
+                                  ZF_IN void *nativeAni) zfpurevirtual;
 
     /**
      * @brief start native animation
@@ -51,13 +51,13 @@ public:
      * -  aniRotateX/Y/Z (zfint)
      */
     virtual void nativeAniStart(ZF_IN ZFAnimationNativeView *ani,
-                                ZF_IN zffloat nativeAniScale) = 0;
+                                ZF_IN zffloat nativeAniScale) zfpurevirtual;
     /**
      * @brief stop native animation
      *
      * animation must be stopped immediately
      */
-    virtual void nativeAniStop(ZF_IN ZFAnimationNativeView *ani) = 0;
+    virtual void nativeAniStop(ZF_IN ZFAnimationNativeView *ani) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify

@@ -26,51 +26,51 @@ public:
     /**
      * @brief see #ZFFile::modulePath
      */
-    virtual const zfchar *modulePath(void) = 0;
+    virtual const zfchar *modulePath(void) zfpurevirtual;
     /**
      * @brief see #ZFFile::moduleFilePath
      */
-    virtual const zfchar *moduleFilePath(void) = 0;
+    virtual const zfchar *moduleFilePath(void) zfpurevirtual;
 
     /**
      * @brief see #ZFFile::settingPath
      */
-    virtual const zfchar *settingPath(void) = 0;
+    virtual const zfchar *settingPath(void) zfpurevirtual;
     /**
      * @brief see #ZFFile::settingPathSet
      */
-    virtual void settingPathSet(ZF_IN const zfchar *path = zfnull) = 0;
+    virtual void settingPathSet(ZF_IN const zfchar *path = zfnull) zfpurevirtual;
 
     /**
      * @brief see #ZFFile::storagePath
      */
-    virtual const zfchar *storagePath(void) = 0;
+    virtual const zfchar *storagePath(void) zfpurevirtual;
     /**
      * @brief see #ZFFile::storagePathSet
      */
-    virtual void storagePathSet(ZF_IN const zfchar *path = zfnull) = 0;
+    virtual void storagePathSet(ZF_IN const zfchar *path = zfnull) zfpurevirtual;
 
     /**
      * @brief see #ZFFile::storageSharedPath
      */
-    virtual const zfchar *storageSharedPath(void) = 0;
+    virtual const zfchar *storageSharedPath(void) zfpurevirtual;
     /**
      * @brief see #ZFFile::storageSharedPathSet
      */
-    virtual void storageSharedPathSet(ZF_IN const zfchar *path = zfnull) = 0;
+    virtual void storageSharedPathSet(ZF_IN const zfchar *path = zfnull) zfpurevirtual;
 
     /**
      * @brief see #ZFFile::cachePath
      */
-    virtual const zfchar *cachePath(void) = 0;
+    virtual const zfchar *cachePath(void) zfpurevirtual;
     /**
      * @brief see #ZFFile::cachePathSet
      */
-    virtual void cachePathSet(ZF_IN const zfchar *path = zfnull) = 0;
+    virtual void cachePathSet(ZF_IN const zfchar *path = zfnull) zfpurevirtual;
     /**
      * @brief see #ZFFile::cachePathClear
      */
-    virtual void cachePathClear(void) = 0;
+    virtual void cachePathClear(void) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFFilePath)
 
 ZF_NAMESPACE_GLOBAL_END

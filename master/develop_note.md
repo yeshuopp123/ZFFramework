@@ -77,7 +77,7 @@ and most of default style are hard coded, only images are loaded from resource
 since ZFFramework support reflection,
 we are trying hard to achive script binding by reflection dynamically and automatically
 
-1. all necessary types supply converters to convert from/to ZFObject types (by `ZFVAR_CONVERT_DECLARE`)
+1. all necessary types supply converters to convert from/to ZFObject types (by `ZFPROPERTY_TYPE_DECLARE`)
 1. all ZFMethod supply a generic invoker (`ZFMethod::methodGenericInvoker`)
     that takes base ZFObject as param and invoke the original method
 1. use reflection, to bind the generic invoker to scrypt languages dynamically

@@ -24,9 +24,9 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 ZFPROTOCOL_INTERFACE_BEGIN(ZFEncrypt)
 public:
     /** @brief see #ZFEncrypt::encryptProtocol */
-    virtual void encryptProtocol(ZF_OUT zfstring &ret) = 0;
+    virtual void encryptProtocol(ZF_OUT zfstring &ret) zfpurevirtual;
     /** @brief see #ZFEncrypt::encryptProtocolVersion */
-    virtual void encryptProtocolVersion(ZF_OUT zfstring &ret) = 0;
+    virtual void encryptProtocolVersion(ZF_OUT zfstring &ret) zfpurevirtual;
 
     /** @brief see #ZFEncrypt::encryptUpgrade */
     virtual zfbool encryptUpgrade(ZF_IN_OUT const ZFOutputCallback &output,
@@ -43,11 +43,11 @@ public:
     /**
      * @brief see #ZFEncrypt::encryptCalcSize
      */
-    virtual zfindex encryptCalcSize(ZF_IN zfindex srcLen, ZF_IN const zfstring &key) = 0;
+    virtual zfindex encryptCalcSize(ZF_IN zfindex srcLen, ZF_IN const zfstring &key) zfpurevirtual;
     /**
      * @brief see #ZFEncrypt::decryptCalcSize
      */
-    virtual zfindex decryptCalcSize(ZF_IN zfindex srcLen, ZF_IN const zfstring &key) = 0;
+    virtual zfindex decryptCalcSize(ZF_IN zfindex srcLen, ZF_IN const zfstring &key) zfpurevirtual;
 
 public:
     /**
@@ -55,11 +55,11 @@ public:
      *
      * result must contain printable chars only, encoded with base64 is recommended
      */
-    virtual zfbool encrypt(ZF_IN_OUT const ZFOutputCallback &output, ZF_IN const ZFInputCallback &input, ZF_IN const zfstring &key) = 0;
+    virtual zfbool encrypt(ZF_IN_OUT const ZFOutputCallback &output, ZF_IN const ZFInputCallback &input, ZF_IN const zfstring &key) zfpurevirtual;
     /**
      * @brief see #ZFEncrypt::decrypt
      */
-    virtual zfbool decrypt(ZF_IN_OUT const ZFOutputCallback &output, ZF_IN const ZFInputCallback &input, ZF_IN const zfstring &key) = 0;
+    virtual zfbool decrypt(ZF_IN_OUT const ZFOutputCallback &output, ZF_IN const ZFInputCallback &input, ZF_IN const zfstring &key) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFEncrypt)
 
 ZF_NAMESPACE_GLOBAL_END

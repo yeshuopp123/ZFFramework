@@ -133,7 +133,7 @@ public:
     }
 ZF_GLOBAL_INITIALIZER_END(ZFUIViewStateAniAutoApplyPauseForTimeDataHolder)
 
-void ZFUIViewStateAniAutoApplyPauseForTime(ZF_IN zftimet time /* = 0 */)
+void ZFUIViewStateAniAutoApplyPauseForTime(ZF_IN zftimet time /* = zftimetZero */)
 {
     if(ZFUIViewStateAniAutoApplyPaused())
     {
@@ -141,7 +141,7 @@ void ZFUIViewStateAniAutoApplyPauseForTime(ZF_IN zftimet time /* = 0 */)
     }
     ZF_GLOBAL_INITIALIZER_CLASS(ZFUIViewStateAniAutoApplyPauseForTimeDataHolder) *d = ZF_GLOBAL_INITIALIZER_INSTANCE(ZFUIViewStateAniAutoApplyPauseForTimeDataHolder);
 
-    time = zfmMax<zftimet>(time, 100);
+    time = zfmMax(time, (zftimet)100);
     zftimet endTime = ZFTime::timestamp() + time;
     if(d->started && endTime <= d->endTime + 100)
     {

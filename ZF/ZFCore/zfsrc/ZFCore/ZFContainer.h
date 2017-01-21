@@ -107,7 +107,7 @@ protected:
      */
     virtual zfbool serializableOnSerializeToDataWithRef(ZF_IN_OUT ZFSerializableData &serializableData,
                                                         ZF_IN ZFSerializable *referencedOwnerOrNull,
-                                                        ZF_OUT_OPT zfstring *outErrorHint = zfnull) = 0;
+                                                        ZF_OUT_OPT zfstring *outErrorHint = zfnull) zfpurevirtual;
 
 public:
     /** @brief see #ZFObject::objectOnDeallocPrepare, remove all contents before dealloc */

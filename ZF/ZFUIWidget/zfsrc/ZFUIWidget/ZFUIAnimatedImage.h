@@ -129,7 +129,7 @@ public:
     }
     /** @brief see #ZFUIAnimatedImageAniFrame */
     virtual inline void aniFrameAdd(ZF_IN ZFUIImage *aniFrameImage,
-                                    ZF_IN_OPT zftimet aniFrameDuration = -1)
+                                    ZF_IN_OPT zftimet aniFrameDuration = (zftimet)-1)
     {
         zfCoreAssert(aniFrameImage != zfnull);
         zfblockedAlloc(ZFUIAnimatedImageAniFrame, aniFrame);

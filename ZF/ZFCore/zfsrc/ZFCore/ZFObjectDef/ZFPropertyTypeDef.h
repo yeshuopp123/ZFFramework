@@ -16,6 +16,8 @@
 
 #include "ZFPropertyDef.h"
 #include "ZFSerializableDef.h"
+#include "zfautoObjectFwd.h"
+#include "ZFAnyDef.h"
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
@@ -119,7 +121,9 @@ ZF_NAMESPACE_GLOBAL_BEGIN
         { \
             return ZFSerializableData(); \
         } \
-    }
+    } \
+    _ZFP_ZFPROPERTY_TYPE_ID_DATA_DECLARE(TypeName, Type)
+
 /**
  * @brief see #ZFPROPERTY_TYPE_DECLARE
  */
@@ -180,7 +184,8 @@ ZF_NAMESPACE_GLOBAL_BEGIN
                                         ZF_OUT_OPT zfstring *outErrorHint /* = zfnull */) \
     { \
         serializeToAction \
-    }
+    } \
+    _ZFP_ZFPROPERTY_TYPE_ID_DATA_DEFINE(TypeName, Type)
 
 /** @brief see #ZFPROPERTY_TYPE_DECLARE */
 #define ZFPROPERTY_TYPE_DEFINE_BY_STRING_CONVERTER(TypeName, Type) \

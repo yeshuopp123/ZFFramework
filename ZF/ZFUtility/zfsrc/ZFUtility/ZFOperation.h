@@ -218,8 +218,8 @@ public:
      */
     virtual zfautoObject createCache(ZF_IN ZFOperationParam *operationParam,
                                      ZF_IN ZFOperationResult *operationResult,
-                                     ZF_IN_OPT const zftimet &cacheExpireTime = 0,
-                                     ZF_IN_OPT const zftimet &cacheTime = 0);
+                                     ZF_IN_OPT const zftimet &cacheExpireTime = zftimetZero,
+                                     ZF_IN_OPT const zftimet &cacheTime = zftimetZero);
 
     /**
      * @brief create progress
@@ -395,7 +395,7 @@ protected:
     /**
      * @brief subclass should override this method to implement actual operation
      */
-    virtual void taskOnStart(ZF_IN ZFOperationTaskData *operationTaskData) = 0;
+    virtual void taskOnStart(ZF_IN ZFOperationTaskData *operationTaskData) zfpurevirtual;
     /**
      * @brief called when operation success/fail/cancel
      */

@@ -83,29 +83,29 @@ extern ZF_ENV_EXPORT ZFSerializableDataToIOCallback ZFSerializableDataToIOCallba
  * see #ZFSerializableDataFromIOCallback/#ZFSerializableDataToIOCallback for proto type of the callback action
  */
 #define ZFSERIALIZABLEDATAIO_DEFINE(ioType_, fromCallbackAction, toCallbackAction) \
-    static zfbool ZFUniqueName(_ZFP_ZFSerializableDataFromIOCallback_##ioType_)(ZF_OUT ZFSerializableData &serializableData, \
-                                                                                ZF_IN const ZFInputCallback &input, \
-                                                                                ZF_OUT_OPT zfstring *outErrorHint = zfnull) \
+    static zfbool _ZFP_ZFSerializableDataFromIOCallback_##ioType_(ZF_OUT ZFSerializableData &serializableData, \
+                                                                  ZF_IN const ZFInputCallback &input, \
+                                                                  ZF_OUT_OPT zfstring *outErrorHint = zfnull) \
     { \
         fromCallbackAction \
     } \
-    static zfbool ZFUniqueName(_ZFP_ZFSerializableDataToIOCallback_##ioType_)(ZF_IN_OUT const ZFOutputCallback &output, \
-                                                                              ZF_IN const ZFSerializableData &serializableData, \
-                                                                              ZF_OUT_OPT zfstring *outErrorHint = zfnull) \
+    static zfbool _ZFP_ZFSerializableDataToIOCallback_##ioType_(ZF_IN_OUT const ZFOutputCallback &output, \
+                                                                ZF_IN const ZFSerializableData &serializableData, \
+                                                                ZF_OUT_OPT zfstring *outErrorHint = zfnull) \
     { \
         toCallbackAction \
     } \
-    ZF_GLOBAL_INITIALIZER_INIT_WITH_LEVEL(ZFUniqueName(ZFSerializableDataIOTypeRegister_##ioType_), ZFLevelZFFrameworkNormal) \
+    ZF_GLOBAL_INITIALIZER_INIT_WITH_LEVEL(ZFSerializableDataIOTypeRegister_##ioType_, ZFLevelZFFrameworkNormal) \
     { \
         ZFSerializableDataIORegister(ZFM_TOSTRING(ioType_), \
-            ZFUniqueName(_ZFP_ZFSerializableDataFromIOCallback_##ioType_), \
-            ZFUniqueName(_ZFP_ZFSerializableDataToIOCallback_##ioType_)); \
+            _ZFP_ZFSerializableDataFromIOCallback_##ioType_, \
+            _ZFP_ZFSerializableDataToIOCallback_##ioType_); \
     } \
-    ZF_GLOBAL_INITIALIZER_DESTROY(ZFUniqueName(ZFSerializableDataIOTypeRegister_##ioType_)) \
+    ZF_GLOBAL_INITIALIZER_DESTROY(ZFSerializableDataIOTypeRegister_##ioType_) \
     { \
         ZFSerializableDataIOUnregister(ZFM_TOSTRING(ioType_)); \
     } \
-    ZF_GLOBAL_INITIALIZER_END(ZFUniqueName(ZFSerializableDataIOTypeRegister_##ioType_))
+    ZF_GLOBAL_INITIALIZER_END(ZFSerializableDataIOTypeRegister_##ioType_)
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFSerializableDataIO_h_

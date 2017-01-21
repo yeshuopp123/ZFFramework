@@ -44,7 +44,7 @@ protected:
     /**
      * @brief called by #progressUpdate to update progress
      */
-    virtual zffloat progressOnUpdate(ZF_IN zffloat time) = 0;
+    virtual zffloat progressOnUpdate(ZF_IN zffloat time) zfpurevirtual;
 };
 
 ZF_NAMESPACE_GLOBAL_END

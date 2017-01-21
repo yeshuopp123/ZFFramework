@@ -146,7 +146,7 @@ zfbool ZFBase64Decode(ZF_IN_OUT const ZFOutputCallback &outputCallback,
 
     zfbyte asciiTable[256] = {0};
     zfmemset(asciiTable, 64, 256);
-    for(zfindex i = 0; i < 64; ++i) {asciiTable[(zfint)table[i]] = i;}
+    for(zfindex i = 0; i < 64; ++i) {asciiTable[(zfint)table[i]] = (zfbyte)i;}
 
     static const zfindex OUTPUT_BUF_SIZE = 32;
     zfbyte outputBuf[OUTPUT_BUF_SIZE] = {0};

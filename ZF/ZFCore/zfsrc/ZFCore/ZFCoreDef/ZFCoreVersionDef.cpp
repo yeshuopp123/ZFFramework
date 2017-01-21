@@ -72,8 +72,8 @@ void ZFVersionSetInt(ZF_IN_OUT zfstring &version,
 
 ZFCompareResult _ZFP_ZFComparerForVersion(ZF_IN const zfchar *const &v0, ZF_IN const zfchar *const &v1)
 {
-    zfuint64 n0 = 0;
-    zfuint64 n1 = 0;
+    zfindex n0 = 0;
+    zfindex n1 = 0;
     if(zfsToInt(n0, v0, zfindexMax, zfHint("radix")36, zfHint("allowNegative")zffalse) != zfnull
        || zfsToInt(n1, v1, zfindexMax, zfHint("radix")36, zfHint("allowNegative")zffalse) != zfnull)
     {

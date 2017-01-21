@@ -83,8 +83,8 @@ private:
 
         ZFUIKit_test_prepareSettingForNormalProperty(settings, ZFUIViewStateAniSettingForMove::instance(), zftimet, ZFPropertyAccess(ZFUIViewStateAniSettingForMove, aniDuration),
             ZFCoreArrayPODCreate(zftimet
-                , 250
-                , 3000
+                , (zftimet)250
+                , (zftimet)3000
                 ));
 
         ZFUIKit_test_prepareSettingForNormalProperty(settings, ZFUIViewStateAniSettingForMove::instance(), ZFAnimationNativeViewCurveEnum, ZFPropertyAccess(ZFUIViewStateAniSettingForMove, aniCurve),

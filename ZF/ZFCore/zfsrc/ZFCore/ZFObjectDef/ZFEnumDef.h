@@ -18,14 +18,13 @@
 #include "ZFSerializableDef.h"
 #include "ZFCopyableDef.h"
 #include "ZFCoreType_IODef.h"
-#include "ZFVarConvertDef.h"
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
 /**
- * @brief value type for ZFEnum, equal to zfint
+ * @brief value type for ZFEnum
  */
-typedef zfflags ZFEnumValue;
+typedef zft_zfuint32 ZFEnumValue;
 /**
  * @brief invalid value for ZFEnum
  */
@@ -110,36 +109,36 @@ public:
     /**
      * @brief get value num
      */
-    virtual zfindex enumCount(void) = 0;
+    virtual zfindex enumCount(void) zfpurevirtual;
     /**
      * @brief get the index of enum value, or zfindexMax if no such enum value
      */
-    virtual zfindex enumIndexForValue(ZF_IN ZFEnumValue value) = 0;
+    virtual zfindex enumIndexForValue(ZF_IN ZFEnumValue value) zfpurevirtual;
     /**
      * @brief get the value at index, or ZFEnumValueInvalid if not exist
      */
-    virtual ZFEnumValue enumValueAtIndex(ZF_IN zfindex index) = 0;
+    virtual ZFEnumValue enumValueAtIndex(ZF_IN zfindex index) zfpurevirtual;
     /**
      * @brief get the name at index, or ZFEnumValueNameInvalid if not exist
      */
-    virtual const zfchar *enumNameAtIndex(ZF_IN zfindex index) = 0;
+    virtual const zfchar *enumNameAtIndex(ZF_IN zfindex index) zfpurevirtual;
     /**
     * @brief get the full name (EnumType::EnumValueName) at index, or ZFEnumValueNameInvalid if not exist
      */
-    virtual const zfchar *enumFullNameAtIndex(ZF_IN zfindex index) = 0;
+    virtual const zfchar *enumFullNameAtIndex(ZF_IN zfindex index) zfpurevirtual;
     /**
      * @brief return true if contain the specified value
      */
-    virtual zfbool enumContainValue(ZF_IN ZFEnumValue value) = 0;
+    virtual zfbool enumContainValue(ZF_IN ZFEnumValue value) zfpurevirtual;
 
     /**
      * @brief get the value with specified name, or ZFEnumValueInvalid if not exist
      */
-    virtual ZFEnumValue enumValueForName(ZF_IN const zfchar *name) = 0;
+    virtual ZFEnumValue enumValueForName(ZF_IN const zfchar *name) zfpurevirtual;
     /**
      * @brief get the name with specified value, or ZFEnumValueNameInvalid if not exist
      */
-    virtual const zfchar *enumNameForValue(ZF_IN ZFEnumValue value) = 0;
+    virtual const zfchar *enumNameForValue(ZF_IN ZFEnumValue value) zfpurevirtual;
 
     /**
      * @brief get the enum value, or #ZFEnumValueInvalid if invalid
@@ -319,7 +318,7 @@ extern ZF_ENV_EXPORT _ZFP_ZFEnumData *_ZFP_ZFEnumDataAccess(const zfchar *name);
         /** @brief calculate hash for value */ \
         static zfidentity hashForValue(ZF_IN ZFEnumValue value) \
         { \
-            return (zfidentityCalcString(zfself::ClassData()->className()) ^ ((zfidentity)value)); \
+            return zfidentityHash(zfidentityCalcString(zfself::ClassData()->className()), value); \
         } \
         /** @brief see #ZFObject::objectHash */ \
         virtual zfidentity objectHash(void) \
@@ -458,19 +457,7 @@ extern ZF_ENV_EXPORT _ZFP_ZFEnumData *_ZFP_ZFEnumDataAccess(const zfchar *name);
     /** @brief same as @ref ChildEnum##Enum, see @ref ChildEnum */ \
     typedef ChildEnum::ZFEnumType ChildEnum##Enum; \
     _ZFP_ZFENUM_CONVERTER_DECLARE(ChildEnum) \
-    ZFPROPERTY_TYPE_DECLARE(ChildEnum##Enum, ChildEnum##Enum) \
-    ZFVAR_CONVERT_DECLARE(ChildEnum##Enum, { \
-            ChildEnum *wrap = ZFCastZFObject(ChildEnum *, obj); \
-            if(wrap == zfnull) \
-            { \
-                return (obj == zfnull); \
-            } \
-            v = (ChildEnum##Enum)wrap->enumValue(); \
-        }, { \
-            ChildEnum *wrap = zfAlloc(ChildEnum, (ZFEnumValue)v); \
-            obj = zfautoObjectCreate(wrap); \
-            zfRelease(wrap); \
-        })
+    ZFPROPERTY_TYPE_DECLARE(ChildEnum##Enum, ChildEnum##Enum)
 /** @brief see #ZFENUM_BEGIN */
 #define ZFENUM_END(ChildEnum) \
             } \
@@ -714,7 +701,7 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
                                             ZF_IN_OPT zfindex srcLen /* = zfindexMax */, \
                                             ZF_IN_OPT zfchar separatorToken /* = '|' */) \
     { \
-        zfflags flags = 0; \
+        zfflags flags = zfflagsZero; \
         const zfchar *result = zfflagsFromString(flags, \
             EnumName::ClassData(), \
             src, srcLen, separatorToken); \
@@ -763,9 +750,7 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
 #define ZFENUM_FLAGS_DECLARE(EnumName, EnumFlagsName) \
     _ZFP_ZFENUM_FLAGS_DECLARE(EnumName, EnumFlagsName, ZFM_EMPTY()) \
     ZFPROPERTY_TYPE_DECLARE(EnumFlagsName, EnumFlagsName) \
-    _ZFP_ZFENUM_FLAGS_CONVERTER_DECLARE(EnumName, EnumFlagsName) \
-    ZFVAR_CONVERT_WRAPPER_DECLARE(EnumFlagsName, EnumFlagsName) \
-    ZFVAR_CONVERT_DECLARE_BY_WRAPPER(EnumFlagsName, EnumFlagsName)
+    _ZFP_ZFENUM_FLAGS_CONVERTER_DECLARE(EnumName, EnumFlagsName)
 #define _ZFP_ZFENUM_FLAGS_DEFAULT_EXPAND(EnumName, EnumFlagsName, defaultValue) \
     public: \
         /** @brief default value for EnumFlagsName (defaultValue) */ \
@@ -780,9 +765,7 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
 #define ZFENUM_FLAGS_DECLARE_WITH_DEFAULT(EnumName, EnumFlagsName, defaultValue) \
     _ZFP_ZFENUM_FLAGS_DECLARE(EnumName, EnumFlagsName, _ZFP_ZFENUM_FLAGS_DEFAULT_EXPAND(EnumName, EnumFlagsName, defaultValue)) \
     ZFPROPERTY_TYPE_DECLARE(EnumFlagsName, EnumFlagsName) \
-    _ZFP_ZFENUM_FLAGS_CONVERTER_DECLARE(EnumName, EnumFlagsName) \
-    ZFVAR_CONVERT_WRAPPER_DECLARE(EnumFlagsName, EnumFlagsName) \
-    ZFVAR_CONVERT_DECLARE_BY_WRAPPER(EnumFlagsName, EnumFlagsName)
+    _ZFP_ZFENUM_FLAGS_CONVERTER_DECLARE(EnumName, EnumFlagsName)
 
 /** @brief see #ZFENUM_FLAGS_DECLARE */
 #define ZFENUM_FLAGS_DEFINE(EnumName, EnumFlagsName) \
@@ -791,8 +774,7 @@ extern ZF_ENV_EXPORT const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
     void EnumFlagsName::objectInfoT(ZF_IN_OUT zfstring &ret) const \
     { \
         zfflagsToString(ret, EnumName::ClassData(), (zfflags)this->enumValue()); \
-    } \
-    ZFVAR_CONVERT_WRAPPER_DEFINE(EnumFlagsName)
+    }
 
 // ============================================================
 // ZFEnumFlagsBase
@@ -815,7 +797,7 @@ public:
     /**
      * @brief get a short info
      */
-    virtual zfstring objectInfo(void) const = 0;
+    virtual zfstring objectInfo(void) const zfpurevirtual;
 };
 
 ZFOUTPUT_TYPE_DECLARE(ZFEnumFlagsBase)

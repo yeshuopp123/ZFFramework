@@ -62,8 +62,7 @@ private:
 };
 /** @brief see #ZFCoreStatistic::invokeTimeLogBegin */
 #define ZFCoreStatisticInvokeTimeLogger(key) \
-    ZFCoreStatistic::_ZFP_ZFCoreStatisticInvokeTimeLogger ZFUniqueName(ZFCoreStatisticInvokeTimeLogger_v)(key); \
-    ZFUNUSED(ZFUniqueName(ZFCoreStatisticInvokeTimeLogger_v))
+    ZFCoreStatistic::_ZFP_ZFCoreStatisticInvokeTimeLogger ZFUniqueName(ZFCoreStatisticInvokeTimeLogger_v)(key)
 
 // ============================================================
 /** @brief see #ZFCoreStatistic::invokeTimeLogBegin */
@@ -107,8 +106,7 @@ private:
 };
 /** @brief see #ZFCoreStatistic::invokeTimeLogBegin */
 #define ZFCoreStatisticInvokeTimeAccurateLogger(key) \
-    ZFCoreStatistic::_ZFP_ZFCoreStatisticInvokeTimeAccurateLogger ZFUniqueName(ZFCoreStatisticInvokeTimeAccurateLogger_v)(key); \
-    ZFUNUSED(ZFUniqueName(ZFCoreStatisticInvokeTimeAccurateLogger_v))
+    ZFCoreStatistic::_ZFP_ZFCoreStatisticInvokeTimeAccurateLogger ZFUniqueName(ZFCoreStatisticInvokeTimeAccurateLogger_v)(key)
 
 ZF_NAMESPACE_END(ZFCoreStatistic)
 ZF_NAMESPACE_GLOBAL_END

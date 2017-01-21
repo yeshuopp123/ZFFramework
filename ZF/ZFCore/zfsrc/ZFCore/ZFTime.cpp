@@ -13,9 +13,7 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
 // ZFTimeValue
-const ZFTimeValue ZFTimeValueZero = {0, 0};
-
-ZFVAR_CONVERT_WRAPPER_DEFINE(ZFTimeValue)
+const ZFTimeValue ZFTimeValueZero = {zftimetZero, zftimetZero};
 
 void ZFTimeValueNormalize(ZF_IN_OUT ZFTimeValue &v)
 {
@@ -92,9 +90,9 @@ void ZFTimeValueDiv(ZF_OUT ZFTimeValue &result,
 {
     zfCoreAssertWithMessage(v != 0, zfTextA("divided by 0"));
     result.usec = tv.usec / v;
-    zflongdouble secTmp = (zflongdouble)tv.sec / v;
+    zft_zflongdouble secTmp = (zft_zflongdouble)tv.sec / v;
     result.sec = tv.sec / v;
-    result.usec += (zftimet)((secTmp - result.sec) * 1000000LL);
+    result.usec += (zft_zftimet)((secTmp - result.sec) * 1000000LL);
     ZFTimeValueNormalize(result);
 }
 ZFTimeValue ZFTimeValueDiv(ZF_IN const ZFTimeValue &tv,

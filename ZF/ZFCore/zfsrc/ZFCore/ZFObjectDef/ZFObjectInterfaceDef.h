@@ -310,12 +310,12 @@ public:
 
 public:
     /** @brief get instance's class info */
-    virtual const ZFClass *classData(void) = 0;
+    virtual const ZFClass *classData(void) zfpurevirtual;
 
     /**
      * @brief convert to ZFObject type
      */
-    virtual ZFObject *toObject(void) = 0;
+    virtual ZFObject *toObject(void) zfpurevirtual;
 };
 
 /**

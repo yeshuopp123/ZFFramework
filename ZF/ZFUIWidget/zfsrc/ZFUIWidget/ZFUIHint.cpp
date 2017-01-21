@@ -12,7 +12,7 @@
 
 ZF_NAMESPACE_GLOBAL_BEGIN
 
-zftimet ZFUIHintDurationDefault = 1500;
+zftimet ZFUIHintDurationDefault = (zftimet)1500;
 
 // ============================================================
 static ZFArray *_ZFP_ZFUIHint_hintListForRead(ZF_IN ZFUISysWindow *inSysWindow)

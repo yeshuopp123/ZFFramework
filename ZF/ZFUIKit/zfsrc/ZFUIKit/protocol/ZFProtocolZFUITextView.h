@@ -27,49 +27,49 @@ public:
     /**
      * @brief create native text view
      */
-    virtual void *nativeTextViewCreate(ZF_IN ZFUITextView *textView) = 0;
+    virtual void *nativeTextViewCreate(ZF_IN ZFUITextView *textView) zfpurevirtual;
     /**
      * @brief destroy native text view
      */
     virtual void nativeTextViewDestroy(ZF_IN ZFUITextView *textView,
-                                       ZF_IN void *nativeTextView) = 0;
+                                       ZF_IN void *nativeTextView) zfpurevirtual;
 
     // ============================================================
     // properties
 public:
     /** @brief see #ZFUITextView */
     virtual void textContentSet(ZF_IN ZFUITextView *textView,
-                                ZF_IN ZFString *text) = 0;
+                                ZF_IN ZFString *text) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textAppearanceSet(ZF_IN ZFUITextView *textView,
-                                   ZF_IN ZFUITextAppearanceEnum const &textAppearance) = 0;
+                                   ZF_IN ZFUITextAppearanceEnum const &textAppearance) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textAlignSet(ZF_IN ZFUITextView *textView,
-                              ZF_IN ZFUIAlignFlags const &textAlign) = 0;
+                              ZF_IN ZFUIAlignFlags const &textAlign) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textColorSet(ZF_IN ZFUITextView *textView,
-                              ZF_IN ZFUIColor const &textColor) = 0;
+                              ZF_IN ZFUIColor const &textColor) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textShadowColorSet(ZF_IN ZFUITextView *textView,
-                                    ZF_IN ZFUIColor const &textShadowColor) = 0;
+                                    ZF_IN ZFUIColor const &textShadowColor) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textShadowOffsetSet(ZF_IN ZFUITextView *textView,
-                                     ZF_IN ZFUISize const &textShadowOffset) = 0;
+                                     ZF_IN ZFUISize const &textShadowOffset) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textSizeSet(ZF_IN ZFUITextView *textView,
-                             ZF_IN zfint textSize) = 0;
+                             ZF_IN zfint textSize) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textSizeAutoChangeMinSizeSet(ZF_IN ZFUITextView *textView,
-                                              ZF_IN zfint textSizeAutoChangeMinSize) = 0;
+                                              ZF_IN zfint textSizeAutoChangeMinSize) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textSizeAutoChangeMaxSizeSet(ZF_IN ZFUITextView *textView,
-                                              ZF_IN zfint textSizeAutoChangeMaxSize) = 0;
+                                              ZF_IN zfint textSizeAutoChangeMaxSize) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textSingleLineSet(ZF_IN ZFUITextView *textView,
-                                   ZF_IN zfbool textSingleLine) = 0;
+                                   ZF_IN zfbool textSingleLine) zfpurevirtual;
     /** @brief see #ZFUITextView */
     virtual void textTruncateModeSet(ZF_IN ZFUITextView *textView,
-                                     ZF_IN ZFUITextTruncateModeEnum const &textTruncateMode) = 0;
+                                     ZF_IN ZFUITextTruncateModeEnum const &textTruncateMode) zfpurevirtual;
 
     // ============================================================
     // layout
@@ -82,19 +82,19 @@ public:
      */
     virtual ZFUISize measureNativeTextView(ZF_IN ZFUITextView *textView,
                                            ZF_IN const ZFUISize &sizeHint,
-                                           ZF_IN zfint textSize) = 0;
+                                           ZF_IN zfint textSize) zfpurevirtual;
 
     /**
      * @brief see #ZFUITextView::textSizeCurrent
      */
-    virtual zfint textSizeCurrent(ZF_IN ZFUITextView *textView) = 0;
+    virtual zfint textSizeCurrent(ZF_IN ZFUITextView *textView) zfpurevirtual;
 
     /**
      * @brief layout text view after ZFUIView's layout step,
      *   so that the view may shrink text size if necessary
      */
     virtual void layoutNativeTextView(ZF_IN ZFUITextView *textView,
-                                      ZF_IN const ZFUISize &viewSize) = 0;
+                                      ZF_IN const ZFUISize &viewSize) zfpurevirtual;
 
     // ============================================================
     // util method

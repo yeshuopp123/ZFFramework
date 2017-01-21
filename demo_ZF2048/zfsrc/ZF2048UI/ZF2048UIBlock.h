@@ -42,7 +42,7 @@ protected:
     virtual void cacheableOnReset(void)
     {
         zfsuperI(ZFCacheable)::cacheableOnReset();
-        this->blockValueSet(0);
+        this->blockValueSet((ZF2048Value)0);
     }
 
 public:

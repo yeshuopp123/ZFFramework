@@ -191,13 +191,13 @@ zfidentity ZFKeyValueContainer::objectHash(void)
     zfiterator it = this->iterator();
     if(this->iteratorIsValid(it))
     {
-        return ~((zfidentity)this->count()
+        return (zfidentity)(~((zfidentity)this->count()
             | ((ZFObjectHash(this->iteratorGetKey(it)) << 16) & 0x00FF0000)
-            | ((ZFObjectHash(this->iteratorGetValue(it)) << 24) & 0xFF000000));
+            | ((ZFObjectHash(this->iteratorGetValue(it)) << 24) & 0xFF000000)));
     }
     else
     {
-        return 0;
+        return zfidentityZero;
     }
 }
 ZFCompareResult ZFKeyValueContainer::objectCompare(ZF_IN ZFObject *anotherObj)

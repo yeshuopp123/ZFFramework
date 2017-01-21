@@ -98,9 +98,9 @@ zftimet invokeTimeGetAverageTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
     if(data != zfnull && data->invokeCount > 0)
     {
-        return data->invokeTotalTime / data->invokeCount;
+        return (zftimet)(data->invokeTotalTime / data->invokeCount);
     }
-    return 0;
+    return zftimetZero;
 }
 zftimet invokeTimeGetTotalTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
 {
@@ -110,15 +110,15 @@ zftimet invokeTimeGetTotalTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
     {
         return data->invokeTotalTime;
     }
-    return 0;
+    return zftimetZero;
 }
 void invokeTimeGetSummary(ZF_OUT zfstring &ret, ZF_IN_OPT const zfchar *key /* = zfnull */)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
     zfindex invokeCount = ((data == zfnull) ? 0 : data->invokeCount);
-    zftimet invokeTotalTime = ((data == zfnull) ? 0 : data->invokeTotalTime);
-    zftimet invokeAverageTime = ((invokeCount == 0) ? 0 : invokeTotalTime / invokeCount);
+    zftimet invokeTotalTime = ((data == zfnull) ? zftimetZero : data->invokeTotalTime);
+    zftimet invokeAverageTime = ((invokeCount == 0) ? zftimetZero : (zftimet)(invokeTotalTime / invokeCount));
     zfstringAppend(ret, zfText("[%s] invoke count: %s, total: %s, average: %s"),
         (key == zfnull) ? ZFTOKEN_zfnull : key,
         zfsFromInt(invokeCount).cString(),

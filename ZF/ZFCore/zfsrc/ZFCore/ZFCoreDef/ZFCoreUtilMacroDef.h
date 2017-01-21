@@ -267,7 +267,7 @@ ZF_NAMESPACE_GLOBAL_BEGIN
  */
 #define ZFM_N_DEC(n) _ZFP_ZFM_N_DEC_T(n)
 
-ZF_ENV_SENSITIVE
+ZF_ENV_SENSITIVE("MSVC spec")
 /**
  * @brief get the param num of a certain sequence
  *
@@ -303,7 +303,7 @@ ZF_ENV_SENSITIVE
         32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 #endif // #if defined(_MSC_VER)
 
-ZF_ENV_SENSITIVE
+ZF_ENV_SENSITIVE("MSVC spec")
 /**
  * @brief fix each param in the __VA_ARGS__
  *
@@ -394,12 +394,12 @@ ZF_ENV_SENSITIVE
 #endif // #if defined(_MSC_VER)
 
 // ============================================================
-#define _ZFP_zfidentityHash_EXPAND(v, index, total) ^ (zfidentity)(v)
+#define _ZFP_zfidentityHash_EXPAND(v, index, total) ^ (zft_zfuint32)(v)
 /**
  * @brief util method to connect multiple hash value into one hash value
  */
 #define zfidentityHash(hash, ...) \
-    ((zfidentity)(hash) ZFM_FIX_PARAM(_ZFP_zfidentityHash_EXPAND, ZFM_EMPTY, ##__VA_ARGS__))
+    (zfidentity)((zft_zfuint32)(hash) ZFM_FIX_PARAM(_ZFP_zfidentityHash_EXPAND, ZFM_EMPTY, ##__VA_ARGS__))
 
 // ============================================================
 /**
@@ -442,6 +442,17 @@ ZF_ENV_SENSITIVE
  *       // there'll be a instance of MyClass named _ZFP_zUniqueName_cls_123
  *   } // and the MyClass's instance will be deconstructed after the brace
  * @endcode
+ *
+ * REMARKS:\n
+ * when used under Windows with embeded macros
+ * @code
+ *   int ZFM_EXPAND(ZFUniqueName(n)) = 0;
+ * @endcode
+ * a C2065 "__LINE__Var undeclared identifier" may (or may not) occurred\n
+ * this is a compiler bug\n
+ * to solve it, turn "Program Database for edit and continue (/ZI)"
+ * to "Program Database (/Zi)" in your project setting\n
+ * or, prevent use it within other macros
  */
 #define ZFUniqueName(name) _ZFP_ZFUniqueName2(name, __LINE__)
 #define _ZFP_ZFUniqueName2(name, line) _ZFP_ZFUniqueName3(name, line)

@@ -92,7 +92,7 @@ public:
         /**
          * @brief called when owner #ZFUISysWindow is about to destroy
          */
-        virtual void nativeWindowOnCleanup(void) = 0;
+        virtual void nativeWindowOnCleanup(void) zfpurevirtual;
 
     public:
         /**
@@ -100,28 +100,28 @@ public:
          *
          * note, you must properly invoke #ZFUIView::nativeViewNotifyBeforeAdd
          */
-        virtual void nativeWindowOnRootViewAdd(void) = 0;
+        virtual void nativeWindowOnRootViewAdd(void) zfpurevirtual;
         /**
          * @brief called to remove root view to native window container
          *
          * note, you must properly invoke #ZFUIView::nativeViewNotifyAfterRemove
          */
-        virtual void nativeWindowOnRootViewRemove(void) = 0;
+        virtual void nativeWindowOnRootViewRemove(void) zfpurevirtual;
 
         /**
          * @brief called when window layout param changed
          */
-        virtual void windowLayoutParamOnChange(void) = 0;
+        virtual void windowLayoutParamOnChange(void) zfpurevirtual;
 
         /**
          * @brief see #ZFUISysWindow::windowOrientation
          */
-        virtual ZFUIOrientationEnum windowOrientation(void) = 0;
+        virtual ZFUIOrientationEnum windowOrientation(void) zfpurevirtual;
         /**
          * @brief see #ZFUISysWindow::windowOrientationFlagsSet,
          *  impl should have #ZFUIOrientation::e_Top as init value
          */
-        virtual void windowOrientationFlagsSet(ZF_IN const ZFUIOrientationFlags &flags) = 0;
+        virtual void windowOrientationFlagsSet(ZF_IN const ZFUIOrientationFlags &flags) zfpurevirtual;
 
         // ============================================================
         // callbacks that implementations must notify

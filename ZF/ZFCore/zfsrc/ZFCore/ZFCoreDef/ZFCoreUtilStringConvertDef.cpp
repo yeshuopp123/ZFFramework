@@ -155,7 +155,7 @@ const zfchar *zfflagsFromString(ZF_OUT zfflags &ret,
         {
             if(pos[iSrc].count > 2 && *(src + pos[iSrc].start) == '0' && *(src + pos[iSrc].start + 1) == 'x')
             {
-                zfflags tmp = 0;
+                zfflags tmp = zfflagsZero;
                 errPosTmp = zfsToInt(tmp, src + pos[iSrc].start + 2, pos[iSrc].count - 2, 16);
                 if(errPosTmp != zfnull)
                 {
@@ -258,15 +258,6 @@ ZFCORETYPE_STRING_CONVERTER_DEFINE(zfbyte, zfbyte, {
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_allow_negative(zfint, zfint)
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfuint, zfuint)
 _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfindex, zfindex)
-
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_allow_negative(zfint8, zfint8)
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfuint8, zfuint8)
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_allow_negative(zfint16, zfint16)
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfuint16, zfuint16)
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_allow_negative(zfint32, zfint32)
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfuint32, zfuint32)
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_allow_negative(zfint64, zfint64)
-_ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_int_disallow_negative(zfuint64, zfuint64)
 
 // ============================================================
 #define _ZFP_ZFCORETYPE_STRING_CONVERTER_DEFINE_float(TypeName, Type) \

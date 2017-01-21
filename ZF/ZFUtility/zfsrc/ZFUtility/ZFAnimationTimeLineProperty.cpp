@@ -133,8 +133,8 @@ void ZFAnimationTimeLineProperty::objectOnDeallocPrepare(void)
 zfidentity ZFAnimationTimeLineProperty::objectHash(void)
 {
     return zfidentityHash(zfsuper::objectHash()
-        , (zfidentity)d->steps.count()
-        , (zfidentity)(d->steps.isEmpty() ? 0 : d->steps[0]->objectHash())
+        , d->steps.count()
+        , (d->steps.isEmpty() ? zfidentityZero : d->steps[0]->objectHash())
         );
 }
 ZFCompareResult ZFAnimationTimeLineProperty::objectCompare(ZF_IN ZFObject *anotherObj)

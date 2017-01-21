@@ -92,7 +92,7 @@ zfint _ZFP_zfsnicmpA(const zfcharA *s1, const zfcharA *s2, zfindex count)
     return _ZFP_zfsnicmpTemplate(s1, s2, count);
 }
 
-ZF_ENV_SENSITIVE
+ZF_ENV_SENSITIVE("Android JNI has no wchar_t version support")
 #if (defined(ANDROID) || defined(__ANDROID__))
     zfindex _ZFP_zfslenW(const zfcharW *s)
     {

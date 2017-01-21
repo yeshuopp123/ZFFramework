@@ -111,7 +111,7 @@ protected:
      *   this method is ensured called in background thread
      * @note duplicated task won't get this being called
      */
-    virtual void taskOnStartAsync(ZF_IN ZFOperationTaskData *operationTaskData) = 0;
+    virtual void taskOnStartAsync(ZF_IN ZFOperationTaskData *operationTaskData) zfpurevirtual;
     /**
      * @brief subclass should override this to listen stop event, instead of #ZFOperation::taskOnStop,
      *   this method is ensured called in main thread

@@ -19,7 +19,7 @@ zftimet _ZFP_ZFProtocolZFUIScrollView_scrollViewScrollAnimationStart(ZF_IN ZFPRO
                                                                      ZF_IN ZFUIScrollView *scrollView)
 {
     zfblockedAllocWithoutLeakTest(ZFTimer, scrollTimer);
-    scrollTimer->timerIntervalSet(30);
+    scrollTimer->timerIntervalSet((zftimet)30);
     ZFLISTENER_LOCAL(scrollTimerEvent, {
         ZFPROTOCOL_INTERFACE_CLASS(ZFUIScrollView) *impl = (ZFPROTOCOL_INTERFACE_CLASS(ZFUIScrollView) *)(userData->tagGet<ZFTypeHolder *>(zfText("_ZFP_ZFProtocolZFUIScrollView_impl"))->holdedData);
         ZFUIScrollView *scrollView = userData->tagGet<ZFObjectHolder *>(zfText("_ZFP_ZFProtocolZFUIScrollView_scrollView"))->holdedObj;
@@ -648,7 +648,7 @@ void _ZFP_ZFUIScrollViewImplHelperPrivate::resolveMouseDown(ZF_IN void *nativeMo
         #if _ZFP_ZFProtocolZFUIScrollView_DEBUG
         zfLogTrimT() << zfLogCurTimeString() << zfText("[ScrollImpl]") << ZF_CALLER_LINE << this->pimplOwner->scrollView << zfText("track timer start");
         #endif
-        this->pimplOwner->implProtocol->trackDelayStart(200, this->pimplOwner);
+        this->pimplOwner->implProtocol->trackDelayStart((zftimet)200, this->pimplOwner);
     }
 }
 void _ZFP_ZFUIScrollViewImplHelperPrivate::resolveMouseMove(ZF_IN void *nativeMouseEvent)

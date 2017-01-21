@@ -115,13 +115,13 @@ ZF_ENV_EXPORT void zfsFromIntT(ZF_OUT T_Str &s,
 {
     if(radix < 2 || radix > 36) {return ;}
 
-    if(n <= 0)
+    if(n <= (T_Int)0)
     {
         // tricks to solve the unsigned type warnings
-        if(n != 0)
+        if(n != (T_Int)0)
         {
             s += '-';
-            n = 0 - n;
+            n = (T_Int)0 - n;
         }
         else
         {
@@ -215,7 +215,7 @@ ZF_ENV_EXPORT const T_Char * zfsToInt(ZF_OUT T_Int &ret,
         else if(*p >= 'A' && *p <= 'Z') {tmp = 10 + *p - 'A';}
         else {break;}
         if(tmp >= radix) {break;}
-        ret = (T_Int)(ret * radix + tmp);
+        ret = (T_Int)((ret * (zfuint)radix) + tmp);
         ++p;
     }
     if(negative)

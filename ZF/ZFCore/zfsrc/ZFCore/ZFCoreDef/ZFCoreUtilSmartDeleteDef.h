@@ -74,8 +74,7 @@ private:
  * @endcode
  */
 #define zfblockedFree(obj) \
-    _ZFP_zfblockedFreeContainer ZFUniqueName(zfblockedFree_)(obj); \
-    ZFUNUSED(ZFUniqueName(zfblockedFree_))
+    _ZFP_zfblockedFreeContainer ZFUniqueName(zfblockedFree_)(obj)
 
 // ============================================================
 // zflineDelete

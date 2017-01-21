@@ -15,7 +15,6 @@
 #define _ZFI_ZFMethodDeclareDef_h_
 
 #include "ZFMethodDef.h"
-#include "ZFVarConvertDef.h"
 ZF_NAMESPACE_GLOBAL_BEGIN
 
 // ============================================================
@@ -132,7 +131,7 @@ extern ZF_ENV_EXPORT const ZFMethod *ZFMethodGet(ZF_IN const ZFClass *cls,
                     zfText("%s::%s_%s"), \
                     zfself::ClassData()->className(), \
                     ZFM_TOSTRING(MethodName), \
-                    ZFM_TOSTRING(ZFMethodIdOrNoId) \
+                    ZFM_TOSTRING(ZFM_CAT(_ZFP_ZFMethodIdFix, ZFMethodIdOrNoId)) \
                 )); \
             ZFMethod *_method = _methodHolder.method; \
             if(_method->_ZFP_ZFMethodNeedInit) \
@@ -143,9 +142,9 @@ extern ZF_ENV_EXPORT const ZFMethod *ZFMethodGet(ZF_IN const ZFClass *cls,
                     ZFCastReinterpret(ZFFuncAddrType, \
                         &zfself::_ZFP_ZFMethodInvoker_##MethodName##_##ZFMethodIdOrNoId), \
                     _ZFP_ZFMETHOD_GENERIC_INVOKER_ADDR(ReturnType, MethodName##_##ZFMethodIdOrNoId), \
-                    zfText(#MethodName), \
-                    zfText(#ZFMethodIdOrNoId), \
-                    zfText(#ReturnType), \
+                    ZFM_TOSTRING(MethodName), \
+                    ZFM_TOSTRING(ZFM_CAT(_ZFP_ZFMethodIdFix, ZFMethodIdOrNoId)), \
+                    ZFM_TOSTRING(ReturnType), \
                     "" ParamExpandOrEmpty0(#ParamType0), \
                     "" ParamExpandOrEmpty1(#ParamType1), \
                     "" ParamExpandOrEmpty2(#ParamType2), \

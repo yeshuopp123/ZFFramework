@@ -42,9 +42,9 @@ protected:
                 for(zfindex j = 0; j < 10; ++j)
                 {
                     _ZFP_ZFCore_ZFThread_test_outputDetailSteps(zfText("  async thread: %zi %zi"), i, j);
-                    ZFThread::sleep(20);
+                    ZFThread::sleep((zftimet)20);
                 }
-                ZFThread::sleep(300);
+                ZFThread::sleep((zftimet)300);
             }
             zfLogTrim(zfText("async thread end"));
         })
@@ -54,9 +54,9 @@ protected:
             for(zfindex j = 0; j < 10; ++j)
             {
                 _ZFP_ZFCore_ZFThread_test_outputDetailSteps(zfText("  main: %zi %zi"), i, j);
-                ZFThread::sleep(20);
+                ZFThread::sleep((zftimet)20);
             }
-            ZFThread::sleep(190);
+            ZFThread::sleep((zftimet)190);
         }
         zfLogTrim(zfText("main thread wait async thread begin"));
         ZFThreadExecuteWait(taskId);
@@ -74,10 +74,10 @@ protected:
                 for(zfindex j = 0; j < 10; ++j)
                 {
                     _ZFP_ZFCore_ZFThread_test_outputDetailSteps(zfText("  sync thread: %zi %zi"), i, j);
-                    ZFThread::sleep(20);
+                    ZFThread::sleep((zftimet)20);
                 }
                 zfsynchronizeUnlock();
-                ZFThread::sleep(200);
+                ZFThread::sleep((zftimet)200);
             }
             zfLogTrim(zfText("sync thread end"));
         })
@@ -88,10 +88,10 @@ protected:
             for(zfindex j = 0; j < 10; ++j)
             {
                 _ZFP_ZFCore_ZFThread_test_outputDetailSteps(zfText("  main:   %zi %zi"), i, j);
-                ZFThread::sleep(20);
+                ZFThread::sleep((zftimet)20);
             }
             zfsynchronizeUnlock();
-            ZFThread::sleep(190);
+            ZFThread::sleep((zftimet)190);
         }
         zfLogTrim(zfText("main thread wait sync thread begin"));
         ZFThreadExecuteWait(taskId);

@@ -44,7 +44,7 @@ public:
     /**
      * @brief true is key is pressed
      */
-    virtual zfbool keyPressedRaw(ZF_IN zfuint32 keyCodeRaw);
+    virtual zfbool keyPressedRaw(ZF_IN zfflags keyCodeRaw);
 
 protected:
     zfoverride

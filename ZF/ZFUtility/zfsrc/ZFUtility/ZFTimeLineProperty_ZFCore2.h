@@ -24,7 +24,16 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 ZFTIMELINEPROPERTY_DECLARE_BY_VALUE(zffloat)
 ZFTIMELINEPROPERTY_DECLARE_BY_VALUE(zfdouble)
 ZFTIMELINEPROPERTY_DECLARE_BY_VALUE(zflongdouble)
+
+#if defined(_MSC_VER)
+    // implicit convert from float to int64
+    #pragma warning(push)
+    #pragma warning(disable:4244)
+#endif
 ZFTIMELINEPROPERTY_DECLARE_BY_VALUE(zftimet)
+#if defined(_MSC_VER)
+    #pragma warning(pop)
+#endif
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFTimeLineProperty_ZFCore2_h_

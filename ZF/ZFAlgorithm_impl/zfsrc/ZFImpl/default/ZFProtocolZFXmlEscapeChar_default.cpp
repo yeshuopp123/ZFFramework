@@ -129,7 +129,7 @@ private:
                            ZF_IN zfindex encodedCharLen)
     {
         zfcharW s[4] = {0};
-        if(zfsToInt(*(zfuint16 *)s, p, encodedCharLen, 10) == zfnull)
+        if(zfsToInt(*(zft_zfuint16 *)s, p, encodedCharLen, 10) == zfnull)
         {
             dst.execute(ZFString::toZFChar(s, ZFStringEncoding::e_UTF16).cString());
         }
@@ -175,7 +175,7 @@ private:
                            ZF_IN zfindex encodedCharLen)
     {
         zfcharW s[4] = {0};
-        if(zfsToInt(*(zfuint16 *)s, p, encodedCharLen, 16) == zfnull)
+        if(zfsToInt(*(zft_zfuint16 *)s, p, encodedCharLen, 16) == zfnull)
         {
             dst.execute(ZFString::toZFChar(s, ZFStringEncoding::e_UTF16).cString());
         }

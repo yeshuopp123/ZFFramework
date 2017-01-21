@@ -161,9 +161,9 @@ static void _ZFP_ZFUIViewBlinkDoOn(ZF_IN ZFUIView *view, ZF_IN const ZFUIViewBli
         view->tagSetMarkCached(_ZFP_ZFUIViewBlink_tag_delayTaskId, delayTaskIdTag.toObject());
         zfidentity delayId = ZFThreadExecuteInMainThreadAfterDelay(
             #if _ZFP_ZFUIViewBlink_DEBUG_duration
-                5000
+                (zftimet)5000
             #else
-                blinkParam.blinkDuration() * blinkParam.blinkCount()
+                (zftimet)(blinkParam.blinkDuration() * blinkParam.blinkCount())
             #endif
             ,
             blinkDelayOnFinish,

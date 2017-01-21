@@ -29,11 +29,11 @@ public:
     /**
      * @brief create native mutex
      */
-    virtual ZFObjectMutexImpl *nativeMutexCreate(void) = 0;
+    virtual ZFObjectMutexImpl *nativeMutexCreate(void) zfpurevirtual;
     /**
      * @brief create native mutex
      */
-    virtual void nativeMutexDestroy(ZF_IN ZFObjectMutexImpl *nativeMutex) = 0;
+    virtual void nativeMutexDestroy(ZF_IN ZFObjectMutexImpl *nativeMutex) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFObjectMutex)
 
 ZF_NAMESPACE_GLOBAL_END

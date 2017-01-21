@@ -29,14 +29,6 @@ ZFENUM_BEGIN(ZFValueType)
     ZFENUM_VALUE(int)                /**< zfint */
     ZFENUM_VALUE(unsignedInt)        /**< zfuint */
     ZFENUM_VALUE(index)              /**< zfindex */
-    ZFENUM_VALUE(int8)               /**< zfint8 */
-    ZFENUM_VALUE(unsignedInt8)       /**< zfuint8 */
-    ZFENUM_VALUE(int16)              /**< zfint16 */
-    ZFENUM_VALUE(unsignedInt16)      /**< zfuint16 */
-    ZFENUM_VALUE(int32)              /**< zfint32 */
-    ZFENUM_VALUE(unsignedInt32)      /**< zfuint32 */
-    ZFENUM_VALUE(int64)              /**< zfint64 */
-    ZFENUM_VALUE(unsignedInt64)      /**< zfuint64 */
     ZFENUM_VALUE(float)              /**< zffloat */
     ZFENUM_VALUE(double)             /**< zfdouble */
     ZFENUM_VALUE(longDouble)         /**< zflongdouble */
@@ -51,14 +43,6 @@ ZFENUM_SEPARATOR(ZFValueType)
     ZFENUM_VALUE_REGISTER(int)
     ZFENUM_VALUE_REGISTER(unsignedInt)
     ZFENUM_VALUE_REGISTER(index)
-    ZFENUM_VALUE_REGISTER(int8)
-    ZFENUM_VALUE_REGISTER(unsignedInt8)
-    ZFENUM_VALUE_REGISTER(int16)
-    ZFENUM_VALUE_REGISTER(unsignedInt16)
-    ZFENUM_VALUE_REGISTER(int32)
-    ZFENUM_VALUE_REGISTER(unsignedInt32)
-    ZFENUM_VALUE_REGISTER(int64)
-    ZFENUM_VALUE_REGISTER(unsignedInt64)
     ZFENUM_VALUE_REGISTER(float)
     ZFENUM_VALUE_REGISTER(double)
     ZFENUM_VALUE_REGISTER(longDouble)
@@ -154,11 +138,9 @@ public:
      *   low accuracy < high accuracy\n
      *   signed value < unsigned value\n
      * for example:\n
-     * -  when comparing zfint and zfint64, would cast to zfint64
      * -  when comparing zfint and zfuint, would cast to zfuint
      * -  when comparing zfchar and zfint, would cast to zfuint
      * -  when comparing zfint and zffloat, would cast to zfdouble
-     * -  when comparing zfint64 and zffloat, would cast to zflongdouble
      *
      * @note serializable type can only compared with serializable type,
      *   and it's compared by #ZFSerializableData::objectCompare
@@ -201,14 +183,6 @@ public:
     _ZFP_ZFValue_method_DECLARE(int, zfint)
     _ZFP_ZFValue_method_DECLARE(unsignedInt, zfuint)
     _ZFP_ZFValue_method_DECLARE(index, zfindex)
-    _ZFP_ZFValue_method_DECLARE(int8, zfint8)
-    _ZFP_ZFValue_method_DECLARE(unsignedInt8, zfuint8)
-    _ZFP_ZFValue_method_DECLARE(int16, zfint16)
-    _ZFP_ZFValue_method_DECLARE(unsignedInt16, zfuint16)
-    _ZFP_ZFValue_method_DECLARE(int32, zfint32)
-    _ZFP_ZFValue_method_DECLARE(unsignedInt32, zfuint32)
-    _ZFP_ZFValue_method_DECLARE(int64, zfint64)
-    _ZFP_ZFValue_method_DECLARE(unsignedInt64, zfuint64)
     _ZFP_ZFValue_method_DECLARE(float, zffloat)
     _ZFP_ZFValue_method_DECLARE(double, zfdouble)
     _ZFP_ZFValue_method_DECLARE(longDouble, zflongdouble)
@@ -286,14 +260,6 @@ public:
     _ZFP_ZFValueEditable_method_DECLARE(int, zfint)
     _ZFP_ZFValueEditable_method_DECLARE(unsignedInt, zfuint)
     _ZFP_ZFValueEditable_method_DECLARE(index, zfindex)
-    _ZFP_ZFValueEditable_method_DECLARE(int8, zfint8)
-    _ZFP_ZFValueEditable_method_DECLARE(unsignedInt8, zfuint8)
-    _ZFP_ZFValueEditable_method_DECLARE(int16, zfint16)
-    _ZFP_ZFValueEditable_method_DECLARE(unsignedInt16, zfuint16)
-    _ZFP_ZFValueEditable_method_DECLARE(int32, zfint32)
-    _ZFP_ZFValueEditable_method_DECLARE(unsignedInt32, zfuint32)
-    _ZFP_ZFValueEditable_method_DECLARE(int64, zfint64)
-    _ZFP_ZFValueEditable_method_DECLARE(unsignedInt64, zfuint64)
     _ZFP_ZFValueEditable_method_DECLARE(float, zffloat)
     _ZFP_ZFValueEditable_method_DECLARE(double, zfdouble)
     _ZFP_ZFValueEditable_method_DECLARE(longDouble, zflongdouble)

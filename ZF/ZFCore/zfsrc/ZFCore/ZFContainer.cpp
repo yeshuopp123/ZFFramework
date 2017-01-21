@@ -141,7 +141,7 @@ zfidentity ZFContainer::objectHash(void)
     }
     else
     {
-        return 0;
+        return zfidentityZero;
     }
 }
 ZFCompareResult ZFContainer::objectCompare(ZF_IN ZFObject *anotherObj)

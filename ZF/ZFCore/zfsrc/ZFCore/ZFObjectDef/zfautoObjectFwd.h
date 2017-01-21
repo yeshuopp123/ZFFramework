@@ -40,8 +40,8 @@ public:
     {
     }
 public:
-    virtual _ZFP_zfautoObjectPrivateBase *onRetain(void) = 0;
-    virtual void onRelease(void) = 0;
+    virtual _ZFP_zfautoObjectPrivateBase *onRetain(void) zfpurevirtual;
+    virtual void onRelease(void) zfpurevirtual;
 };
 /**
  * @brief a ZFObject holder which would release content object automatically when destroyed

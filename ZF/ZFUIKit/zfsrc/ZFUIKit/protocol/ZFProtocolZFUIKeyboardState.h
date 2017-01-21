@@ -29,11 +29,11 @@ public:
     /**
      * @brief see #ZFUIKeyboardState::keyPressed
      */
-    virtual zfbool keyPressed(ZF_IN ZFUIKeyCodeEnum keyCode) = 0;
+    virtual zfbool keyPressed(ZF_IN ZFUIKeyCodeEnum keyCode) zfpurevirtual;
     /**
      * @brief see #ZFUIKeyboardState::keyPressedRaw
      */
-    virtual zfbool keyPressedRaw(ZF_IN zfuint32 keyCodeRaw) = 0;
+    virtual zfbool keyPressedRaw(ZF_IN zfflags keyCodeRaw) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify

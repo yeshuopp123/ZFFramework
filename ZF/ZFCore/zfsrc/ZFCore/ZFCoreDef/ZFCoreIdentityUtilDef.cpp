@@ -122,7 +122,7 @@ void ZFIdentityGenerator::allUsed(ZF_IN_OUT ZFCoreArray<zfidentity> &ret) const
 // ============================================================
 zfidentity zfidentityCalcString(ZF_IN const zfchar *start)
 {
-    zfidentity hash = 0;
+    zfidentity hash = zfidentityZero;
     if(start)
     {
         while(*start)
@@ -136,7 +136,7 @@ zfidentity zfidentityCalcBuf(ZF_IN const void *start, ZF_IN zfindex byteSize)
 {
     const zfbyte *p = (const zfbyte *)start;
     const zfbyte *pEnd = p + byteSize;
-    zfidentity hash = 0;
+    zfidentity hash = zfidentityZero;
     if(p)
     {
         while(p < pEnd)

@@ -26,17 +26,17 @@ public:
     /**
      * @brief create native web JS bridge
      */
-    virtual void *nativeWebJSBridgeCreate(ZF_IN ZFUIWebJSBridge *webJSBridge) = 0;
+    virtual void *nativeWebJSBridgeCreate(ZF_IN ZFUIWebJSBridge *webJSBridge) zfpurevirtual;
     /**
      * @brief destroy native web JS bridge
      */
     virtual void nativeWebJSBridgeDestroy(ZF_IN ZFUIWebJSBridge *webJSBridge,
-                                          ZF_IN void *nativeWebJSBridge) = 0;
+                                          ZF_IN void *nativeWebJSBridge) zfpurevirtual;
 
 public:
     /** @brief see #ZFUIWebJSBridge::webMessageSend */
     virtual ZFSerializableData webMessageSend(ZF_IN ZFUIWebJSBridge *webJSBridge,
-                                              ZF_IN_OUT ZFSerializableData &messageSend) = 0;
+                                              ZF_IN_OUT ZFSerializableData &messageSend) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify

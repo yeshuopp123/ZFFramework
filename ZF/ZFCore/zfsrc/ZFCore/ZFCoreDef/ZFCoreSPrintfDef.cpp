@@ -59,13 +59,13 @@ static inline void _ZFP_zfstringAppend_appendToken(ZF_IN_OUT ZFCoreStringW &s, Z
         { \
             case 'b': \
                 _ZFP_zfstringAppend_appendToken(ret_, \
-                    (va_arg(vaList_, zfint) != 0) ? ZFTOKEN_zfbool_zftrue : ZFTOKEN_zfbool_zffalse); \
+                    (va_arg(vaList_, zft_zfint) != 0) ? ZFTOKEN_zfbool_zftrue : ZFTOKEN_zfbool_zffalse); \
                 break; \
             case 'z': \
                 if(*(p_+1) == 'i') \
                 { \
                     ++p_; \
-                    zfsFromIntT(ret_, va_arg(vaList_, zfindex), 10); \
+                    zfsFromIntT(ret_, va_arg(vaList_, zft_zfindex), 10); \
                 } \
                 else \
                 { \
@@ -75,7 +75,7 @@ static inline void _ZFP_zfstringAppend_appendToken(ZF_IN_OUT ZFCoreStringW &s, Z
             case 'd': \
             case 'i': \
             { \
-                zfint v = va_arg(vaList_, zfint); \
+                zfint v = va_arg(vaList_, zft_zfint); \
                 if(v < 0 && flags_.hasFlag()) \
                 { \
                     flags_.positiveToken = '-'; \
@@ -85,20 +85,20 @@ static inline void _ZFP_zfstringAppend_appendToken(ZF_IN_OUT ZFCoreStringW &s, Z
             } \
                 break; \
             case 'u': \
-                zfsFromIntT(ret_, va_arg(vaList_, zfuint), 10); \
+                zfsFromIntT(ret_, va_arg(vaList_, zft_zfuint), 10); \
                 break; \
             case 'o': \
-                zfsFromIntT(ret_, va_arg(vaList_, zfuint), 8); \
+                zfsFromIntT(ret_, va_arg(vaList_, zft_zfuint), 8); \
                 break; \
             case 'x': \
-                zfsFromIntT(ret_, va_arg(vaList_, zfuint), 16, zffalse); \
+                zfsFromIntT(ret_, va_arg(vaList_, zft_zfuint), 16, zffalse); \
                 break; \
             case 'X': \
-                zfsFromIntT(ret_, va_arg(vaList_, zfuint), 16); \
+                zfsFromIntT(ret_, va_arg(vaList_, zft_zfuint), 16); \
                 break; \
             case 'f': \
             { \
-                zffloat v = (zffloat)va_arg(vaList_, double); \
+                zffloat v = (zffloat)va_arg(vaList_, zft_zfdouble); \
                 if(v < 0 && flags_.hasFlag()) \
                 { \
                     flags_.positiveToken = '-'; \
@@ -107,49 +107,12 @@ static inline void _ZFP_zfstringAppend_appendToken(ZF_IN_OUT ZFCoreStringW &s, Z
                 zfsFromFloatT(ret_, v); \
             } \
                 break; \
-            case 'l': \
-            case 'L': \
-                if(*p_ == 'l' && *(p_+1) == 'f') \
-                { \
-                    ++p_; \
-                    zfdouble v = va_arg(vaList_, double); \
-                    if(v < 0 && flags_.hasFlag()) \
-                    { \
-                        flags_.positiveToken = '-'; \
-                        v = -v; \
-                    } \
-                    zfsFromFloatT(ret_, v); \
-                } \
-                else if((*p_ == 'l' && *(p_+1) == 'l' && *(p_+2) == 'f') \
-                    || (*p_ == 'L' && *(p_+1) == 'f')) \
-                { \
-                    if(*p_ == 'l') \
-                    { \
-                        p_ += 2; \
-                    } \
-                    else \
-                    { \
-                        ++p_; \
-                    } \
-                    zflongdouble v = va_arg(vaList_, long double); \
-                    if(v < 0 && flags_.hasFlag()) \
-                    { \
-                        flags_.positiveToken = '-'; \
-                        v = -v; \
-                    } \
-                    zfsFromFloatT(ret_, v); \
-                } \
-                else \
-                { \
-                    flags_.success = zffalse; \
-                } \
-                break; \
             case 'p': \
                 zfsFromPointerT(ret_, va_arg(vaList_, const void *)); \
                 break; \
             case 'c': \
             case 'C': \
-                ret_ += (T_Char)va_arg(vaList_, int); \
+                ret_ += (T_Char)va_arg(vaList_, zft_zfint); \
                 break; \
             case 's': \
             case 'S': \
@@ -239,7 +202,7 @@ void _ZFP_zfstringAppendT(ZF_OUT T_Str &s,
 
             if(*p == '*')
             {
-                flags.width = va_arg(vaList, zfindex);
+                flags.width = va_arg(vaList, zft_zfindex);
                 ++p;
             }
             else
@@ -255,7 +218,7 @@ void _ZFP_zfstringAppendT(ZF_OUT T_Str &s,
                 ++p;
                 if(*p == '*')
                 {
-                    flags.precision = va_arg(vaList, zfindex);
+                    flags.precision = va_arg(vaList, zft_zfindex);
                     ++p;
                 }
                 else

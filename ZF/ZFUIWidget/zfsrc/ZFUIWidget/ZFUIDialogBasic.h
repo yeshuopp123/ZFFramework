@@ -68,11 +68,11 @@ public:
     /**
      * @brief container to hold custom title views
      */
-    virtual ZFUIView *dialogTitleContainer(void) = 0;
+    virtual ZFUIView *dialogTitleContainer(void) zfpurevirtual;
     /**
      * @brief title text view
      */
-    virtual ZFUITextView *dialogTitleView(void) = 0;
+    virtual ZFUITextView *dialogTitleView(void) zfpurevirtual;
     /**
      * @brief set the dialog's title text
      */
@@ -93,11 +93,11 @@ public:
     /**
      * @brief container to hold custom content views
      */
-    virtual ZFUIView *dialogContentContainer(void) = 0;
+    virtual ZFUIView *dialogContentContainer(void) zfpurevirtual;
     /**
      * @brief content text view
      */
-    virtual ZFUITextView *dialogContentView(void) = 0;
+    virtual ZFUITextView *dialogContentView(void) zfpurevirtual;
     /**
      * @brief set the dialog's content text
      */
@@ -118,7 +118,7 @@ public:
     /**
      * @brief container to hold custom button views
      */
-    virtual ZFUIView *dialogButtonContainer(void) = 0;
+    virtual ZFUIView *dialogButtonContainer(void) zfpurevirtual;
     /**
      * @brief access dialog button with specifed type
      *
@@ -129,20 +129,20 @@ public:
      * access #ZFUIDialogButtonType::e_Normal would always return null
      */
     virtual ZFUIButton *dialogButton(ZF_IN ZFUIDialogButtonTypeEnum dialogButtonType,
-                                     ZF_IN_OPT zfbool autoCreateIfNotExist = zftrue) = 0;
+                                     ZF_IN_OPT zfbool autoCreateIfNotExist = zftrue) zfpurevirtual;
     /**
      * @brief text of the button
      */
-    virtual const zfchar *dialogButtonText(ZF_IN ZFUIDialogButtonTypeEnum dialogButtonType) = 0;
+    virtual const zfchar *dialogButtonText(ZF_IN ZFUIDialogButtonTypeEnum dialogButtonType) zfpurevirtual;
     /**
      * @brief see #dialogButtonText
      */
     virtual void dialogButtonTextSet(ZF_IN ZFUIDialogButtonTypeEnum dialogButtonType,
-                                     ZF_IN const zfchar *text) = 0;
+                                     ZF_IN const zfchar *text) zfpurevirtual;
     /**
      * @brief remove specified button type, see #dialogButton
      */
-    virtual void dialogButtonRemove(ZF_IN ZFUIDialogButtonTypeEnum dialogButtonType) = 0;
+    virtual void dialogButtonRemove(ZF_IN ZFUIDialogButtonTypeEnum dialogButtonType) zfpurevirtual;
 
     /** @brief util method to access #dialogButton */
     virtual inline ZFUIButton *dialogButton_Yes(ZF_IN_OPT zfbool autoCreateIfNotExist = zftrue)
@@ -211,32 +211,32 @@ public:
     /**
      * @brief button count with #ZFUIDialogButtonType::e_Normal type
      */
-    virtual zfindex dialogButtonCount(void) = 0;
+    virtual zfindex dialogButtonCount(void) zfpurevirtual;
     /**
      * @brief access button at index, for #ZFUIDialogButtonType::e_Normal type only
      */
-    virtual ZFUIButton *dialogButtonAtIndex(ZF_IN zfindex index) = 0;
+    virtual ZFUIButton *dialogButtonAtIndex(ZF_IN zfindex index) zfpurevirtual;
     /**
      * @brief find button's index, for #ZFUIDialogButtonType::e_Normal type only
      */
-    virtual zfindex dialogButtonFind(ZF_IN ZFUIButton *dialogButton) = 0;
+    virtual zfindex dialogButtonFind(ZF_IN ZFUIButton *dialogButton) zfpurevirtual;
     /**
      * @brief manually add a button with #ZFUIDialogButtonType::e_Normal type
      */
     virtual void dialogButtonAdd(ZF_IN ZFUIButton *button,
-                                 ZF_IN_OPT zfindex atIndex = zfindexMax) = 0;
+                                 ZF_IN_OPT zfindex atIndex = zfindexMax) zfpurevirtual;
     /**
      * @brief manually remove a specified button, which can be #dialogButton
      */
-    virtual void dialogButtonRemove(ZF_IN ZFUIButton *button) = 0;
+    virtual void dialogButtonRemove(ZF_IN ZFUIButton *button) zfpurevirtual;
     /**
      * @brief manually remove a specified button at index
      */
-    virtual void dialogButtonRemoveAtIndex(ZF_IN zfindex index) = 0;
+    virtual void dialogButtonRemoveAtIndex(ZF_IN zfindex index) zfpurevirtual;
     /**
      * @brief manually remove all button
      */
-    virtual void dialogButtonRemoveAll(void) = 0;
+    virtual void dialogButtonRemoveAll(void) zfpurevirtual;
 
 protected:
     /** @brief see #EventDialogButtonOnAdd */

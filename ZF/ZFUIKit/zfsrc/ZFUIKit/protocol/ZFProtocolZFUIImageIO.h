@@ -35,7 +35,7 @@ public:
     virtual void *imageApplyScale(ZF_IN zffloat imageScale,
                                   ZF_IN void *nativeImage,
                                   ZF_IN const ZFUISize &newSize,
-                                  ZF_IN const ZFUIMargin &ninePatch) = 0;
+                                  ZF_IN const ZFUIMargin &ninePatch) zfpurevirtual;
     /**
      * @brief see #ZFUIImageLoadFromColor, size ensured valid
      *
@@ -44,7 +44,7 @@ public:
      */
     virtual void *imageLoadFromColor(ZF_IN zffloat imageScale,
                                      ZF_IN const ZFUIColor &color,
-                                     ZF_IN const ZFUISize &size) = 0;
+                                     ZF_IN const ZFUISize &size) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFUIImageIO)
 
 ZF_NAMESPACE_GLOBAL_END

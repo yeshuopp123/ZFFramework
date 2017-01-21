@@ -177,6 +177,15 @@ typedef void (*ZFPropertyCallbackGetInfo)(ZF_IN const ZFProperty *property,
 extern ZF_ENV_EXPORT void ZFPropertyCallbackGetInfoChange(ZF_IN const ZFProperty *property,
                                                           ZF_IN ZFPropertyCallbackGetInfo callback);
 
+// ============================================================
+/**
+ * @brief shows that the property has no type and can not be used in advanced property copy operation,
+ *   ensured an empty string
+ */
+#define ZFPropertyTypeId_none zfText("")
+
+#define _ZFP_ZFPropertyTypeIdForRetainProperty zfText("_ZFP_ZFPropertyTypeIdForRetainProperty")
+
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFPropertyFwdDef_h_
 

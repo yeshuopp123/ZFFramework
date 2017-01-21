@@ -16,8 +16,8 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 #define _ZFP_ZFUIScrollerDefault_scrollAniBounceDragMax 800
 #define _ZFP_ZFUIScrollerDefault_scrollAniStartTolerance 500
 
-#define _ZFP_ZFUIScrollerDefault_aniByPointDurationMin 100
-#define _ZFP_ZFUIScrollerDefault_aniByPointDurationMax 1000
+#define _ZFP_ZFUIScrollerDefault_aniByPointDurationMin ((zftimet)100)
+#define _ZFP_ZFUIScrollerDefault_aniByPointDurationMax ((zftimet)1000)
 
 #define _ZFP_ZFUIScrollerDefault_aniBySpeedSpeedMaxNormal 3000 // pixels per second
 #define _ZFP_ZFUIScrollerDefault_aniBySpeedSpeedMaxBounce 500 // pixels per second
@@ -192,10 +192,10 @@ public:
         zfint offset = 0;
         if(timeOffset > 0)
         {
-            zfdouble speed = (zfdouble)(dragOffset * 1000 / timeOffset);
+            zfdouble speed = (zfdouble)((zft_zfdouble)dragOffset * 1000 / timeOffset);
             zfdouble speedFix = zfmAbs(speed);
-            zfdouble g = 200;
-            zfdouble t = speedFix / g;
+            zfdouble g = (zfdouble)200;
+            zfdouble t = (zfdouble)(speedFix / g);
             offset = (zfint)(speedFix * t - (g * t * t) / 2);
             if(speed < 0)
             {
@@ -263,14 +263,14 @@ public:
         offset = zfmAbs(offset);
         if(offset <= 2)
         {
-            return 0;
+            return zftimetZero;
         }
 
         if(offset >= _ZFP_ZFUIScrollerDefault_scrollAniBounceDragMax)
         {
             return _ZFP_ZFUIScrollerDefault_aniByPointDurationMax;
         }
-        zftimet ret = (zftimet)(ZFBezierLinear.y_by_x((zffloat)offset / _ZFP_ZFUIScrollerDefault_scrollAniBounceDragMax)
+        zftimet ret = (zftimet)(zft_zftimet)(ZFBezierLinear.y_by_x((zft_zffloat)offset / _ZFP_ZFUIScrollerDefault_scrollAniBounceDragMax)
             * _ZFP_ZFUIScrollerDefault_aniByPointDurationMax);
         if(ret < _ZFP_ZFUIScrollerDefault_aniByPointDurationMin)
         {
@@ -281,7 +281,7 @@ public:
             return ret;
         }
     }
-    void aniByPointStart(ZF_IN zfint stopPos, ZF_IN_OPT zftimet duration = -1)
+    void aniByPointStart(ZF_IN zfint stopPos, ZF_IN_OPT zftimet duration = (zftimet)-1)
     {
         if(duration < 0)
         {
@@ -387,7 +387,7 @@ public:
             if(bounceAway)
             {
                 v = zfmMin(v, _ZFP_ZFUIScrollerDefault_aniBySpeedSpeedMaxBounce);
-                zftimet tDelta = (long)-v * 1000 / a;
+                zftimet tDelta = (zftimet)((long)-v * 1000 / a);
                 zfbool reachEnd = (t - 10 >= tDelta);
                 this->contentOffset = this->calcContentOffsetFromBounce(
                     bounceOffset + this->aniBySpeed_calcOffset(v, reachEnd ? tDelta : t, a),
@@ -484,7 +484,7 @@ public:
     }
     zfint anibySpeedEndPointPredicted(void)
     {
-        zftimet t = (long)zfmAbs(this->aniBySpeedCurSpeed) * 1000 / _ZFP_ZFUIScrollerDefault_aniBySpeedGravityNormal;
+        zftimet t = (zftimet)((long)zfmAbs(this->aniBySpeedCurSpeed) * 1000 / _ZFP_ZFUIScrollerDefault_aniBySpeedGravityNormal);
         zfint offset = this->aniBySpeed_calcOffset(zfmAbs(this->aniBySpeedCurSpeed), t, -_ZFP_ZFUIScrollerDefault_aniBySpeedGravityNormal);
         if(this->aniBySpeedCurSpeed > 0)
         {
@@ -507,7 +507,7 @@ private:
     }
     zftimet aniBySpeed_calcTime(ZF_IN zfint v, ZF_IN zfint offset, ZF_IN zfint a)
     {
-        zftimet t = (zftimet)((-v + ::sqrt((double)((long)v * v + (long)2 * a * offset))) * 1000 / a);
+        zftimet t = (zftimet)(zft_zftimet)((-v + ::sqrt((double)((long)v * v + (long)2 * a * offset))) * 1000 / a);
         return zfmMax((zftimet)0, t);
     }
 

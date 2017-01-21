@@ -32,11 +32,11 @@ public:
     /**
      * @brief lock (must be reentrant)
      */
-    virtual void mutexImplLock(void) = 0;
+    virtual void mutexImplLock(void) zfpurevirtual;
     /**
      * @brief unlock
      */
-    virtual void mutexImplUnlock(void) = 0;
+    virtual void mutexImplUnlock(void) zfpurevirtual;
 };
 extern ZF_ENV_EXPORT ZFCoreMutexImpl *_ZFP_ZFCoreMutexImplObject;
 /**
@@ -93,7 +93,7 @@ public:
  *   Type var = (ZFCoreMutexLockerHolder(), yourFuncSynced());
  * @endcode
  */
-#define ZFCoreMutexLocker() ZFCoreMutexLockerHolder ZFUniqueName(ZFCoreMutexLocker)
+#define ZFCoreMutexLocker() ZFCoreMutexLockerHolder _ZFP_ZFCoreMutexLocker_hold
 
 ZF_NAMESPACE_GLOBAL_END
 

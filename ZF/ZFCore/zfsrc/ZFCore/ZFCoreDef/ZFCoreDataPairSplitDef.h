@@ -68,7 +68,8 @@ const zfchar *zfCoreDataPairSplitInt(ZF_OUT ZFCoreArray<T_int> &outData,
     }
     for(zfindex i = 0; i < splited.count(); ++i)
     {
-        T_int tmp = 0;
+        T_int tmp;
+        tmp = 0;
         errPos = zfsToInt(tmp, src + splited[i].start, splited[i].count);
         if(errPos != zfnull)
         {

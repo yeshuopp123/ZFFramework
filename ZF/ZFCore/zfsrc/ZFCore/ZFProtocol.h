@@ -430,7 +430,7 @@ extern ZF_ENV_EXPORT void _ZFP_ZFProtocolImplAccess(void);
  *           ZFPROTOCOL_INTERFACE_CLASS(SomeModule)(void) {...}
  *           virtual ~ZFPROTOCOL_INTERFACE_CLASS(SomeModule)(void) {...}
  *       public: // declare protocols here
- *           virtual void moduleFunc(void) = 0;
+ *           virtual void moduleFunc(void) zfpurevirtual;
  *       private:
  *           SomeType member; // you can add member here
  *   ZFPROTOCOL_INTERFACE_END(SomeModule)

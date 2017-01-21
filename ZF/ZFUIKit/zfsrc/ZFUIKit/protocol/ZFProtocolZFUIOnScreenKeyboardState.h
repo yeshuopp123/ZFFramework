@@ -28,11 +28,11 @@ public:
     /**
      * @brief true if the keyboard currently showing
      */
-    virtual zfbool keyboardShowing(ZF_IN ZFUIOnScreenKeyboardState *keyboardState) = 0;
+    virtual zfbool keyboardShowing(ZF_IN ZFUIOnScreenKeyboardState *keyboardState) zfpurevirtual;
     /**
      * @brief current key board frame, must return #ZFUIRectZero if not showing
      */
-    virtual ZFUIRect keyboardFrame(ZF_IN ZFUIOnScreenKeyboardState *keyboardState) = 0;
+    virtual ZFUIRect keyboardFrame(ZF_IN ZFUIOnScreenKeyboardState *keyboardState) zfpurevirtual;
 
     /**
      * @brief see #ZFUIOnScreenKeyboardState::keyboardFixClientFrame

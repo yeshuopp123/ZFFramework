@@ -29,8 +29,8 @@ zfidentity ZFOperationQueueChildTaskData::objectHash(void)
     return zfidentityHash(0
         , ZFObjectHash(this->childOperation())
         , ZFObjectHash(this->childTaskData())
-        , (zfidentity)this->stopQueueIfCancel()
-        , (zfidentity)this->stopQueueIfFail()
+        , this->stopQueueIfCancel()
+        , this->stopQueueIfFail()
         );
 }
 ZFCompareResult ZFOperationQueueChildTaskData::objectCompare(ZF_IN ZFObject *anotherObj)
@@ -57,7 +57,7 @@ zfidentity ZFOperationQueueParam::objectHash(void)
 {
     return zfidentityHash(zfsuper::objectHash()
         , ZFObjectHash(this->childTaskDatas())
-        , (zfidentity)this->childToStartMax()
+        , this->childToStartMax()
         );
 }
 
@@ -66,8 +66,8 @@ ZFOBJECT_REGISTER(ZFOperationQueueResult)
 zfidentity ZFOperationQueueResult::objectHash(void)
 {
     return zfidentityHash(zfsuper::objectHash()
-        , (zfidentity)this->hasCanceledChildTask()
-        , (zfidentity)this->hasFailedChildTask()
+        , this->hasCanceledChildTask()
+        , this->hasFailedChildTask()
         , ZFObjectHash(this->childResults())
         , ZFObjectHash(this->childResultsInOrder())
         );
@@ -314,7 +314,7 @@ static void _ZFP_ZFOperationQueue_updateQueueProgress(ZF_IN ZFOperationTaskData 
     queueProgress->childLastProgressDatas()->set(childIndex, childOperationTaskData);
 
     zfdouble totalTask = (zfdouble)queueProgress->childLastProgressDatas()->count();
-    zfdouble curTask = 0;
+    zfdouble curTask = zfdoubleZero;
     for(zfindex i = queueProgress->childLastProgressDatas()->count() - 1; i != zfindexMax; --i)
     {
         // zfnullObject or ZFOperationTaskData

@@ -34,12 +34,12 @@ public:
      */
     virtual ZFXmlItem xmlParse(ZF_IN const zfchar *src,
                                ZF_IN_OPT zfindex size = zfindexMax,
-                               ZF_IN_OPT const ZFXmlParseFlags &flags = ZFXmlParseFlagsDefault) = 0;
+                               ZF_IN_OPT const ZFXmlParseFlags &flags = ZFXmlParseFlagsDefault) zfpurevirtual;
     /**
      * @brief parse xml document
      */
     virtual ZFXmlItem xmlParse(ZF_IN const ZFInputCallback &inputCallback,
-                               ZF_IN_OPT const ZFXmlParseFlags &flags = ZFXmlParseFlagsDefault) = 0;
+                               ZF_IN_OPT const ZFXmlParseFlags &flags = ZFXmlParseFlagsDefault) zfpurevirtual;
 
     /**
      * @brief for impl to achieve memory pool logic

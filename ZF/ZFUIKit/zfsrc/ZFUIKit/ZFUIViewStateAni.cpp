@@ -257,7 +257,7 @@ ZF_GLOBAL_INITIALIZER_INIT_WITH_LEVEL(ZFUIViewStateAniStart_availableDelay, ZFLe
             _ZFP_ZFUIViewStateAniStart_available = zftrue;
             userData->to<ZFTypeHolder *>()->holdedDataRef<zfidentity &>() = zfidentityInvalid;
         })
-        this->delayTaskId = ZFThreadExecuteInMainThreadAfterDelay(200, delayAction,
+        this->delayTaskId = ZFThreadExecuteInMainThreadAfterDelay((zftimet)200, delayAction,
             zflineAlloc(ZFTypeHolder, &this->delayTaskId, ZFTypeHolder::DeletePointerRef));
     }
 }

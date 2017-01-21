@@ -27,12 +27,12 @@ protected:
         zfblockedAlloc(ZFUIAnimatedImageView, animatedImageView);
         container->childAdd(animatedImageView);
 
-        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(40)), 1000);
-        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(60)), 1000);
-        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(80)), 1000);
-        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(40, 40)), 1000);
-        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(60, 40)), 1000);
-        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(80, 40)), 1000);
+        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(40)), (zftimet)1000);
+        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(60)), (zftimet)1000);
+        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(80)), (zftimet)1000);
+        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(40, 40)), (zftimet)1000);
+        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(60, 40)), (zftimet)1000);
+        animatedImageView->animatedImage()->aniFrameAdd(ZFUIImageLoadFromColor(ZFUIColorRandom(), ZFUISizeMake(80, 40)), (zftimet)1000);
 
         this->prepareActionButton(container, animatedImageView);
 

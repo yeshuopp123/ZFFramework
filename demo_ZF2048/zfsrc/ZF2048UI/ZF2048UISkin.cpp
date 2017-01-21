@@ -82,10 +82,10 @@ void ZF2048UISkinLoad(ZF_IN const zfchar *resPath /* = zfText("ZF2048/skin/defau
                 continue;
             }
             zfstring blockValueString(fileName.cString() + zfslen(filePrefix), fileName.length() - zfslen(filePrefix) - zfslen(fileExt));
-            ZF2048Value blockValue = 0;
+            ZF2048Value blockValue = (ZF2048Value)0;
             if(zfintFromString(blockValue, blockValueString) == zfnull)
             {
-                zfstring skinKey = zfstringWithFormat(zfText("ZF2048_block_%d"), blockValue);
+                zfstring skinKey = zfstringWithFormat(zfText("ZF2048_block_%d"), (zfint)blockValue);
                 zfautoObject image = ZFUIImageRes(fd.filePath());
                 if(image == zfautoObjectNull)
                 {

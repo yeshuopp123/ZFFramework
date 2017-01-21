@@ -27,56 +27,56 @@ public:
     /**
      * @brief create native text edit view
      */
-    virtual void *nativeTextEditCreate(ZF_IN ZFUITextEdit *textEdit) = 0;
+    virtual void *nativeTextEditCreate(ZF_IN ZFUITextEdit *textEdit) zfpurevirtual;
     /**
      * @brief destroy native text edit view
      */
     virtual void nativeTextEditDestroy(ZF_IN ZFUITextEdit *textEdit,
-                                       ZF_IN void *nativeTextEdit) = 0;
+                                       ZF_IN void *nativeTextEdit) zfpurevirtual;
 
     // ============================================================
     // properties
 public:
     /** @brief see #ZFUITextEdit */
     virtual void textEditEnableSet(ZF_IN ZFUITextEdit *textEdit,
-                                   ZF_IN zfbool textEditEnable) = 0;
+                                   ZF_IN zfbool textEditEnable) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textEditSecuredSet(ZF_IN ZFUITextEdit *textEdit,
-                                    ZF_IN zfbool textEditSecured) = 0;
+                                    ZF_IN zfbool textEditSecured) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textEditKeyboardTypeSet(ZF_IN ZFUITextEdit *textEdit,
-                                         ZF_IN ZFUITextEditKeyboardTypeEnum textEditKeyboardType) = 0;
+                                         ZF_IN ZFUITextEditKeyboardTypeEnum textEditKeyboardType) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textEditKeyboardReturnTypeSet(ZF_IN ZFUITextEdit *textEdit,
-                                               ZF_IN ZFUITextEditKeyboardReturnTypeEnum textEditKeyboardReturnType) = 0;
+                                               ZF_IN ZFUITextEditKeyboardReturnTypeEnum textEditKeyboardReturnType) zfpurevirtual;
 
     /** @brief see #ZFUITextEdit */
-    virtual void textSelectRange(ZF_IN ZFUITextEdit *textEdit, ZF_OUT zfindexRange &textSelectRange) = 0;
+    virtual void textSelectRange(ZF_IN ZFUITextEdit *textEdit, ZF_OUT zfindexRange &textSelectRange) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
-    virtual void textSelectRangeSet(ZF_IN ZFUITextEdit *textEdit, ZF_IN const zfindexRange &textSelectRange) = 0;
+    virtual void textSelectRangeSet(ZF_IN ZFUITextEdit *textEdit, ZF_IN const zfindexRange &textSelectRange) zfpurevirtual;
 
 public:
     /** @brief see #ZFUITextEdit */
     virtual void textContentSet(ZF_IN ZFUITextEdit *textEdit,
-                                ZF_IN ZFString *text) = 0;
+                                ZF_IN ZFString *text) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textAppearanceSet(ZF_IN ZFUITextEdit *textEdit,
-                                   ZF_IN ZFUITextAppearanceEnum const &textAppearance) = 0;
+                                   ZF_IN ZFUITextAppearanceEnum const &textAppearance) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textAlignSet(ZF_IN ZFUITextEdit *textEdit,
-                              ZF_IN ZFUIAlignFlags const &textAlign) = 0;
+                              ZF_IN ZFUIAlignFlags const &textAlign) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textColorSet(ZF_IN ZFUITextEdit *textEdit,
-                              ZF_IN ZFUIColor const &textColor) = 0;
+                              ZF_IN ZFUIColor const &textColor) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textShadowColorSet(ZF_IN ZFUITextEdit *textEdit,
-                                    ZF_IN ZFUIColor const &textShadowColor) = 0;
+                                    ZF_IN ZFUIColor const &textShadowColor) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textShadowOffsetSet(ZF_IN ZFUITextEdit *textEdit,
-                                     ZF_IN ZFUISize const &textShadowOffset) = 0;
+                                     ZF_IN ZFUISize const &textShadowOffset) zfpurevirtual;
     /** @brief see #ZFUITextEdit */
     virtual void textSizeSet(ZF_IN ZFUITextEdit *textEdit,
-                             ZF_IN zfint textSize) = 0;
+                             ZF_IN zfint textSize) zfpurevirtual;
 
     // ============================================================
     // layout
@@ -89,15 +89,15 @@ public:
      */
     virtual ZFUISize measureNativeTextEdit(ZF_IN ZFUITextEdit *textEdit,
                                            ZF_IN const ZFUISize &sizeHint,
-                                           ZF_IN zfint textSize) = 0;
+                                           ZF_IN zfint textSize) zfpurevirtual;
 
     // ============================================================
     // edit
 public:
     /** @brief see #ZFUITextEdit::textEditBegin */
-    virtual void textEditBegin(ZF_IN ZFUITextEdit *textEdit) = 0;
+    virtual void textEditBegin(ZF_IN ZFUITextEdit *textEdit) zfpurevirtual;
     /** @brief see #ZFUITextEdit::textEditEnd */
-    virtual void textEditEnd(ZF_IN ZFUITextEdit *textEdit) = 0;
+    virtual void textEditEnd(ZF_IN ZFUITextEdit *textEdit) zfpurevirtual;
 
     // ============================================================
     // callbacks that implementations must notify

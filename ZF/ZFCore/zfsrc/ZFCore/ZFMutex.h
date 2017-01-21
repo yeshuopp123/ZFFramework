@@ -95,8 +95,7 @@ private:
  * @note never use "new" to create a ZFMutexLocker
  */
 #define ZFMutexLocker(mutex) \
-    _ZFP_ZFMutexLocker ZFUniqueName(ZFMutexLocker)(mutex); \
-    ZFUNUSED(ZFUniqueName(ZFMutexLocker))
+    _ZFP_ZFMutexLocker _ZFP_ZFMutexLocker_hold(mutex)
 
 ZF_NAMESPACE_GLOBAL_END
 #endif // #ifndef _ZFI_ZFMutex_h_

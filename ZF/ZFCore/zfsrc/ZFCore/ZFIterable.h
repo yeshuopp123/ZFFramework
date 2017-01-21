@@ -30,16 +30,16 @@ public:
     /**
      * @brief return total count of this iterable
      */
-    virtual zfindex count(void) = 0;
+    virtual zfindex count(void) zfpurevirtual;
     /**
      * @brief return a iterator, see #zfiterator
      */
-    virtual zfiterator iterator(void) = 0;
+    virtual zfiterator iterator(void) zfpurevirtual;
 
     /**
      * @brief find element
      */
-    virtual zfiterator iteratorFind(ZF_IN ZFObject *value) = 0;
+    virtual zfiterator iteratorFind(ZF_IN ZFObject *value) zfpurevirtual;
 
     /**
      * @brief true if the iterator is valid, see #zfiterator
@@ -47,7 +47,7 @@ public:
      * you may access value by #iteratorGet,
      * or move to next by #iteratorNext
      */
-    virtual zfbool iteratorIsValid(ZF_IN const zfiterator &it) = 0;
+    virtual zfbool iteratorIsValid(ZF_IN const zfiterator &it) zfpurevirtual;
 
     /**
      * @brief true if two iterator is considered as equal, see #zfiterator
@@ -55,43 +55,43 @@ public:
      * two invalid iterator is considered as equal
      */
     virtual zfbool iteratorIsEqual(ZF_IN const zfiterator &it0,
-                                   ZF_IN const zfiterator &it1) = 0;
+                                   ZF_IN const zfiterator &it1) zfpurevirtual;
 
     /**
      * @brief get value by iterator, see #zfiterator
      *
      * iterator must be valid
      */
-    virtual ZFObject *iteratorGet(ZF_IN const zfiterator &it) = 0;
+    virtual ZFObject *iteratorGet(ZF_IN const zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current value and move to next, see #zfiterator
      *
      * iterator must be valid
      */
-    virtual ZFObject *iteratorNext(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFObject *iteratorNext(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current value and move to prev, see #zfiterator
      *
      * iterator must be valid and this iterable must be able to move prev
      */
-    virtual ZFObject *iteratorPrev(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFObject *iteratorPrev(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
 protected:
     /**
      * @brief set value at iterator, see #zfiterator
      */
     virtual void iteratorSet(ZF_IN_OUT zfiterator &it,
-                             ZF_IN ZFObject *value) = 0;
+                             ZF_IN ZFObject *value) zfpurevirtual;
     /**
      * @brief remove value at iterator, see #zfiterator
      */
-    virtual void iteratorRemove(ZF_IN_OUT zfiterator &it) = 0;
+    virtual void iteratorRemove(ZF_IN_OUT zfiterator &it) zfpurevirtual;
     /**
      * @brief remove all contents of this iterable
      */
-    virtual void removeAll(void) = 0;
+    virtual void removeAll(void) zfpurevirtual;
 
     /**
      * @brief add value before iterator,
@@ -100,7 +100,7 @@ protected:
      * use an invalid iterator would add value to tail
      */
     virtual void iteratorAdd(ZF_IN ZFObject *value,
-                             ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) = 0;
+                             ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) zfpurevirtual;
 };
 
 // ============================================================
@@ -116,21 +116,21 @@ public:
      * @brief see #ZFIterable::iteratorSet
      */
     virtual void iteratorSet(ZF_IN_OUT zfiterator &it,
-                             ZF_IN ZFObject *value) = 0;
+                             ZF_IN ZFObject *value) zfpurevirtual;
     /**
      * @brief see #ZFIterable::iteratorRemove
      */
-    virtual void iteratorRemove(ZF_IN_OUT zfiterator &it) = 0;
+    virtual void iteratorRemove(ZF_IN_OUT zfiterator &it) zfpurevirtual;
     /**
      * @brief see #ZFIterable::removeAll
      */
-    virtual void removeAll(void) = 0;
+    virtual void removeAll(void) zfpurevirtual;
 
     /**
      * @brief see #ZFIterable::iteratorAdd
      */
     virtual void iteratorAdd(ZF_IN ZFObject *value,
-                             ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) = 0;
+                             ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) zfpurevirtual;
 };
 
 // ============================================================
@@ -145,52 +145,52 @@ public:
     /**
      * @brief return iterator with key, see #zfiterator
      */
-    virtual zfiterator iteratorForKey(ZF_IN ZFObject *key) = 0;
+    virtual zfiterator iteratorForKey(ZF_IN ZFObject *key) zfpurevirtual;
 
     /**
      * @brief get key with iterator, see #zfiterator
      */
-    virtual ZFObject *iteratorGetKey(ZF_IN const zfiterator &it) = 0;
+    virtual ZFObject *iteratorGetKey(ZF_IN const zfiterator &it) zfpurevirtual;
 
     /**
      * @brief get value with iterator, see #zfiterator
      */
-    virtual ZFObject *iteratorGetValue(ZF_IN const zfiterator &it) = 0;
+    virtual ZFObject *iteratorGetValue(ZF_IN const zfiterator &it) zfpurevirtual;
 
     /**
      * @brief get key value pair with iterator, see #zfiterator
      */
-    virtual ZFKeyValuePair iteratorGetPair(ZF_IN const zfiterator &it) = 0;
+    virtual ZFKeyValuePair iteratorGetPair(ZF_IN const zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current key and move to next, see #zfiterator
      */
-    virtual ZFObject *iteratorNextKey(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFObject *iteratorNextKey(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current value and move to next, see #zfiterator
      */
-    virtual ZFObject *iteratorNextValue(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFObject *iteratorNextValue(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current key value pair and move to next, see #zfiterator
      */
-    virtual ZFKeyValuePair iteratorNextPair(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFKeyValuePair iteratorNextPair(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current key and move to prev, see #zfiterator
      */
-    virtual ZFObject *iteratorPrevKey(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFObject *iteratorPrevKey(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current value and move to prev, see #zfiterator
      */
-    virtual ZFObject *iteratorPrevValue(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFObject *iteratorPrevValue(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
     /**
      * @brief return current key value pair and move to prev, see #zfiterator
      */
-    virtual ZFKeyValuePair iteratorPrevPair(ZF_IN_OUT zfiterator &it) = 0;
+    virtual ZFKeyValuePair iteratorPrevPair(ZF_IN_OUT zfiterator &it) zfpurevirtual;
 
 protected:
     /**
@@ -201,7 +201,7 @@ protected:
      */
     virtual void iteratorAddKeyValue(ZF_IN ZFObject *key,
                                      ZF_IN ZFObject *value,
-                                     ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) = 0;
+                                     ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) zfpurevirtual;
 };
 
 // ============================================================
@@ -218,7 +218,7 @@ public:
      */
     virtual void iteratorAddKeyValue(ZF_IN ZFObject *key,
                                      ZF_IN ZFObject *value,
-                                     ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) = 0;
+                                     ZF_IN_OPT const zfiterator &it = zfiteratorInvalid) zfpurevirtual;
 };
 
 ZF_NAMESPACE_GLOBAL_END

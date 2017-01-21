@@ -32,11 +32,11 @@ public:
      * within this method,
      * you must not access any other ZFFramework's method
      */
-    virtual zfindex outputCoreLog(ZF_IN const zfcharA *s) = 0;
+    virtual zfindex outputCoreLog(ZF_IN const zfcharA *s) zfpurevirtual;
     /**
      * @brief output callback for ZFDebug/ZFLog
      */
-    virtual zfindex outputLog(ZF_IN const zfchar *s, ZF_IN_OPT zfindex count = zfindexMax) = 0;
+    virtual zfindex outputLog(ZF_IN const zfchar *s, ZF_IN_OPT zfindex count = zfindexMax) zfpurevirtual;
 ZFPROTOCOL_INTERFACE_END(ZFOutput)
 
 ZF_NAMESPACE_GLOBAL_END

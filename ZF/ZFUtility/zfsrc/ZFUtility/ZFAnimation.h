@@ -191,11 +191,11 @@ protected:
     /**
      * @brief for subclass to achieve actual animation
      */
-    virtual void aniImplStart(void) = 0;
+    virtual void aniImplStart(void) zfpurevirtual;
     /**
      * @brief for subclass to stop actual animation
      */
-    virtual void aniImplStop(void) = 0;
+    virtual void aniImplStop(void) zfpurevirtual;
     /** @brief see #EventAniOnInvalid */
     virtual inline void aniOnInvalid(void)
     {

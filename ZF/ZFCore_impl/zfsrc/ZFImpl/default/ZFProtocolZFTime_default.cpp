@@ -58,48 +58,48 @@ static inline zfint _ZFP_ZFTimeImpl_default_calcLeapYearBetween1900(zfint year)
 
 static const zftimet _ZFP_ZFTimeImpl_default_MonthToSec[] =
 {
-    0 * zftimetOneDay,   // 1
-    31 * zftimetOneDay,  // 2
-    59 * zftimetOneDay,  // 3
-    90 * zftimetOneDay,  // 4
-    120 * zftimetOneDay, // 5
-    151 * zftimetOneDay, // 6
-    181 * zftimetOneDay, // 7
-    212 * zftimetOneDay, // 8
-    243 * zftimetOneDay, // 9
-    273 * zftimetOneDay, // 10
-    304 * zftimetOneDay, // 11
-    334 * zftimetOneDay, // 12
+    (zftimet)(0 * zftimetOneDay),   // 1
+    (zftimet)(31 * zftimetOneDay),  // 2
+    (zftimet)(59 * zftimetOneDay),  // 3
+    (zftimet)(90 * zftimetOneDay),  // 4
+    (zftimet)(120 * zftimetOneDay), // 5
+    (zftimet)(151 * zftimetOneDay), // 6
+    (zftimet)(181 * zftimetOneDay), // 7
+    (zftimet)(212 * zftimetOneDay), // 8
+    (zftimet)(243 * zftimetOneDay), // 9
+    (zftimet)(273 * zftimetOneDay), // 10
+    (zftimet)(304 * zftimetOneDay), // 11
+    (zftimet)(334 * zftimetOneDay), // 12
 };
 static const zfuint _ZFP_ZFTimeImpl_default_MonthToDay[] =
 {
-    0,      // 1
-    31,     // 2
-    59,     // 3
-    90,     // 4
-    120,    // 5
-    151,    // 6
-    181,    // 7
-    212,    // 8
-    243,    // 9
-    273,    // 10
-    304,    // 11
-    334,    // 12
+    (zfuint)(0),      // 1
+    (zfuint)(31),     // 2
+    (zfuint)(59),     // 3
+    (zfuint)(90),     // 4
+    (zfuint)(120),    // 5
+    (zfuint)(151),    // 6
+    (zfuint)(181),    // 7
+    (zfuint)(212),    // 8
+    (zfuint)(243),    // 9
+    (zfuint)(273),    // 10
+    (zfuint)(304),    // 11
+    (zfuint)(334),    // 12
 };
 static const zfuint _ZFP_ZFTimeImpl_default_DayNumOfMonth[] =
 {
-    31, // 1
-    28, // 2
-    31, // 3
-    30, // 4
-    31, // 5
-    30, // 6
-    31, // 7
-    31, // 8
-    30, // 9
-    31, // 10
-    30, // 11
-    31, // 12
+    (zfuint)(31), // 1
+    (zfuint)(28), // 2
+    (zfuint)(31), // 3
+    (zfuint)(30), // 4
+    (zfuint)(31), // 5
+    (zfuint)(30), // 6
+    (zfuint)(31), // 7
+    (zfuint)(31), // 8
+    (zfuint)(30), // 9
+    (zfuint)(31), // 10
+    (zfuint)(30), // 11
+    (zfuint)(31), // 12
 };
 
 ZFPROTOCOL_IMPLEMENTATION_BEGIN(ZFTimeImpl_default, ZFTime, ZFProtocolLevel::e_Default)
@@ -199,10 +199,10 @@ public:
             #else
                 union
                 {
-                    zfuint64 ns100;
+                    zft_zfuint16 ns100;
                     FILETIME ft;
                 } now;
-                GetSystemTimeAsFileTime(&now.ft);
+                ::GetSystemTimeAsFileTime(&now.ft);
                 tv.sec = (time_t)((now.ns100 - 116444736000000000LL) / 10000000LL);
                 tv.usec = (time_t)((now.ns100 / 10LL) % 1000000LL);
             #endif
@@ -214,7 +214,7 @@ public:
         #endif // #elif ZF_ENV_sys_Posix || ZF_ENV_sys_unknown
 
         // offset from 0 to 1970
-        static const zftimet secondsBetween1970 = (1970 * zftimetOneYear + (-_ZFP_ZFTimeImpl_default_calcLeapYearBetween1970(0) + 1) * zftimetOneDay);
+        static const zftimet secondsBetween1970 = (zftimet)(1970 * zftimetOneYear + (-_ZFP_ZFTimeImpl_default_calcLeapYearBetween1970(0) + 1) * zftimetOneDay);
         tv.sec += secondsBetween1970;
     }
     virtual zfbool timeInfoFromTimeValue(ZF_OUT ZFTimeInfo &ti, ZF_IN const ZFTimeValue &tv)

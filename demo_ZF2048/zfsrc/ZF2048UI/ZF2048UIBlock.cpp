@@ -26,12 +26,12 @@ ZFPROPERTY_CUSTOM_SETTER_DEFINE(ZF2048UIBlock, ZF2048Value, blockValue)
         return ;
     }
 
-    zfstring skinKey = zfstringWithFormat(zfText("ZF2048_block_%d"), newValue);
+    zfstring skinKey = zfstringWithFormat(zfText("ZF2048_block_%d"), (zfint)newValue);
     zfautoObject skin = zfSkin(skinKey);
     if(skin == zfautoObjectNull)
     {
         zfSkinApplyZFStyleable(this, zfText("ZF2048_block_na"));
-        this->blockTitle()->textContentStringSet(zfstringWithFormat(zfText("%d"), this->blockValue()));
+        this->blockTitle()->textContentStringSet(zfstringWithFormat(zfText("%d"), (zfint)this->blockValue()));
         this->blockTitle()->viewVisibleSet(zftrue);
     }
     else

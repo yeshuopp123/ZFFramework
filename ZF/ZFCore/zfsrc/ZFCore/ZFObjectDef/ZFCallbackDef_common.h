@@ -441,7 +441,8 @@ ZF_ENV_EXPORT zfbool ZFInputCallbackReadDataPairInt(ZF_OUT ZFCoreArray<T_Int> &o
     zfbool ret = ZFInputCallbackReadDataPair(buf, input, desiredCount, leftToken, rightToken, separatorTokens);
     for(zfindex i = 0; i < buf.count(); ++i)
     {
-        T_Int element = 0;
+        T_Int element;
+        element = 0;
         if(zfsToInt(element, buf.get(i).cString()) != zfnull)
         {
             ret = zffalse;
@@ -594,22 +595,22 @@ public:
     /**
      * @brief get input callback
      */
-    virtual ZFInputCallback inputCallback(void) = 0;
+    virtual ZFInputCallback inputCallback(void) zfpurevirtual;
     /**
      * @brief get input callback
      */
-    virtual ZFOutputCallback outputCallback(void) = 0;
+    virtual ZFOutputCallback outputCallback(void) zfpurevirtual;
 
 public:
     /**
      * @brief reset input so that next input operation would read from begin
      */
-    virtual void resetInput(void) = 0;
+    virtual void resetInput(void) zfpurevirtual;
     /**
      * @brief clear all outputed data so that next output operation would write from begin,
      *   note that input would also be reset
      */
-    virtual void resetOutput(void) = 0;
+    virtual void resetOutput(void) zfpurevirtual;
 };
 
 // ============================================================

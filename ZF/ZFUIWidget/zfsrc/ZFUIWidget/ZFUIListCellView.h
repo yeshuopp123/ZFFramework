@@ -30,15 +30,15 @@ public:
     /**
      * @brief container for icon, you may add your own custom view
      */
-    virtual ZFUIView *cellIconContainer(void) = 0;
+    virtual ZFUIView *cellIconContainer(void) zfpurevirtual;
     /**
      * @brief container for center item, you may add your own custom view
      */
-    virtual ZFUIView *cellCenterContainer(void) = 0;
+    virtual ZFUIView *cellCenterContainer(void) zfpurevirtual;
     /**
      * @brief container for accessory, you may add your own custom view
      */
-    virtual ZFUIView *cellAccessoryContainer(void) = 0;
+    virtual ZFUIView *cellAccessoryContainer(void) zfpurevirtual;
 
 public:
     zfoverride

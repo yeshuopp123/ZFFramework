@@ -69,6 +69,11 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 #define zffinal
 
 /**
+ * @brief dummy macro shows that a method is pure virtual method
+ */
+#define zfpurevirtual = 0
+
+/**
  * @brief dummy macro shows the object can not be allocated normally,
  *   marked for reminder
  */

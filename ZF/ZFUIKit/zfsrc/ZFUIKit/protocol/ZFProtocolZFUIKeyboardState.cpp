@@ -27,7 +27,7 @@ ZF_GLOBAL_INITIALIZER_DESTROY(ZFUIKeyboardStateBuiltinImpl_DataHolder)
 }
 public:
     ZFCoreArrayPOD<ZFUIKeyCodeEnum> keyPressed;
-    ZFCoreArrayPOD<zfuint32> keyPressedRaw;
+    ZFCoreArrayPOD<zfflags> keyPressedRaw;
     ZFListener viewOnEventListener;
     static ZFLISTENER_PROTOTYPE_EXPAND(viewOnEvent)
     {
@@ -73,7 +73,7 @@ public:
     {
         return (ZF_GLOBAL_INITIALIZER_INSTANCE(ZFUIKeyboardStateBuiltinImpl_DataHolder)->keyPressed.find(keyCode) != zfindexMax);
     }
-    virtual zfbool keyPressedRaw(ZF_IN zfuint32 keyCodeRaw)
+    virtual zfbool keyPressedRaw(ZF_IN zfflags keyCodeRaw)
     {
         return (ZF_GLOBAL_INITIALIZER_INSTANCE(ZFUIKeyboardStateBuiltinImpl_DataHolder)->keyPressedRaw.find(keyCodeRaw) != zfindexMax);
     }

@@ -46,7 +46,7 @@ public:
     /**
      * @brief raw key code depends on implementation, try not to abuse it
      */
-    zfuint32 keyCodeRaw;
+    zfflags keyCodeRaw;
 
 public:
     ZFCACHEABLE_DECLARE(ZFUIKeyEvent)

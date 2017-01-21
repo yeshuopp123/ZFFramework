@@ -110,15 +110,15 @@ protected:
      * @brief see #ZFTimeLineProperty
      */
     virtual void progressOnUpdate(ZF_IN ZFObject *ownerObj,
-                                  ZF_IN zffloat progress) = 0;
+                                  ZF_IN zffloat progress) zfpurevirtual;
     /**
      * @brief see #ZFTimeLineProperty
      */
-    virtual void stateOnSave(ZF_IN ZFObject *ownerObj) = 0;
+    virtual void stateOnSave(ZF_IN ZFObject *ownerObj) zfpurevirtual;
     /**
      * @brief see #ZFTimeLineProperty
      */
-    virtual void stateOnRestore(ZF_IN ZFObject *ownerObj) = 0;
+    virtual void stateOnRestore(ZF_IN ZFObject *ownerObj) zfpurevirtual;
 };
 
 // ============================================================
@@ -192,7 +192,7 @@ protected:
  */
 #define ZFTIMELINEPROPERTY_DECLARE_BY_VALUE(Type) \
     ZFTIMELINEPROPERTY_DECLARE_BY_VALUE_DETAIL(ZFM_CAT(ZFTimeLineProperty_, Type), Type, { \
-        return (fromValue + (Type)((toValue - fromValue) * progress)); \
+        return (Type)(fromValue + (Type)((toValue - fromValue) * progress)); \
     })
 
 // ============================================================
