@@ -28,7 +28,7 @@ static ZFCoreMap &_ZFP_ZFCoreStatisticInvokeTimeDataMap(void)
     return m;
 }
 
-void invokeTimeLogBegin(ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeLogBegin(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
@@ -55,7 +55,7 @@ void invokeTimeLogBegin(ZF_IN_OPT const zfchar *key /* = zfnull */)
         }
     }
 }
-void invokeTimeLogEnd(ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeLogEnd(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
@@ -72,7 +72,7 @@ void invokeTimeLogEnd(ZF_IN_OPT const zfchar *key /* = zfnull */)
         }
     }
 }
-void invokeTimeRemove(ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeRemove(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     m.remove(key);
@@ -82,7 +82,7 @@ void invokeTimeRemoveAll(void)
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     m.removeAll();
 }
-zfindex invokeTimeGetInvokeCount(ZF_IN_OPT const zfchar *key /* = zfnull */)
+zfindex invokeTimeGetInvokeCount(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
@@ -92,7 +92,7 @@ zfindex invokeTimeGetInvokeCount(ZF_IN_OPT const zfchar *key /* = zfnull */)
     }
     return 0;
 }
-zftimet invokeTimeGetAverageTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
+zftimet invokeTimeGetAverageTime(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
@@ -102,7 +102,7 @@ zftimet invokeTimeGetAverageTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
     }
     return zftimetZero;
 }
-zftimet invokeTimeGetTotalTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
+zftimet invokeTimeGetTotalTime(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
@@ -112,18 +112,27 @@ zftimet invokeTimeGetTotalTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
     }
     return zftimetZero;
 }
-void invokeTimeGetSummary(ZF_OUT zfstring &ret, ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeGetSummary(ZF_OUT zfstring &ret, ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<zftimet> *>(key);
     zfindex invokeCount = ((data == zfnull) ? 0 : data->invokeCount);
     zftimet invokeTotalTime = ((data == zfnull) ? zftimetZero : data->invokeTotalTime);
-    zftimet invokeAverageTime = ((invokeCount == 0) ? zftimetZero : (zftimet)(invokeTotalTime / invokeCount));
-    zfstringAppend(ret, zfText("[%s] invoke count: %s, total: %s, average: %s"),
-        (key == zfnull) ? ZFTOKEN_zfnull : key,
-        zfsFromInt(invokeCount).cString(),
-        zfsFromInt(invokeTotalTime).cString(),
-        zfsFromInt(invokeAverageTime).cString());
+    if(invokeCount > 1)
+    {
+        zftimet invokeAverageTime = ((invokeCount == 0) ? zftimetZero : (zftimet)(invokeTotalTime / invokeCount));
+        zfstringAppend(ret, zfText("[%s] invoke count: %s, total: %s, average: %s"),
+            (key == zfnull) ? ZFTOKEN_zfnull : key,
+            zfsFromInt(invokeCount).cString(),
+            zfsFromInt(invokeTotalTime).cString(),
+            zfsFromInt(invokeAverageTime).cString());
+    }
+    else
+    {
+        zfstringAppend(ret, zfText("[%s] invoke time: %s"),
+            (key == zfnull) ? ZFTOKEN_zfnull : key,
+            zfsFromInt(invokeTotalTime).cString());
+    }
 }
 
 // ============================================================
@@ -132,7 +141,7 @@ static ZFCoreMap &_ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap(void)
     static ZFCoreMap m; // _ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue>
     return m;
 }
-void invokeTimeAccurateLogBegin(ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeAccurateLogBegin(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *>(key);
@@ -159,7 +168,7 @@ void invokeTimeAccurateLogBegin(ZF_IN_OPT const zfchar *key /* = zfnull */)
         }
     }
 }
-void invokeTimeAccurateLogEnd(ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeAccurateLogEnd(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *>(key);
@@ -176,7 +185,7 @@ void invokeTimeAccurateLogEnd(ZF_IN_OPT const zfchar *key /* = zfnull */)
         }
     }
 }
-void invokeTimeAccurateRemove(ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeAccurateRemove(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     m.remove(key);
@@ -186,7 +195,7 @@ void invokeTimeAccurateRemoveAll(void)
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     m.removeAll();
 }
-zfindex invokeTimeAccurateGetInvokeCount(ZF_IN_OPT const zfchar *key /* = zfnull */)
+zfindex invokeTimeAccurateGetInvokeCount(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *>(key);
@@ -196,7 +205,7 @@ zfindex invokeTimeAccurateGetInvokeCount(ZF_IN_OPT const zfchar *key /* = zfnull
     }
     return 0;
 }
-ZFTimeValue invokeTimeAccurateGetAverageTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
+ZFTimeValue invokeTimeAccurateGetAverageTime(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *>(key);
@@ -206,7 +215,7 @@ ZFTimeValue invokeTimeAccurateGetAverageTime(ZF_IN_OPT const zfchar *key /* = zf
     }
     return ZFTimeValueZero;
 }
-ZFTimeValue invokeTimeAccurateGetTotalTime(ZF_IN_OPT const zfchar *key /* = zfnull */)
+ZFTimeValue invokeTimeAccurateGetTotalTime(ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *>(key);
@@ -216,18 +225,27 @@ ZFTimeValue invokeTimeAccurateGetTotalTime(ZF_IN_OPT const zfchar *key /* = zfnu
     }
     return ZFTimeValueZero;
 }
-void invokeTimeAccurateGetSummary(ZF_OUT zfstring &ret, ZF_IN_OPT const zfchar *key /* = zfnull */)
+void invokeTimeAccurateGetSummary(ZF_OUT zfstring &ret, ZF_IN const zfchar *key)
 {
     ZFCoreMap &m = _ZFP_ZFCoreStatisticInvokeTimeAccurateDataMap();
     _ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *data = m.get<_ZFP_ZFCoreStatisticInvokeTimeDataHolder<ZFTimeValue> *>(key);
     zfindex invokeCount = ((data == zfnull) ? 0 : data->invokeCount);
     ZFTimeValue invokeTotalTime = ((data == zfnull) ? ZFTimeValueZero : data->invokeTotalTime);
-    ZFTimeValue invokeAverageTime = ((invokeCount == 0) ? ZFTimeValueZero : invokeTotalTime / invokeCount);
-    zfstringAppend(ret, zfText("[%s] invoke count: %s, total: %s, average: %s"),
-        (key == zfnull) ? ZFTOKEN_zfnull : key,
-        zfsFromInt(invokeCount).cString(),
-        ZFTimeValueToStringFriendly(invokeTotalTime).cString(),
-        ZFTimeValueToStringFriendly(invokeAverageTime).cString());
+    if(invokeCount > 1)
+    {
+        ZFTimeValue invokeAverageTime = ((invokeCount == 0) ? ZFTimeValueZero : invokeTotalTime / invokeCount);
+        zfstringAppend(ret, zfText("[%s] invoke count: %s, total: %s, average: %s"),
+            (key == zfnull) ? ZFTOKEN_zfnull : key,
+            zfsFromInt(invokeCount).cString(),
+            ZFTimeValueToStringFriendly(invokeTotalTime).cString(),
+            ZFTimeValueToStringFriendly(invokeAverageTime).cString());
+    }
+    else
+    {
+        zfstringAppend(ret, zfText("[%s] invoke time: %s"),
+            (key == zfnull) ? ZFTOKEN_zfnull : key,
+            ZFTimeValueToStringFriendly(invokeTotalTime).cString());
+    }
 }
 
 ZF_NAMESPACE_END(ZFCoreStatistic)

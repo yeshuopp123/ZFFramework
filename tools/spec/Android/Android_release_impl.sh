@@ -13,7 +13,7 @@ ZF_ROOT_PATH=$WORK_DIR/../../..
 ZF_TOOLS_PATH=$ZF_ROOT_PATH/tools
 RELEASE_PATH=$ZF_ROOT_PATH/_release/Android
 
-sh "$ZF_TOOLS_PATH/common/file_exist.sh" "$RELEASE_PATH/module/$PROJ_NAME/libs" "*.so"
+sh "$ZF_TOOLS_PATH/common/file_exist.sh" "$RELEASE_PATH/module/$PROJ_NAME/libs" "*.jar"
 if test "$?" = "0" ; then
     exit 0
 fi

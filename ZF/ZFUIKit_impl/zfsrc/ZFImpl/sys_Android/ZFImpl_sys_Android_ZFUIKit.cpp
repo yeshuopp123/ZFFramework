@@ -207,6 +207,21 @@ void ZFImpl_sys_Android_ZFUIRectFromZFAndroidRect(ZF_OUT ZFUIRect &ret, ZF_IN jo
     ret.size.height = JNIUtilGetIntField(jniEnv, jobjRect, jfIdHeight);
 }
 
+// ============================================================
+void ZFImpl_sys_Android_viewTreePrint(ZF_OUT zfstring &ret, ZF_IN jobject nativeView)
+{
+    JNIEnv *jniEnv = JNIGetJNIEnv();
+    jclass jcls = JNIUtilFindClass(jniEnv, JNIConvertClassNameForFindClass(ZFImpl_sys_Android_JNI_NAME_ZFAndroidUI).c_str());
+    static jmethodID jmId = JNIUtilGetStaticMethodID(jniEnv, jcls, zfTextA("native_viewTreePrint"),
+        JNIGetMethodSig(JNIType::S_object(ZFImpl_sys_Android_JNI_NAME_String), JNIParamTypeContainer()
+            .add(JNIType::S_object(ZFImpl_sys_Android_JNI_NAME_Object))
+        ).c_str());
+    jstring tmp = ZFCastStatic(jstring, JNIUtilCallStaticObjectMethod(jniEnv, jcls, jmId, nativeView));
+    const char *utf = JNIUtilGetStringUTFChars(jniEnv, tmp, zfnull);
+    ret += utf;
+    JNIUtilReleaseStringUTFChars(jniEnv, tmp, utf);
+}
+
 ZF_NAMESPACE_GLOBAL_END
 
 #endif

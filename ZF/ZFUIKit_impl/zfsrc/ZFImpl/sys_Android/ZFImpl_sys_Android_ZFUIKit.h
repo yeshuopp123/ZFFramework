@@ -81,6 +81,19 @@ inline ZFUIRect ZFImpl_sys_Android_ZFUIRectFromZFAndroidRect(ZF_IN jobject jobjR
     return ret;
 }
 
+// ============================================================
+// ZFAndroidUI
+#define ZFImpl_sys_Android_JNI_ID_ZFAndroidUI ZFImpl_sys_Android_JNI_ID(NativeUtil_ZFAndroidUI)
+#define ZFImpl_sys_Android_JNI_NAME_ZFAndroidUI ZFImpl_sys_Android_JNI_NAME(NativeUtil.ZFAndroidUI)
+
+extern ZF_ENV_EXPORT void ZFImpl_sys_Android_viewTreePrint(ZF_OUT zfstring &ret, ZF_IN jobject nativeView);
+inline zfstring ZFImpl_sys_Android_viewTreePrint(ZF_IN jobject nativeView)
+{
+    zfstring ret;
+    ZFImpl_sys_Android_viewTreePrint(ret, nativeView);
+    return ret;
+}
+
 ZF_NAMESPACE_GLOBAL_END
 #endif // #if ZF_ENV_sys_Android
 #endif // #ifndef _ZFI_ZFImpl_sys_Android_ZFUIKit_h_

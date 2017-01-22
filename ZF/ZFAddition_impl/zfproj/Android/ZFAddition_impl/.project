@@ -32,7 +32,7 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>zfsrc</name>
+			<name>src</name>
 			<type>2</type>
 			<locationURI>$%7BPARENT-3-PROJECT_LOC%7D/zfsrc/ZFImpl/sys_Android/java</locationURI>
 		</link>

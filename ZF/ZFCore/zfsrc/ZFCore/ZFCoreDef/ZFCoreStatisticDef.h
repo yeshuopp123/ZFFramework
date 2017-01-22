@@ -20,9 +20,9 @@ ZF_NAMESPACE_GLOBAL_BEGIN
 ZF_NAMESPACE_BEGIN(ZFCoreStatistic)
 
 /** @brief see #ZFCoreStatistic::invokeCountGet */
-extern ZF_ENV_EXPORT void invokeCountLog(ZF_IN_OPT const zfchar *key = zfnull);
+extern ZF_ENV_EXPORT void invokeCountLog(ZF_IN const zfchar *key);
 /** @brief see #ZFCoreStatistic::invokeCountGet */
-extern ZF_ENV_EXPORT void invokeCountRemove(ZF_IN_OPT const zfchar *key = zfnull);
+extern ZF_ENV_EXPORT void invokeCountRemove(ZF_IN const zfchar *key);
 /** @brief see #ZFCoreStatistic::invokeCountGet */
 extern ZF_ENV_EXPORT void invokeCountRemoveAll(void);
 /**
@@ -44,7 +44,7 @@ extern ZF_ENV_EXPORT void invokeCountRemoveAll(void);
  * @endcode
  * @note this method is not thread-safe
  */
-extern ZF_ENV_EXPORT zfindex invokeCountGet(ZF_IN_OPT const zfchar *key = zfnull);
+extern ZF_ENV_EXPORT zfindex invokeCountGet(ZF_IN const zfchar *key);
 
 ZF_NAMESPACE_END(ZFCoreStatistic)
 ZF_NAMESPACE_GLOBAL_END

@@ -125,11 +125,6 @@ extern ZF_ENV_EXPORT jclass ZFImpl_sys_Android_jclassString(void);
 #define ZFImpl_sys_Android_JNI_NAME_ZFAndroidLog ZFImpl_sys_Android_JNI_NAME(NativeUtil.ZFAndroidLog)
 
 // ============================================================
-// ZFAndroidUI
-#define ZFImpl_sys_Android_JNI_ID_ZFAndroidUI ZFImpl_sys_Android_JNI_ID(NativeUtil_ZFAndroidUI)
-#define ZFImpl_sys_Android_JNI_NAME_ZFAndroidUI ZFImpl_sys_Android_JNI_NAME(NativeUtil.ZFAndroidUI)
-
-// ============================================================
 // utils
 /**
  * @brief see #JNIConvertPointerToJNIType

@@ -101,6 +101,8 @@ private:
     {
         if(zftrue)
         { // load from xml
+            ZFCoreStatisticInvokeTimeAccurateLoggerOneTime(zfText("ZF2048_serializePerformanceTest"));
+
             ZFInputCallback input = ZFInputCallbackForResFile(zfText("ZF2048/app/settingdialog.xml"));
             ZFSerializableData data = ZFXmlParse(input);
             zfautoObject obj = ZFObjectFromSerializableData(data);

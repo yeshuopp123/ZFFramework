@@ -18,7 +18,7 @@ set ZF_ROOT_PATH=%WORK_DIR%\..\..\..
 set ZF_TOOLS_PATH=%ZF_ROOT_PATH%\tools
 set RELEASE_PATH=%ZF_ROOT_PATH%\_release\Android
 
-call "%ZF_TOOLS_PATH%\common\file_exist.bat" "%RELEASE_PATH%\module\%PROJ_NAME%\libs" "*.so"
+call "%ZF_TOOLS_PATH%\common\file_exist.bat" "%RELEASE_PATH%\module\%PROJ_NAME%\libs" "*.jar"
 if "%errorlevel%" == "0" (
     goto :EOF
 )
