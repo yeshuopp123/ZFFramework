@@ -1,5 +1,5 @@
 <ZF_SH> "<ZF_ROOT_PATH>\tools\common\git_check.<ZF_SH_EXT>" "https://github.com/zeux/pugixml" "<ZF_WORK_DIR>\_repo\pugixml"
 
 <ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\_repo\pugixml\src" "<ZF_WORK_DIR>\_tmp\pugixml"
-<ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\zfautoscript_zf3rd_pugixml_template.hpp" "<ZF_WORK_DIR>\..\zfsrc\ZFImpl\_repo\pugixml\pugixml.hpp"
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\zfautoscript_zf3rd_setup_pugixml_template.hpp" "<ZF_WORK_DIR>\..\zfsrc\ZFImpl\_repo\pugixml\pugixml.hpp"
 

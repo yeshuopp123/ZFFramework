@@ -3,6 +3,6 @@
 <ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\_repo\stack_trace\include" "<ZF_WORK_DIR>\_tmp\stack_trace"
 <ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\_repo\stack_trace\src" "<ZF_WORK_DIR>\_tmp\stack_trace"
 
-<ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\zfautoscript_zf3rd_stack_trace_template.hpp" "<ZF_WORK_DIR>\..\zfsrc\ZFImpl\_repo\stack_trace\stack.hpp"
-<ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\zfautoscript_zf3rd_stack_trace_template.cpp" "<ZF_WORK_DIR>\..\zfsrc\ZFImpl\_repo\stack_trace\stack.cpp"
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\zfautoscript_zf3rd_setup_stack_trace_template.hpp" "<ZF_WORK_DIR>\..\zfsrc\ZFImpl\_repo\stack_trace\stack.hpp"
+<ZF_SH> "<ZF_ROOT_PATH>\tools\common\copy_check.<ZF_SH_EXT>" "<ZF_WORK_DIR>\zfautoscript_zf3rd_setup_stack_trace_template.cpp" "<ZF_WORK_DIR>\..\zfsrc\ZFImpl\_repo\stack_trace\stack.cpp"
 
