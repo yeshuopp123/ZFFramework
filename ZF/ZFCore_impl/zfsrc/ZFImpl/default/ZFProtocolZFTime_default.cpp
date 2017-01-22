@@ -176,7 +176,7 @@ public:
         #elif ZF_ENV_sys_Posix || ZF_ENV_sys_unknown // #if ZF_ENV_sys_Windows
             struct timespec ts;
             ::clock_gettime(CLOCK_MONOTONIC, &ts);
-            return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+            return (zftimet)(ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
         #endif // #elif ZF_ENV_sys_Posix || ZF_ENV_sys_unknown
     }
     virtual void currentTimeValue(ZF_OUT ZFTimeValue &tv)

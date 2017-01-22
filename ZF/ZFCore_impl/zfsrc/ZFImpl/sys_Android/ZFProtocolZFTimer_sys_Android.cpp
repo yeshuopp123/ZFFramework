@@ -70,8 +70,8 @@ public:
         JNIUtilCallStaticVoidMethod(jniEnv, this->jclsOwner, jmId,
             ZFCastStatic(jobject, timer->nativeTimer()),
             JNIConvertZFObjectToJNIType(jniEnv, timer),
-            timer->timerDelay(),
-            timer->timerInterval(),
+            (jlong)timer->timerDelay(),
+            (jlong)timer->timerInterval(),
             timer->timerActivateInMainThread());
     }
     virtual void timerStop(ZF_IN ZFTimer *timer)
